@@ -1,7 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>Widget</class>
- <widget class="QWidget" name="Widget" >
-  <property name="geometry" >
+ <widget class="QWidget" name="Widget">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,12 +10,44 @@
     <height>300</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Widget</string>
   </property>
+  <widget class="QPushButton" name="Botao1">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>10</y>
+     <width>131</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Fechar</string>
+   </property>
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QDateTimeEdit" name="EditarDataHora">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>70</y>
+     <width>194</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="date">
+    <date>
+     <year>2013</year>
+     <month>12</month>
+     <day>25</day>
+    </date>
+   </property>
+  </widget>
  </widget>
- <layoutDefault spacing="6" margin="11" />
- <pixmapfunction></pixmapfunction>
+ <layoutdefault spacing="6" margin="11"/>
  <resources/>
  <connections/>
 </ui>

@@ -12,3 +12,7 @@ Widget::~Widget()
 {
     delete ui;
 }
+
+void Widget::on_Botao1_clicked() {
+    qApp->quit();
+}

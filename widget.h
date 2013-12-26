@@ -14,7 +14,10 @@ class Widget : public QWidget
 public:
     explicit Widget(QWidget *parent = 0);
     ~Widget();
-    
+
+private slots:
+    void on_Botao1_clicked();
+
 private:
     Ui::Widget *ui;
 };
