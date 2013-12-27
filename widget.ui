@@ -6,44 +6,167 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>800</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Widget</string>
   </property>
-  <widget class="QPushButton" name="Botao1">
+  <widget class="QPushButton" name="Keyb_E">
    <property name="geometry">
     <rect>
-     <x>120</x>
-     <y>10</y>
-     <width>131</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Fechar</string>
-   </property>
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-  </widget>
-  <widget class="QDateTimeEdit" name="EditarDataHora">
-   <property name="geometry">
-    <rect>
-     <x>90</x>
-     <y>70</y>
-     <width>194</width>
+     <x>228</x>
+     <y>110</y>
+     <width>85</width>
      <height>27</height>
     </rect>
    </property>
-   <property name="date">
-    <date>
-     <year>2013</year>
-     <month>12</month>
-     <day>25</day>
-    </date>
+   <property name="text">
+    <string>E</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Keyb_A">
+   <property name="geometry">
+    <rect>
+     <x>501</x>
+     <y>110</y>
+     <width>85</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>A</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Keyb_B">
+   <property name="geometry">
+    <rect>
+     <x>592</x>
+     <y>110</y>
+     <width>85</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>B</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Keyb_F">
+   <property name="geometry">
+    <rect>
+     <x>319</x>
+     <y>110</y>
+     <width>85</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>F</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Keyb_C">
+   <property name="geometry">
+    <rect>
+     <x>46</x>
+     <y>110</y>
+     <width>85</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>C</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Keyb_D">
+   <property name="geometry">
+    <rect>
+     <x>137</x>
+     <y>110</y>
+     <width>85</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>D</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Keyb_G">
+   <property name="geometry">
+    <rect>
+     <x>410</x>
+     <y>110</y>
+     <width>85</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>G</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Keyb_Cs">
+   <property name="geometry">
+    <rect>
+     <x>89</x>
+     <y>80</y>
+     <width>85</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>C#</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Keyb_Ds">
+   <property name="geometry">
+    <rect>
+     <x>180</x>
+     <y>80</y>
+     <width>85</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>D#</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Keyb_Fs">
+   <property name="geometry">
+    <rect>
+     <x>360</x>
+     <y>80</y>
+     <width>85</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>F#</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Keyb_Gs">
+   <property name="geometry">
+    <rect>
+     <x>451</x>
+     <y>80</y>
+     <width>85</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>G#</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Keyb_As">
+   <property name="geometry">
+    <rect>
+     <x>542</x>
+     <y>80</y>
+     <width>85</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>A#</string>
    </property>
   </widget>
  </widget>
