@@ -13,54 +13,58 @@ Widget::~Widget() {
 
 void Widget::keyPressEvent(QKeyEvent *event) {
     switch(event->key()) {
-        case C: ui->Keyb_C->animateClick(300); break;
-        case Cs: ui->Keyb_Cs->animateClick(300); break;
-        case D: ui->Keyb_D->animateClick(300); break;
-        case Ds: ui->Keyb_Ds->animateClick(300); break;
-        case E: ui->Keyb_E->animateClick(300); break;
-        case F: ui->Keyb_F->animateClick(300); break;
-        case Fs: ui->Keyb_Fs->animateClick(300); break;
-        case G: ui->Keyb_G->animateClick(300); break;
-        case Gs: ui->Keyb_Gs->animateClick(300); break;
-        case A: ui->Keyb_A->animateClick(300); break;
-        case As: ui->Keyb_As->animateClick(300); break;
-        case B: ui->Keyb_B->animateClick(300); break;
+        case C1: ui->Key_C1->setPixmap(QPixmap(QString::fromUtf8(":/pics/pics/tecbrancaesqp.png"))); break;
+        case Cs1: ui->Key_Cs1->setPixmap(QPixmap(QString::fromUtf8(":/pics/pics/tecpretap.png"))); break;
+        case D1: ui->Key_D1->setPixmap(QPixmap(QString::fromUtf8(":/pics/pics/tecbrancameip.png"))); break;
+        case Ds1: ui->Key_Ds1->setPixmap(QPixmap(QString::fromUtf8(":/pics/pics/tecpretap.png"))); break;
+        case E1: ui->Key_E1->setPixmap(QPixmap(QString::fromUtf8(":/pics/pics/tecbrancadirp.png"))); break;
+        case F1: ui->Key_F1->setPixmap(QPixmap(QString::fromUtf8(":/pics/pics/tecbrancaesqp.png"))); break;
+        case Fs1: ui->Key_Fs1->setPixmap(QPixmap(QString::fromUtf8(":/pics/pics/tecpretap.png"))); break;
+        case G1: ui->Key_G1->setPixmap(QPixmap(QString::fromUtf8(":/pics/pics/tecbrancameip.png"))); break;
+        case Gs1: ui->Key_Gs1->setPixmap(QPixmap(QString::fromUtf8(":/pics/pics/tecpretap.png"))); break;
+        case A1: ui->Key_A1->setPixmap(QPixmap(QString::fromUtf8(":/pics/pics/tecbrancameip.png"))); break;
+        case As1: ui->Key_As1->setPixmap(QPixmap(QString::fromUtf8(":/pics/pics/tecpretap.png"))); break;
+        case B1: ui->Key_B1->setPixmap(QPixmap(QString::fromUtf8(":/pics/pics/tecbrancadirp.png"))); break;
+        case C2: ui->Key_C2->setPixmap(QPixmap(QString::fromUtf8(":/pics/pics/tecbrancaesqp.png"))); break;
+        case Cs2: ui->Key_Cs2->setPixmap(QPixmap(QString::fromUtf8(":/pics/pics/tecpretap.png"))); break;
+        case D2: ui->Key_D2->setPixmap(QPixmap(QString::fromUtf8(":/pics/pics/tecbrancameip.png"))); break;
+        case Ds2: ui->Key_Ds2->setPixmap(QPixmap(QString::fromUtf8(":/pics/pics/tecpretap.png"))); break;
+        case E2: ui->Key_E2->setPixmap(QPixmap(QString::fromUtf8(":/pics/pics/tecbrancadirp.png"))); break;
+        case F2: ui->Key_F2->setPixmap(QPixmap(QString::fromUtf8(":/pics/pics/tecbrancaesqp.png"))); break;
+        case Fs2: ui->Key_Fs2->setPixmap(QPixmap(QString::fromUtf8(":/pics/pics/tecpretap.png"))); break;
+        case G2: ui->Key_G2->setPixmap(QPixmap(QString::fromUtf8(":/pics/pics/tecbrancameip.png"))); break;
+        case Gs2: ui->Key_Gs2->setPixmap(QPixmap(QString::fromUtf8(":/pics/pics/tecpretap.png"))); break;
+        case A2: ui->Key_A2->setPixmap(QPixmap(QString::fromUtf8(":/pics/pics/tecbrancameip.png"))); break;
+        case As2: ui->Key_As2->setPixmap(QPixmap(QString::fromUtf8(":/pics/pics/tecpretap.png"))); break;
+        case B2: ui->Key_B2->setPixmap(QPixmap(QString::fromUtf8(":/pics/pics/tecbrancadirp.png"))); break;
     }
 }
 
-void Widget::on_Keyb_C_pressed() {
-    this->setWindowTitle("C Pressionado!");
-}
-void Widget::on_Keyb_Cs_pressed() {
-    this->setWindowTitle("C# Pressionado!");
-}
-void Widget::on_Keyb_D_pressed() {
-    this->setWindowTitle("D Pressionado!");
-}
-void Widget::on_Keyb_Ds_pressed() {
-    this->setWindowTitle("D# Pressionado!");
-}
-void Widget::on_Keyb_E_pressed() {
-    this->setWindowTitle("E Pressionado!");
-}
-void Widget::on_Keyb_F_pressed() {
-    this->setWindowTitle("F Pressionado!");
-}
-void Widget::on_Keyb_Fs_pressed() {
-    this->setWindowTitle("F# Pressionado!");
-}
-void Widget::on_Keyb_G_pressed() {
-    this->setWindowTitle("G Pressionado!");
-}
-void Widget::on_Keyb_Gs_pressed() {
-    this->setWindowTitle("G# Pressionado!");
-}
-void Widget::on_Keyb_A_pressed() {
-    this->setWindowTitle("A Pressionado!");
-}
-void Widget::on_Keyb_As_pressed() {
-    this->setWindowTitle("A# Pressionado!");
-}
-void Widget::on_Keyb_B_pressed() {
-    this->setWindowTitle("B Pressionado!");
+void Widget::keyReleaseEvent(QKeyEvent *event) {
+    switch(event->key()) {
+        case C1: ui->Key_C1->setPixmap(QPixmap(QString::fromUtf8(":/pics/pics/tecbrancaesq.png"))); break;
+        case Cs1: ui->Key_Cs1->setPixmap(QPixmap(QString::fromUtf8(":/pics/pics/tecpreta.png"))); break;
+        case D1: ui->Key_D1->setPixmap(QPixmap(QString::fromUtf8(":/pics/pics/tecbrancamei.png"))); break;
+        case Ds1: ui->Key_Ds1->setPixmap(QPixmap(QString::fromUtf8(":/pics/pics/tecpreta.png"))); break;
+        case E1: ui->Key_E1->setPixmap(QPixmap(QString::fromUtf8(":/pics/pics/tecbrancadir.png"))); break;
+        case F1: ui->Key_F1->setPixmap(QPixmap(QString::fromUtf8(":/pics/pics/tecbrancaesq.png"))); break;
+        case Fs1: ui->Key_Fs1->setPixmap(QPixmap(QString::fromUtf8(":/pics/pics/tecpreta.png"))); break;
+        case G1: ui->Key_G1->setPixmap(QPixmap(QString::fromUtf8(":/pics/pics/tecbrancamei.png"))); break;
+        case Gs1: ui->Key_Gs1->setPixmap(QPixmap(QString::fromUtf8(":/pics/pics/tecpreta.png"))); break;
+        case A1: ui->Key_A1->setPixmap(QPixmap(QString::fromUtf8(":/pics/pics/tecbrancamei.png"))); break;
+        case As1: ui->Key_As1->setPixmap(QPixmap(QString::fromUtf8(":/pics/pics/tecpreta.png"))); break;
+        case B1: ui->Key_B1->setPixmap(QPixmap(QString::fromUtf8(":/pics/pics/tecbrancadir.png"))); break;
+        case C2: ui->Key_C2->setPixmap(QPixmap(QString::fromUtf8(":/pics/pics/tecbrancaesq.png"))); break;
+        case Cs2: ui->Key_Cs2->setPixmap(QPixmap(QString::fromUtf8(":/pics/pics/tecpreta.png"))); break;
+        case D2: ui->Key_D2->setPixmap(QPixmap(QString::fromUtf8(":/pics/pics/tecbrancamei.png"))); break;
+        case Ds2: ui->Key_Ds2->setPixmap(QPixmap(QString::fromUtf8(":/pics/pics/tecpreta.png"))); break;
+        case E2: ui->Key_E2->setPixmap(QPixmap(QString::fromUtf8(":/pics/pics/tecbrancadir.png"))); break;
+        case F2: ui->Key_F2->setPixmap(QPixmap(QString::fromUtf8(":/pics/pics/tecbrancaesq.png"))); break;
+        case Fs2: ui->Key_Fs2->setPixmap(QPixmap(QString::fromUtf8(":/pics/pics/tecpreta.png"))); break;
+        case G2: ui->Key_G2->setPixmap(QPixmap(QString::fromUtf8(":/pics/pics/tecbrancamei.png"))); break;
+        case Gs2: ui->Key_Gs2->setPixmap(QPixmap(QString::fromUtf8(":/pics/pics/tecpreta.png"))); break;
+        case A2: ui->Key_A2->setPixmap(QPixmap(QString::fromUtf8(":/pics/pics/tecbrancamei.png"))); break;
+        case As2: ui->Key_As2->setPixmap(QPixmap(QString::fromUtf8(":/pics/pics/tecpreta.png"))); break;
+        case B2: ui->Key_B2->setPixmap(QPixmap(QString::fromUtf8(":/pics/pics/tecbrancadir.png"))); break;
+    }
 }

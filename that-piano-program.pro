@@ -20,3 +20,6 @@ HEADERS  += widget.h \
     tecla_e_freq.h
 
 FORMS    += widget.ui
+
+RESOURCES += \
+    resources.qrc
