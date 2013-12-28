@@ -9,8 +9,4 @@ enum Notas {
     E2=Qt::Key_R,F2=Qt::Key_T,Fs2=Qt::Key_6,G2=Qt::Key_Y,Gs2=Qt::Key_7,A2=Qt::Key_U,As2=Qt::Key_8,B2=Qt::Key_I
 };
 
-enum FreqNotas {
-    nC4=262, nCs4=277, nD4=294, nDs4=311, nE4=330, nF4=350, nFs4=370, nG4=392, nGs4=415, nA4=440, nAs4=466, nB4=494
-};
-
 #endif // TECLA_E_FREQ_H

@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/pics">
+    <qresource prefix="/">
         <file>pics/tecpretap.png</file>
         <file>pics/tecpreta.png</file>
         <file>pics/tecbrancadirp.png</file>

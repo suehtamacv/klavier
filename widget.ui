@@ -44,7 +44,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="resources.qrc">:/pics/pics/tecbrancaesq.png</pixmap>
+       <pixmap resource="resources.qrc">:/pics/tecbrancaesq.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -63,7 +63,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="resources.qrc">:/pics/pics/tecbrancamei.png</pixmap>
+       <pixmap resource="resources.qrc">:/pics/tecbrancamei.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -82,7 +82,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="resources.qrc">:/pics/pics/tecbrancadir.png</pixmap>
+       <pixmap resource="resources.qrc">:/pics/tecbrancadir.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -101,7 +101,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="resources.qrc">:/pics/pics/tecbrancaesq.png</pixmap>
+       <pixmap resource="resources.qrc">:/pics/tecbrancaesq.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -120,7 +120,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="resources.qrc">:/pics/pics/tecbrancamei.png</pixmap>
+       <pixmap resource="resources.qrc">:/pics/tecbrancamei.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -139,7 +139,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="resources.qrc">:/pics/pics/tecbrancamei.png</pixmap>
+       <pixmap resource="resources.qrc">:/pics/tecbrancamei.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -158,7 +158,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="resources.qrc">:/pics/pics/tecbrancadir.png</pixmap>
+       <pixmap resource="resources.qrc">:/pics/tecbrancadir.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -177,7 +177,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="resources.qrc">:/pics/pics/tecbrancaesq.png</pixmap>
+       <pixmap resource="resources.qrc">:/pics/tecbrancaesq.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -196,7 +196,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="resources.qrc">:/pics/pics/tecbrancamei.png</pixmap>
+       <pixmap resource="resources.qrc">:/pics/tecbrancamei.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -215,7 +215,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="resources.qrc">:/pics/pics/tecbrancadir.png</pixmap>
+       <pixmap resource="resources.qrc">:/pics/tecbrancadir.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -234,7 +234,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="resources.qrc">:/pics/pics/tecbrancaesq.png</pixmap>
+       <pixmap resource="resources.qrc">:/pics/tecbrancaesq.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -253,7 +253,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="resources.qrc">:/pics/pics/tecbrancamei.png</pixmap>
+       <pixmap resource="resources.qrc">:/pics/tecbrancamei.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -272,7 +272,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="resources.qrc">:/pics/pics/tecbrancamei.png</pixmap>
+       <pixmap resource="resources.qrc">:/pics/tecbrancamei.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -291,7 +291,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="resources.qrc">:/pics/pics/tecbrancadir.png</pixmap>
+       <pixmap resource="resources.qrc">:/pics/tecbrancadir.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -341,7 +341,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="resources.qrc">:/pics/pics/tecpreta.png</pixmap>
+       <pixmap resource="resources.qrc">:/pics/tecpreta.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -376,7 +376,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="resources.qrc">:/pics/pics/tecpreta.png</pixmap>
+       <pixmap resource="resources.qrc">:/pics/tecpreta.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -411,7 +411,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="resources.qrc">:/pics/pics/tecpreta.png</pixmap>
+       <pixmap resource="resources.qrc">:/pics/tecpreta.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -446,7 +446,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="resources.qrc">:/pics/pics/tecpreta.png</pixmap>
+       <pixmap resource="resources.qrc">:/pics/tecpreta.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -481,7 +481,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="resources.qrc">:/pics/pics/tecpreta.png</pixmap>
+       <pixmap resource="resources.qrc">:/pics/tecpreta.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -516,7 +516,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="resources.qrc">:/pics/pics/tecpreta.png</pixmap>
+       <pixmap resource="resources.qrc">:/pics/tecpreta.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -551,7 +551,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="resources.qrc">:/pics/pics/tecpreta.png</pixmap>
+       <pixmap resource="resources.qrc">:/pics/tecpreta.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -586,7 +586,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="resources.qrc">:/pics/pics/tecpreta.png</pixmap>
+       <pixmap resource="resources.qrc">:/pics/tecpreta.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -621,7 +621,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="resources.qrc">:/pics/pics/tecpreta.png</pixmap>
+       <pixmap resource="resources.qrc">:/pics/tecpreta.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -656,7 +656,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="resources.qrc">:/pics/pics/tecpreta.png</pixmap>
+       <pixmap resource="resources.qrc">:/pics/tecpreta.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
