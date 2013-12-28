@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QHBoxLayout>
 #include "widget.h"
 
 class MainWindow : public QMainWindow
@@ -49,6 +50,7 @@ private:
     QAction *Instrumento_2_A;
     QAction *Instrumento_3_A;
     Widget *piano;
+    QHBoxLayout* set_buttons();
 };
 
 #endif // MAINWINDOW_H

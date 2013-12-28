@@ -11,5 +11,6 @@
         <file>pics/record.png</file>
         <file>pics/pause.png</file>
         <file>pics/play.png</file>
+        <file>pics/stop.png</file>
     </qresource>
 </RCC>

@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "tecla_e_freq.h"
 #include <QKeyEvent>
+#include <botao.h>
 #include <QString>
 #include <QtWidgets>
 #include <widget.h>
@@ -26,29 +27,10 @@ MainWindow::MainWindow() {
     QVBoxLayout *vlayout = new QVBoxLayout;
     QHBoxLayout *hlayout = new QHBoxLayout;
 
-    QPushButton *record = new QPushButton(this);
-    QPushButton *play = new QPushButton(this);
-    QPushButton *pause= new QPushButton(this);
-    record->setStyleSheet(QString::fromUtf8("background-image: url(:/pics/record.png);"));
-    record->setFixedSize(56,56);
-    record->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed);
-    play->setStyleSheet(QString::fromUtf8("background-image: url(:/pics/play.png);"));
-    play->setFixedSize(56,56);
-    play->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed);
-    pause->setStyleSheet(QString::fromUtf8("background-image: url(:/pics/pause.png);"));
-    pause->setFixedSize(56,56);
-    pause->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed);
-    QHBoxLayout *buttons = new QHBoxLayout;
-    buttons->setMargin(5);
-    buttons->addWidget(play);
-    buttons->addWidget(pause);
-    buttons->addWidget(record);
-
-
     vlayout->setMargin(0);
     vlayout->addWidget(topFiller);
     vlayout->addWidget(middle);
-    vlayout->addLayout(buttons);
+    vlayout->addLayout(set_buttons());
     vlayout->addWidget(bottomFiller);
 
     hlayout->setMargin(0);
@@ -60,7 +42,7 @@ MainWindow::MainWindow() {
     createActions();
     createMenus();
 
-    setWindowTitle(tr("That Piano Project"));
+    setWindowTitle(tr("That Piano Program"));
     setMinimumSize(712, 300);
     resize(712,300);
 
@@ -74,8 +56,6 @@ MainWindow::~MainWindow() {
 void MainWindow::contextMenuEvent(QContextMenuEvent *event) // Aqui será as funções das ações ( Ou métodos, como preferir chamar )
 {
     QMenu menu(this);
-
-
     menu.exec(event->globalPos());
 }
 
@@ -211,3 +191,51 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event) {
     piano->tratar_tecla_solta(event);
 }
 
+QHBoxLayout* MainWindow::set_buttons() {
+    Botao *record = new Botao();
+    Botao *play = new Botao();
+    Botao *stop = new Botao();
+    Botao *pause = new Botao();
+    record->setIcon(QIcon(QPixmap(":/pics/record.png")));
+    record->setIconSize(QSize(20,20));
+    record->setFixedSize(50,50);
+    record->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed);
+    play->setIcon(QIcon(QPixmap(":/pics/play.png")));
+    play->setIconSize(QSize(20,20));
+    play->setFixedSize(50,50);
+    play->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed);
+    pause->setIcon(QIcon(QPixmap(":/pics/pause.png")));
+    pause->setIconSize(QSize(20,20));
+    pause->setFixedSize(50,50);
+    pause->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed);
+    pause->setEnabled(false);
+    stop->setIcon(QIcon(QPixmap(":/pics/stop.png")));
+    stop->setIconSize(QSize(20,20));
+    stop->setFixedSize(50,50);
+    stop->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed);
+    stop->setEnabled(false);
+    QHBoxLayout *buttons = new QHBoxLayout;
+    buttons->setMargin(5);
+    buttons->addWidget(play);
+    buttons->addWidget(pause);
+    buttons->addWidget(record);
+    buttons->addWidget(stop);
+
+    connect(play,SIGNAL(clicked()),pause,SLOT(ativar()));
+    connect(play,SIGNAL(clicked()),play,SLOT(desativar()));
+    connect(play,SIGNAL(clicked()),record,SLOT(desativar()));
+    connect(play,SIGNAL(clicked()),stop,SLOT(ativar()));
+    connect(pause,SIGNAL(clicked()),play,SLOT(ativar()));
+    connect(pause,SIGNAL(clicked()),pause,SLOT(desativar()));
+    connect(pause,SIGNAL(clicked()),record,SLOT(desativar()));
+    connect(stop,SIGNAL(clicked()),record,SLOT(ativar()));
+    connect(stop,SIGNAL(clicked()),stop,SLOT(desativar()));
+    connect(stop,SIGNAL(clicked()),pause,SLOT(desativar()));
+    connect(stop,SIGNAL(clicked()),play,SLOT(ativar()));
+    connect(record,SIGNAL(clicked()),stop,SLOT(ativar()));
+    connect(record,SIGNAL(clicked()),record,SLOT(desativar()));
+    connect(record,SIGNAL(clicked()),play,SLOT(desativar()));
+    connect(record,SIGNAL(clicked()),pause,SLOT(desativar()));
+
+    return buttons;
+}
