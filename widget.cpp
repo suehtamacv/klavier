@@ -4,14 +4,15 @@
 #include <QKeyEvent>
 
 Widget::Widget(QWidget *parent) : QWidget(parent), ui(new Ui::Widget) {
-    ui->setupUi(this);
+    this->setWindowTitle("jfb");
+    ui->setupUi(parent);
 }
 
 Widget::~Widget() {
     delete ui;
 }
 
-void Widget::keyPressEvent(QKeyEvent *event) {
+void Widget::tratar_tecla_pressionada(QKeyEvent *event) {
     switch(event->key()) {
         case C1: ui->Key_C1->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecbrancaesqp.png"))); break;
         case Cs1: ui->Key_Cs1->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecpretap.png"))); break;
@@ -40,7 +41,7 @@ void Widget::keyPressEvent(QKeyEvent *event) {
     }
 }
 
-void Widget::keyReleaseEvent(QKeyEvent *event) {
+void Widget::tratar_tecla_solta(QKeyEvent *event) {
     switch(event->key()) {
         case C1: ui->Key_C1->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecbrancaesq.png"))); break;
         case Cs1: ui->Key_Cs1->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecpreta.png"))); break;
