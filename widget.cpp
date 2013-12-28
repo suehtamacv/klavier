@@ -2,14 +2,10 @@
 #include "ui_widget.h"
 #include "tecla_e_freq.h"
 #include <QKeyEvent>
+#include <QtWidgets>
 
 Widget::Widget(QWidget *parent) : QWidget(parent), ui(new Ui::Widget) {
-    this->setWindowTitle("jfb");
     ui->setupUi(parent);
-}
-
-Widget::~Widget() {
-    delete ui;
 }
 
 void Widget::tratar_tecla_pressionada(QKeyEvent *event) {
