@@ -14,9 +14,14 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        widget.cpp
+        widget.cpp \
+    mainwindow.cpp
 
 HEADERS  += widget.h \
-    tecla_e_freq.h
+    tecla_e_freq.h \
+    mainwindow.h
 
 FORMS    += widget.ui
+
+RESOURCES += \
+    resources.qrc

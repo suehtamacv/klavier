@@ -4,159 +4,64 @@
 #include <QKeyEvent>
 #include <QtWidgets>
 
-MainWindow::MainWindow() // Construtor
-{
-
-    QWidget *widget = new QWidget; // Criando a barra principal
-    setCentralWidget(widget);
-
-    QWidget *topFiller = new QWidget; // Criando as "cascatas" verticais de "Arquivo" e "Editar"
-    topFiller->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-
-    QWidget *bottomFiller = new QWidget;  // Criando a "cascata" horizontal de "Timbre"
-    bottomFiller->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-
-    QVBoxLayout *layout = new QVBoxLayout;
-    layout->setMargin(5);
-    layout->addWidget(topFiller);
-    layout->addWidget(bottomFiller);
-    widget->setLayout(layout);
-
-    createActions();
-    createMenus();
-
-    QString message = tr("A context menu is available by right-clicking");
-    statusBar()->showMessage(message);
-
-    setWindowTitle(tr("That Piano Project"));
-    setMinimumSize(160, 160);
-    resize(800, 600);
+Widget::Widget(QWidget *parent) : QWidget(parent), ui(new Ui::Widget) {
+    ui->setupUi(parent);
 }
 
-void MainWindow::contextMenuEvent(QContextMenuEvent *event) // Aqui será as funções das ações ( Ou métodos, como preferir chamar )
-{
-    QMenu menu(this);
-
-
-    menu.exec(event->globalPos());
+void Widget::tratar_tecla_pressionada(QKeyEvent *event) {
+    switch(event->key()) {
+        case C1: ui->Key_C1->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecbrancaesqp.png"))); break;
+        case Cs1: ui->Key_Cs1->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecpretap.png"))); break;
+        case D1: ui->Key_D1->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecbrancameip.png"))); break;
+        case Ds1: ui->Key_Ds1->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecpretap.png"))); break;
+        case E1: ui->Key_E1->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecbrancadirp.png"))); break;
+        case F1: ui->Key_F1->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecbrancaesqp.png"))); break;
+        case Fs1: ui->Key_Fs1->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecpretap.png"))); break;
+        case G1: ui->Key_G1->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecbrancameip.png"))); break;
+        case Gs1: ui->Key_Gs1->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecpretap.png"))); break;
+        case A1: ui->Key_A1->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecbrancameip.png"))); break;
+        case As1: ui->Key_As1->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecpretap.png"))); break;
+        case B1: ui->Key_B1->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecbrancadirp.png"))); break;
+        case C2: ui->Key_C2->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecbrancaesqp.png"))); break;
+        case Cs2: ui->Key_Cs2->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecpretap.png"))); break;
+        case D2: ui->Key_D2->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecbrancameip.png"))); break;
+        case Ds2: ui->Key_Ds2->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecpretap.png"))); break;
+        case E2: ui->Key_E2->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecbrancadirp.png"))); break;
+        case F2: ui->Key_F2->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecbrancaesqp.png"))); break;
+        case Fs2: ui->Key_Fs2->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecpretap.png"))); break;
+        case G2: ui->Key_G2->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecbrancameip.png"))); break;
+        case Gs2: ui->Key_Gs2->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecpretap.png"))); break;
+        case A2: ui->Key_A2->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecbrancameip.png"))); break;
+        case As2: ui->Key_As2->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecpretap.png"))); break;
+        case B2: ui->Key_B2->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecbrancadirp.png"))); break;
+    }
 }
 
-void MainWindow::Composicao()
-{
-    // Função
-}
-
-void MainWindow::Abrir()
-{
-    // Função
-}
-
-void MainWindow::Salvar()
-{
-    // Função
-}
-
-void MainWindow::Metronomo()
-{
-    // Função
-}
-
-void MainWindow::Oitava()
-{
-    // Função
-}
-
-void MainWindow::Instrumento_1()
-{
-    // Função
-}
-
-void MainWindow::Instrumento_2()
-{
-    // Função
-}
-
-void MainWindow::Instrumento_3()
-{
-    // Função
-}
-
-
-void MainWindow::createActions() // Aqui são as ações que deverão está conectadas com as funções
-{
-    Composicao_A = new QAction("Nova Composição",this); // Isso é o que será exibido no Menu
- /* Composicao_A->setShortcuts(QKeySequence::New);*/ //Esse comando apresenta o atalho na tela
- /* Composicao_A->setStatusTip("Cria um novo Arquivo");*/ // Esse Comando dá uma breve informação no canto inferior da tela
-    connect(Composicao_A, SIGNAL(triggered()), this, SLOT(/*função de novo arquivo*/));
-
-    Abrir_A = new QAction("Abrir", this);
- /* Abrir_A->setShortcuts(QKeySequence::Abrir); */ // Deixarei Optativo
-/*  Abrir_A->setStatusTip("Abre um arquivo"); */ // Deixarei Optativo
-    connect(Abrir_A, SIGNAL(triggered()), this, SLOT(/*Função para Abrir */));
-
-    Salvar_A = new QAction("Salvar", this);
-/*  Salvar_A->setShortcuts(QKeySequence::Salvar); */ // Deixarei Optativo
-/*  Salvar_A->setStatusTip("Salvar Composição)); */ // Deixarei Optativo
-    connect(Salvar_A, SIGNAL(triggered()), this, SLOT(/*Função para salvar*/));
-
-
-
-    Sair_A = new QAction("Sair", this);
-/*  Sair_A->setShortcuts(QKeySequence::Quit); */ // Deixarei Optativo
-/*  Sair_A->setStatusTip("Sair do programa"); */ // Deixarei Optativo
-    connect(Sair_A, SIGNAL(triggered()), this, SLOT(close())); // Esse já pega tranquilo, sem função
-
-    Metronomo_A = new QAction("Ajustar Metronômo", this);
-
-/* Os atalhos ja são definidos pelo sistema, por isso deixei optativo. No caso dos comando de Editar,
-se usarmos atalhos teremos de criar os próprios atalhos. Eu acho melhor deixar sem */
-
-/*  Metronomo_A->setStatusTip("Altera O tempo do Metrônomo"); */ // Deixarei Optativo
-    connect(Metronomo_A, SIGNAL(triggered()), this, SLOT(/*função que altera Metrônomo */));
-
-    Oitava_A = new QAction("Alterar Oitava", this);
-    /* Os atalhos ja são definidos pelo sistema, por isso deixei optativo. No caso dos comando de Editar,
-    se usarmos atalhos teremos de criar os próprios atalhos. Eu acho melhor deixar sem */
-/*  Oitava_A->setStatusTip(" Muda a oitava "); */ // Deixarei Optativo
-    connect(Oitava_A, SIGNAL(triggered()), this, SLOT(/*Função de alterar Oitavas*/));
-
-/* Essa Opção de Editar é uma sugestão ! ( mudar o instrumento ) */
-
-    Instrumento_1_A = new QAction("Instrumento 1", this);
-/*  Instrumento_1_A->setStatusTip("Troca o timbre"); */
-    connect(Instrumento_1_A, SIGNAL(triggered()), this, SLOT(/* Função para mudar os arquivos de som */));
-
-
-    Instrumento_2_A = new QAction("Instrumento 2", this);
-/*  Instrumento_2_A->setStatusTip("Troca o timbre"); */
-    connect(Instrumento_2_A, SIGNAL(triggered()), this, SLOT(/* Função para mudar os arquivos de som */));
-
-
-
-    Instrumento_3_A = new QAction("Instrumento 3", this);
-/*  Instrumento_3_A->setStatusTip("Troca o timbre"); */
-    connect(Instrumento_3_A, SIGNAL(triggered()), this, SLOT(/* Função para mudar os arquivos de som */));
-
-}
-
-void MainWindow::createMenus() // Configurando como fica no Menu!
-{
-    ArquivoMenu = menuBar()->addMenu("Arquivo");
-    ArquivoMenu->addAction(Composicao_A);
-    ArquivoMenu->addAction(Abrir_A);
-    ArquivoMenu->addAction(Salvar_A);
-
-    ArquivoMenu->addSeparator(); // Esse comando Adiciona uma barrinha divisoria
-    ArquivoMenu->addAction(Sair_A);
-
-    editMenu = menuBar()->addMenu("Editar");
-    editMenu->addAction(Metronomo_A);
-    editMenu->addAction(Oitava_A);
-
-
-    TimbreMenu = editMenu->addMenu("Timbre");  // Esse Adiciona um menu dentro de outro
-    TimbreMenu->addAction(Instrumento_1_A);
-    TimbreMenu->addAction(Instrumento_2_A);
-    TimbreMenu->addAction(Instrumento_3_A);
-
+void Widget::tratar_tecla_solta(QKeyEvent *event) {
+    switch(event->key()) {
+        case C1: ui->Key_C1->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecbrancaesq.png"))); break;
+        case Cs1: ui->Key_Cs1->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecpreta.png"))); break;
+        case D1: ui->Key_D1->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecbrancamei.png"))); break;
+        case Ds1: ui->Key_Ds1->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecpreta.png"))); break;
+        case E1: ui->Key_E1->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecbrancadir.png"))); break;
+        case F1: ui->Key_F1->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecbrancaesq.png"))); break;
+        case Fs1: ui->Key_Fs1->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecpreta.png"))); break;
+        case G1: ui->Key_G1->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecbrancamei.png"))); break;
+        case Gs1: ui->Key_Gs1->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecpreta.png"))); break;
+        case A1: ui->Key_A1->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecbrancamei.png"))); break;
+        case As1: ui->Key_As1->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecpreta.png"))); break;
+        case B1: ui->Key_B1->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecbrancadir.png"))); break;
+        case C2: ui->Key_C2->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecbrancaesq.png"))); break;
+        case Cs2: ui->Key_Cs2->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecpreta.png"))); break;
+        case D2: ui->Key_D2->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecbrancamei.png"))); break;
+        case Ds2: ui->Key_Ds2->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecpreta.png"))); break;
+        case E2: ui->Key_E2->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecbrancadir.png"))); break;
+        case F2: ui->Key_F2->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecbrancaesq.png"))); break;
+        case Fs2: ui->Key_Fs2->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecpreta.png"))); break;
+        case G2: ui->Key_G2->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecbrancamei.png"))); break;
+        case Gs2: ui->Key_Gs2->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecpreta.png"))); break;
+        case A2: ui->Key_A2->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecbrancamei.png"))); break;
+        case As2: ui->Key_As2->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecpreta.png"))); break;
+        case B2: ui->Key_B2->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecbrancadir.png"))); break;
+    }
 }

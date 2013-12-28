@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/">
+        <file>pics/tecpretap.png</file>
+        <file>pics/tecpreta.png</file>
+        <file>pics/tecbrancadirp.png</file>
+        <file>pics/tecbrancaesqp.png</file>
+        <file>pics/tecbrancameip.png</file>
+        <file>pics/tecbrancadir.png</file>
+        <file>pics/tecbrancamei.png</file>
+        <file>pics/tecbrancaesq.png</file>
+    </qresource>
+</RCC>
