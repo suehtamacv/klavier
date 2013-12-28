@@ -8,6 +8,10 @@ Widget::Widget(QWidget *parent) : QWidget(parent), ui(new Ui::Widget) {
     ui->setupUi(parent);
 }
 
+Widget::~Widget() {
+    delete ui;
+}
+
 void Widget::tratar_tecla_pressionada(QKeyEvent *event) {
     switch(event->key()) {
         case C1: ui->Key_C1->setPixmap(QPixmap(QString::fromUtf8(":/pics/tecbrancaesqp.png"))); break;

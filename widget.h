@@ -17,6 +17,9 @@ public:
     void tratar_tecla_pressionada(QKeyEvent *);
     void tratar_tecla_solta(QKeyEvent *);
 
+private:
+    Ui::Widget *ui;
+
 };
 
 #endif
