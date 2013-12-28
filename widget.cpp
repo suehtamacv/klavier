@@ -2,65 +2,161 @@
 #include "ui_widget.h"
 #include "tecla_e_freq.h"
 #include <QKeyEvent>
+#include <QtWidgets>
 
-Widget::Widget(QWidget *parent) : QWidget(parent), ui(new Ui::Widget) {
-    ui->setupUi(this);
+MainWindow::MainWindow() // Construtor
+{
+
+    QWidget *widget = new QWidget; // Criando a barra principal
+    setCentralWidget(widget);
+
+    QWidget *topFiller = new QWidget; // Criando as "cascatas" verticais de "Arquivo" e "Editar"
+    topFiller->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+    QWidget *bottomFiller = new QWidget;  // Criando a "cascata" horizontal de "Timbre"
+    bottomFiller->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+    QVBoxLayout *layout = new QVBoxLayout;
+    layout->setMargin(5);
+    layout->addWidget(topFiller);
+    layout->addWidget(bottomFiller);
+    widget->setLayout(layout);
+
+    createActions();
+    createMenus();
+
+    QString message = tr("A context menu is available by right-clicking");
+    statusBar()->showMessage(message);
+
+    setWindowTitle(tr("That Piano Project"));
+    setMinimumSize(160, 160);
+    resize(800, 600);
 }
 
-Widget::~Widget() {
-    delete ui;
+void MainWindow::contextMenuEvent(QContextMenuEvent *event) // Aqui será as funções das ações ( Ou métodos, como preferir chamar )
+{
+    QMenu menu(this);
+
+
+    menu.exec(event->globalPos());
 }
 
-void Widget::keyPressEvent(QKeyEvent *event) {
-    switch(event->key()) {
-        case C: ui->Keyb_C->animateClick(300); break;
-        case Cs: ui->Keyb_Cs->animateClick(300); break;
-        case D: ui->Keyb_D->animateClick(300); break;
-        case Ds: ui->Keyb_Ds->animateClick(300); break;
-        case E: ui->Keyb_E->animateClick(300); break;
-        case F: ui->Keyb_F->animateClick(300); break;
-        case Fs: ui->Keyb_Fs->animateClick(300); break;
-        case G: ui->Keyb_G->animateClick(300); break;
-        case Gs: ui->Keyb_Gs->animateClick(300); break;
-        case A: ui->Keyb_A->animateClick(300); break;
-        case As: ui->Keyb_As->animateClick(300); break;
-        case B: ui->Keyb_B->animateClick(300); break;
-    }
+void MainWindow::Composicao()
+{
+    // Função
 }
 
-void Widget::on_Keyb_C_pressed() {
-    this->setWindowTitle("C Pressionado!");
+void MainWindow::Abrir()
+{
+    // Função
 }
-void Widget::on_Keyb_Cs_pressed() {
-    this->setWindowTitle("C# Pressionado!");
+
+void MainWindow::Salvar()
+{
+    // Função
 }
-void Widget::on_Keyb_D_pressed() {
-    this->setWindowTitle("D Pressionado!");
+
+void MainWindow::Metronomo()
+{
+    // Função
 }
-void Widget::on_Keyb_Ds_pressed() {
-    this->setWindowTitle("D# Pressionado!");
+
+void MainWindow::Oitava()
+{
+    // Função
 }
-void Widget::on_Keyb_E_pressed() {
-    this->setWindowTitle("E Pressionado!");
+
+void MainWindow::Instrumento_1()
+{
+    // Função
 }
-void Widget::on_Keyb_F_pressed() {
-    this->setWindowTitle("F Pressionado!");
+
+void MainWindow::Instrumento_2()
+{
+    // Função
 }
-void Widget::on_Keyb_Fs_pressed() {
-    this->setWindowTitle("F# Pressionado!");
+
+void MainWindow::Instrumento_3()
+{
+    // Função
 }
-void Widget::on_Keyb_G_pressed() {
-    this->setWindowTitle("G Pressionado!");
+
+
+void MainWindow::createActions() // Aqui são as ações que deverão está conectadas com as funções
+{
+    Composicao_A = new QAction("Nova Composição",this); // Isso é o que será exibido no Menu
+ /* Composicao_A->setShortcuts(QKeySequence::New);*/ //Esse comando apresenta o atalho na tela
+ /* Composicao_A->setStatusTip("Cria um novo Arquivo");*/ // Esse Comando dá uma breve informação no canto inferior da tela
+    connect(Composicao_A, SIGNAL(triggered()), this, SLOT(/*função de novo arquivo*/));
+
+    Abrir_A = new QAction("Abrir", this);
+ /* Abrir_A->setShortcuts(QKeySequence::Abrir); */ // Deixarei Optativo
+/*  Abrir_A->setStatusTip("Abre um arquivo"); */ // Deixarei Optativo
+    connect(Abrir_A, SIGNAL(triggered()), this, SLOT(/*Função para Abrir */));
+
+    Salvar_A = new QAction("Salvar", this);
+/*  Salvar_A->setShortcuts(QKeySequence::Salvar); */ // Deixarei Optativo
+/*  Salvar_A->setStatusTip("Salvar Composição)); */ // Deixarei Optativo
+    connect(Salvar_A, SIGNAL(triggered()), this, SLOT(/*Função para salvar*/));
+
+
+
+    Sair_A = new QAction("Sair", this);
+/*  Sair_A->setShortcuts(QKeySequence::Quit); */ // Deixarei Optativo
+/*  Sair_A->setStatusTip("Sair do programa"); */ // Deixarei Optativo
+    connect(Sair_A, SIGNAL(triggered()), this, SLOT(close())); // Esse já pega tranquilo, sem função
+
+    Metronomo_A = new QAction("Ajustar Metronômo", this);
+
+/* Os atalhos ja são definidos pelo sistema, por isso deixei optativo. No caso dos comando de Editar,
+se usarmos atalhos teremos de criar os próprios atalhos. Eu acho melhor deixar sem */
+
+/*  Metronomo_A->setStatusTip("Altera O tempo do Metrônomo"); */ // Deixarei Optativo
+    connect(Metronomo_A, SIGNAL(triggered()), this, SLOT(/*função que altera Metrônomo */));
+
+    Oitava_A = new QAction("Alterar Oitava", this);
+    /* Os atalhos ja são definidos pelo sistema, por isso deixei optativo. No caso dos comando de Editar,
+    se usarmos atalhos teremos de criar os próprios atalhos. Eu acho melhor deixar sem */
+/*  Oitava_A->setStatusTip(" Muda a oitava "); */ // Deixarei Optativo
+    connect(Oitava_A, SIGNAL(triggered()), this, SLOT(/*Função de alterar Oitavas*/));
+
+/* Essa Opção de Editar é uma sugestão ! ( mudar o instrumento ) */
+
+    Instrumento_1_A = new QAction("Instrumento 1", this);
+/*  Instrumento_1_A->setStatusTip("Troca o timbre"); */
+    connect(Instrumento_1_A, SIGNAL(triggered()), this, SLOT(/* Função para mudar os arquivos de som */));
+
+
+    Instrumento_2_A = new QAction("Instrumento 2", this);
+/*  Instrumento_2_A->setStatusTip("Troca o timbre"); */
+    connect(Instrumento_2_A, SIGNAL(triggered()), this, SLOT(/* Função para mudar os arquivos de som */));
+
+
+
+    Instrumento_3_A = new QAction("Instrumento 3", this);
+/*  Instrumento_3_A->setStatusTip("Troca o timbre"); */
+    connect(Instrumento_3_A, SIGNAL(triggered()), this, SLOT(/* Função para mudar os arquivos de som */));
+
 }
-void Widget::on_Keyb_Gs_pressed() {
-    this->setWindowTitle("G# Pressionado!");
-}
-void Widget::on_Keyb_A_pressed() {
-    this->setWindowTitle("A Pressionado!");
-}
-void Widget::on_Keyb_As_pressed() {
-    this->setWindowTitle("A# Pressionado!");
-}
-void Widget::on_Keyb_B_pressed() {
-    this->setWindowTitle("B Pressionado!");
+
+void MainWindow::createMenus() // Configurando como fica no Menu!
+{
+    ArquivoMenu = menuBar()->addMenu("Arquivo");
+    ArquivoMenu->addAction(Composicao_A);
+    ArquivoMenu->addAction(Abrir_A);
+    ArquivoMenu->addAction(Salvar_A);
+
+    ArquivoMenu->addSeparator(); // Esse comando Adiciona uma barrinha divisoria
+    ArquivoMenu->addAction(Sair_A);
+
+    editMenu = menuBar()->addMenu("Editar");
+    editMenu->addAction(Metronomo_A);
+    editMenu->addAction(Oitava_A);
+
+
+    TimbreMenu = editMenu->addMenu("Timbre");  // Esse Adiciona um menu dentro de outro
+    TimbreMenu->addAction(Instrumento_1_A);
+    TimbreMenu->addAction(Instrumento_2_A);
+    TimbreMenu->addAction(Instrumento_3_A);
+
 }

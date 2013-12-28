@@ -1,16 +1,13 @@
-#include "widget.h"
-#include "tecla_e_freq.h"
 #include <QApplication>
+
+#include "widget.h"
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
-    Widget w;
-    w.setWindowTitle("That Piano Program");
-
-    w.show();
-
-    return a.exec();
+    QApplication app(argc, argv);
+    MainWindow window;
+    window.show();
+    return app.exec();
 }
 
 

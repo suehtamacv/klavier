@@ -1,37 +1,56 @@
 #ifndef WIDGET_H
 #define WIDGET_H
 
-#include <QWidget>
+#include <QMainWindow>
 
-namespace Ui {
-class Widget;
-}
 
-class Widget : public QWidget
+class QAction;
+class QActionGroup;
+
+class QMenu;
+
+class MainWindow : public QMainWindow
 {
     Q_OBJECT
-    
+
 public:
-    explicit Widget(QWidget *parent = 0);
-    void keyPressEvent(QKeyEvent *);
-    ~Widget();
+    MainWindow();
+
+protected:
+    void contextMenuEvent(QContextMenuEvent *event);
 
 private slots:
-    void on_Keyb_C_pressed();
-    void on_Keyb_Cs_pressed();
-    void on_Keyb_D_pressed();
-    void on_Keyb_Ds_pressed();
-    void on_Keyb_E_pressed();
-    void on_Keyb_F_pressed();
-    void on_Keyb_Fs_pressed();
-    void on_Keyb_G_pressed();
-    void on_Keyb_Gs_pressed();
-    void on_Keyb_A_pressed();
-    void on_Keyb_As_pressed();
-    void on_Keyb_B_pressed();
+    // Funções
+    void Composicao();
+    void Abrir();
+    void Salvar();
+    void Metronomo();
+    void Oitava();
+    void Instrumento_1();
+    void Instrumento_2();
+    void Instrumento_3();
 
 private:
-    Ui::Widget *ui;
+  // Isso é necessário para poder fazer as ações
+    void createActions();
+    void createMenus();
+// São as abas de menu
+    QMenu *ArquivoMenu;
+    QMenu *editMenu;
+    QMenu *TimbreMenu;
+
+// Cada Ação correspondente a uma função, para diferenciar das funções coloquei " _A "
+// Esses elementos serão chamados no menu
+    QAction *Composicao_A;
+    QAction *Abrir_A;
+    QAction *Salvar_A;
+    QAction *Sair_A;
+    QAction *Metronomo_A;
+    QAction *Oitava_A;
+    QAction *Instrumento_1_A;
+    QAction *Instrumento_2_A;
+    QAction *Instrumento_3_A;
+
 };
 
-#endif // WIDGET_H
+#endif
