@@ -8,5 +8,8 @@
         <file>pics/tecbrancadir.png</file>
         <file>pics/tecbrancamei.png</file>
         <file>pics/tecbrancaesq.png</file>
+        <file>pics/record.png</file>
+        <file>pics/pause.png</file>
+        <file>pics/play.png</file>
     </qresource>
 </RCC>

@@ -10,6 +10,7 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow();
+    ~MainWindow();
 
 protected:
     void contextMenuEvent(QContextMenuEvent *event);
