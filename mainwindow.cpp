@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "tecla_e_freq.h"
 #include <QKeyEvent>
+#include <QIcon>
 #include <botao.h>
 #include <QString>
 #include <QtWidgets>
@@ -45,6 +46,7 @@ MainWindow::MainWindow() {
     setWindowTitle(tr("That Piano Program"));
     setMinimumSize(712, 300);
     resize(712,300);
+    setWindowIcon(QIcon(tr(":/pics/icon.svg")));
 
     piano = new Widget(middle);
 }
