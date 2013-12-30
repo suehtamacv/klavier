@@ -8,6 +8,7 @@ class Botao : public QPushButton //Esta classe foi criada para implementar os sl
     Q_OBJECT
 public:
     Botao();
+    Botao(QWidget *);
     
 signals:
     

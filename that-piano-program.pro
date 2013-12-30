@@ -16,12 +16,14 @@ TEMPLATE = app
 SOURCES += main.cpp\
         widget.cpp \
     mainwindow.cpp \
-    botao.cpp
+    botao.cpp \
+    metronomo.cpp
 
 HEADERS  += widget.h \
     tecla_e_freq.h \
     mainwindow.h \
-    botao.h
+    botao.h \
+    metronomo.h
 
 FORMS    += widget.ui
 

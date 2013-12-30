@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QHBoxLayout>
 #include "widget.h"
+#include "metronomo.h"
 
 class MainWindow : public QMainWindow
 {
@@ -12,14 +13,19 @@ class MainWindow : public QMainWindow
 public:
     MainWindow();
     ~MainWindow();
+    void set_bpm(float);
 
 protected:
     void contextMenuEvent(QContextMenuEvent *event);
+
+public slots:
+    void Adiciona_Botao_Metronomo();
 
 private slots:
     // Funções
     void Composicao();
     void Abrir();
+    void Fechar();
     void Salvar();
     void Metronomo();
     void Oitava();
@@ -30,14 +36,15 @@ private slots:
     void keyReleaseEvent(QKeyEvent *);
 
 private:
-  // Isso é necessário para poder fazer as ações
+    float BPM;
+    int isBPM;
+// Isso é necessário para poder fazer as ações
     void createActions();
     void createMenus();
 // São as abas de menu
     QMenu *ArquivoMenu;
     QMenu *editMenu;
     QMenu *TimbreMenu;
-
 // Cada Ação correspondente a uma função, para diferenciar das funções coloquei " _A "
 // Esses elementos serão chamados no menu
     QAction *Composicao_A;
@@ -50,7 +57,9 @@ private:
     QAction *Instrumento_2_A;
     QAction *Instrumento_3_A;
     Widget *piano;
-    QHBoxLayout* set_buttons();
+    metronomo *wid_metronomo;
+    void set_buttons();
+    QHBoxLayout *buttons;
 };
 
 #endif // MAINWINDOW_H

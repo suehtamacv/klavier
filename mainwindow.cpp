@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "metronomo.h"
 #include "tecla_e_freq.h"
 #include <QKeyEvent>
 #include <QIcon>
@@ -9,6 +10,9 @@
 #include <QFileDialog>
 
 MainWindow::MainWindow() {
+    BPM=0;
+    isBPM=0;
+
     QWidget *widget = new QWidget; // Criando a barra principal
     setCentralWidget(widget);
 
@@ -31,7 +35,8 @@ MainWindow::MainWindow() {
     vlayout->setMargin(0);
     vlayout->addWidget(topFiller);
     vlayout->addWidget(middle);
-    vlayout->addLayout(set_buttons());
+    set_buttons();
+    vlayout->addLayout(buttons);
     vlayout->addWidget(bottomFiller);
 
     hlayout->setMargin(0);
@@ -53,6 +58,7 @@ MainWindow::MainWindow() {
 
 MainWindow::~MainWindow() {
     delete piano;
+    close();
 }
 
 void MainWindow::contextMenuEvent(QContextMenuEvent *event) // Aqui será as funções das ações ( Ou métodos, como preferir chamar )
@@ -80,9 +86,10 @@ void MainWindow::Salvar()
     delete salvar_arquivo;
 }
 
-void MainWindow::Metronomo()
-{
-    // Função
+void MainWindow::Metronomo() {
+    wid_metronomo = new metronomo(this);
+    wid_metronomo->setAttribute(Qt::WA_DeleteOnClose);
+    connect(this,SIGNAL(destroyed()),wid_metronomo,SLOT(fechar()));
 }
 
 void MainWindow::Oitava()
@@ -128,7 +135,7 @@ void MainWindow::createActions() // Aqui são as ações que deverão está cone
     Sair_A = new QAction("Sair", this);
 /*  Sair_A->setShortcuts(QKeySequence::Quit); */ // Deixarei Optativo
 /*  Sair_A->setStatusTip("Sair do programa"); */ // Deixarei Optativo
-    connect(Sair_A, SIGNAL(triggered()), this, SLOT(close())); // Esse já pega tranquilo, sem função
+    connect(Sair_A, SIGNAL(triggered()), this, SLOT(Fechar())); // Esse já pega tranquilo, sem função
 
     Metronomo_A = new QAction("Ajustar Metronômo", this);
 
@@ -193,7 +200,7 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event) {
     piano->tratar_tecla_solta(event);
 }
 
-QHBoxLayout* MainWindow::set_buttons() {
+void MainWindow::set_buttons() {
     Botao *record = new Botao();
     Botao *play = new Botao();
     Botao *stop = new Botao();
@@ -216,7 +223,7 @@ QHBoxLayout* MainWindow::set_buttons() {
     stop->setFixedSize(50,50);
     stop->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed);
     stop->setEnabled(false);
-    QHBoxLayout *buttons = new QHBoxLayout;
+    buttons = new QHBoxLayout;
     buttons->setMargin(5);
     buttons->addWidget(play);
     buttons->addWidget(pause);
@@ -239,5 +246,25 @@ QHBoxLayout* MainWindow::set_buttons() {
     connect(record,SIGNAL(clicked()),play,SLOT(desativar()));
     connect(record,SIGNAL(clicked()),pause,SLOT(desativar()));
 
-    return buttons;
+//    return buttons;
+}
+
+void MainWindow::Fechar() {
+    this->destroy(true,true);
+    this->~MainWindow();
+}
+
+void MainWindow::Adiciona_Botao_Metronomo() {
+    BPM = wid_metronomo->get_bpm();
+    if (BPM!=0) {
+        if (isBPM==0) {
+            Botao *metr= new Botao();
+            metr->setIconSize(QSize(30,30));
+            metr->setFixedSize(50,50);
+            metr->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed);
+            metr->setIcon(QIcon(QPixmap(":/pics/metronomo.png")));
+            buttons->addWidget(metr);
+            isBPM=1;
+        }
+    }
 }
