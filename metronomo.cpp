@@ -50,8 +50,8 @@ metronomo::~metronomo() {
 
 void metronomo::on_botao_pressed() {
     switch(rotacao) {
-        case 0: rotacao++; break;
-        case 1: tempo_ini=time(NULL) ; botao->setIcon(QIcon(QPixmap(":/pics/clock2.png"))); rotacao++; break;
+        case 0: tempo_ini=time(NULL); rotacao++; break;
+        case 1: botao->setIcon(QIcon(QPixmap(":/pics/clock2.png"))); rotacao++; break;
         case 2: rotacao++; break;
         case 3: botao->setIcon(QIcon(QPixmap(":/pics/clock3.png"))); rotacao++; break;
         case 4: rotacao++; break;
@@ -71,7 +71,7 @@ void metronomo::calc_bpm() {
         result_bpm->setInformativeText("O Metrônomo não conseguiu identificar a frequência da batida.");
         result_bpm->exec();
     } else {
-        bpm = 240.0/bpm;
+        bpm = 480.0/bpm;
         result_bpm->setText("O Metrônomo retorna uma batida de " + QString::number(bpm) + " bpm.");
         result_bpm->exec();
     }

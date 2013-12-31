@@ -51,7 +51,7 @@ MainWindow::MainWindow() {
     setWindowTitle(tr("That Piano Program"));
     setMinimumSize(712, 300);
     resize(712,300);
-    setWindowIcon(QIcon(tr(":/pics/icon.svg")));
+    setWindowIcon(QIcon(tr(":/pics/ico500px.png")));
 
     piano = new Widget(middle);
 }
@@ -82,7 +82,7 @@ void MainWindow::Abrir()
 void MainWindow::Salvar()
 {
     QFileDialog *salvar_arquivo = new QFileDialog(this);
-    QString caminho = salvar_arquivo->getSaveFileName(this,tr("Salvar Como"),".",tr("Images (*.jpg *.png)"));
+    QString caminho = salvar_arquivo->getSaveFileName(this,tr("Abrir Arquivo"),".",tr("Images (*.jpg *.png)"));
     delete salvar_arquivo;
 }
 

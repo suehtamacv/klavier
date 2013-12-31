@@ -12,11 +12,11 @@
         <file>pics/pause.png</file>
         <file>pics/play.png</file>
         <file>pics/stop.png</file>
-        <file>pics/icon.svg</file>
         <file>pics/clock4.png</file>
         <file>pics/clock3.png</file>
         <file>pics/clock2.png</file>
         <file>pics/clock1.png</file>
         <file>pics/metronomo.png</file>
+        <file>pics/ico500px.png</file>
     </qresource>
 </RCC>
