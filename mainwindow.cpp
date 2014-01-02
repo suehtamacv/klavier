@@ -283,7 +283,7 @@ void MainWindow::play_metronomo(int) {
         } else {
                 if(clique->isFinished()) {
                     clique->play();
-                    QTimer::singleShot(1000*frequencia - 100,this,SLOT(play_metronomo()));
+                    QTimer::singleShot(1000*frequencia,this,SLOT(play_metronomo()));
                 }
         }
     } else {
