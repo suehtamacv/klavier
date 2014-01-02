@@ -1,17 +1,22 @@
 #include "mainwindow.h"
 #include "metronomo.h"
 #include "tecla_e_freq.h"
+#include <stdlib.h>
+#include <widget.h>
 #include <QKeyEvent>
 #include <QIcon>
 #include <botao.h>
 #include <QString>
 #include <QtWidgets>
-#include <widget.h>
 #include <QFileDialog>
+#include <QSound>
+#include <QTimer>
 
 MainWindow::MainWindow() {
     BPM=0;
     isBPM=0;
+
+    clique = new QSound(":/sounds/click.wav");
 
     QWidget *widget = new QWidget; // Criando a barra principal
     setCentralWidget(widget);
@@ -258,13 +263,34 @@ void MainWindow::Adiciona_Botao_Metronomo() {
     BPM = wid_metronomo->get_bpm();
     if (BPM!=0) {
         if (isBPM==0) {
-            Botao *metr= new Botao();
+            metr = new QCheckBox(this);
             metr->setIconSize(QSize(30,30));
-            metr->setFixedSize(50,50);
+            metr->setFixedSize(60,50);
             metr->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed);
             metr->setIcon(QIcon(QPixmap(":/pics/metronomo.png")));
             buttons->addWidget(metr);
+            connect(metr,SIGNAL(stateChanged(int)),this,SLOT(play_metronomo(int)));
             isBPM=1;
         }
     }
+}
+
+void MainWindow::play_metronomo(int) {
+    float frequencia = 60.0 / BPM;
+    if (metr->isChecked()) { //botao ativo
+        if (BPM == 0) {
+            Metronomo();
+        } else {
+                if(clique->isFinished()) {
+                    clique->play();
+                    QTimer::singleShot(1000*frequencia - 100,this,SLOT(play_metronomo()));
+                }
+        }
+    } else {
+        clique->stop();
+    }
+}
+
+void MainWindow::play_metronomo() {
+    this->play_metronomo(0);
 }

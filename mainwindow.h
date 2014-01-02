@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QCheckBox>
+#include <QSound>
 #include <QHBoxLayout>
 #include "widget.h"
 #include "metronomo.h"
@@ -34,8 +36,11 @@ private slots:
     void Instrumento_3();
     void keyPressEvent(QKeyEvent *);
     void keyReleaseEvent(QKeyEvent *);
+    void play_metronomo();
+    void play_metronomo(int);
 
 private:
+    void set_buttons();
     float BPM;
     int isBPM;
 // Isso é necessário para poder fazer as ações
@@ -58,8 +63,9 @@ private:
     QAction *Instrumento_3_A;
     Widget *piano;
     metronomo *wid_metronomo;
-    void set_buttons();
     QHBoxLayout *buttons;
+    QSound *clique;
+    QCheckBox *metr;
 };
 
 #endif // MAINWINDOW_H

@@ -18,5 +18,6 @@
         <file>pics/clock1.png</file>
         <file>pics/metronomo.png</file>
         <file>pics/ico500px.png</file>
+        <file>sounds/click.wav</file>
     </qresource>
 </RCC>
