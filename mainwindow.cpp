@@ -2,10 +2,10 @@
 #include "metronomo.h"
 #include "tecla_e_freq.h"
 #include <stdlib.h>
-#include <widget.h>
+#include "widget.h"
 #include <QKeyEvent>
 #include <QIcon>
-#include <botao.h>
+#include "botao.h"
 #include <QString>
 #include <QtWidgets>
 #include <QFileDialog>
