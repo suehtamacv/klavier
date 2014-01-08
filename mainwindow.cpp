@@ -87,7 +87,7 @@ void MainWindow::Abrir()
 void MainWindow::Salvar()
 {
     QFileDialog *salvar_arquivo = new QFileDialog(this);
-    QString caminho = salvar_arquivo->getSaveFileName(this,tr("Abrir Arquivo"),".",tr("Images (*.jpg *.png)"));
+    QString caminho = salvar_arquivo->getSaveFileName(this,tr("Salvar Arquivo"),".",tr("Images (*.jpg *.png)"));
     delete salvar_arquivo;
 }
 
