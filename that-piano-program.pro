@@ -18,14 +18,14 @@ SOURCES += main.cpp\
     mainwindow.cpp \
     botao.cpp \
     metronomo.cpp \
-    som.cpp
+    sonora.cpp
 
 HEADERS  += widget.h \
     tecla_e_freq.h \
     mainwindow.h \
     botao.h \
     metronomo.h \
-    som.h
+    sonora.h
 
 FORMS    += widget.ui
 

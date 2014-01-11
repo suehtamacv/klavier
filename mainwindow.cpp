@@ -64,6 +64,7 @@ MainWindow::MainWindow() {
 
 MainWindow::~MainWindow() {
     delete piano;
+    sound->~sonora();
     delete sound;
     close();
 }
@@ -200,13 +201,21 @@ void MainWindow::createMenus() // Configurando como fica no Menu!
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event) {
-    piano->tratar_tecla_pressionada(event);
-    sound->tocar_nota(event);
+    if (event->isAutoRepeat()) {
+        event->ignore();
+    } else {
+        piano->tratar_tecla_pressionada(event);
+        sound->tocar_nota(event);
+    }
 }
 
 void MainWindow::keyReleaseEvent(QKeyEvent *event) {
-    piano->tratar_tecla_solta(event);
-    sound->parar_nota(event);
+    if (event->isAutoRepeat()) {
+        event->ignore();
+    } else {
+        piano->tratar_tecla_solta(event);
+        sound->parar_nota(event);
+    }
 }
 
 void MainWindow::set_buttons() {

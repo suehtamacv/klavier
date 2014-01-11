@@ -7,7 +7,8 @@
 #include <QHBoxLayout>
 #include "widget.h"
 #include "metronomo.h"
-#include "som.h"
+#include "sonora.h"
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
