@@ -1,4 +1,0 @@
-#ifndef DUOIHAOIUDH_H
-#define DUOIHAOIUDH_H
-
-#endif // DUOIHAOIUDH_H
