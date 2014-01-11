@@ -7,7 +7,7 @@
 #include <QHBoxLayout>
 #include "widget.h"
 #include "metronomo.h"
-
+#include "som.h"
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -15,6 +15,10 @@ class MainWindow : public QMainWindow
 public:
     MainWindow();
     ~MainWindow();
+
+    sound = new sonora();
+    delete sound;
+
     void set_bpm(float);
 
 protected:
@@ -66,6 +70,7 @@ private:
     QHBoxLayout *buttons;
     QSound *clique;
     QCheckBox *metr;
+    sonora *sound;
 };
 
 #endif // MAINWINDOW_H

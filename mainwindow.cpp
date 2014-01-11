@@ -199,10 +199,12 @@ void MainWindow::createMenus() // Configurando como fica no Menu!
 
 void MainWindow::keyPressEvent(QKeyEvent *event) {
     piano->tratar_tecla_pressionada(event);
+    sound->play_nota(event);
 }
 
 void MainWindow::keyReleaseEvent(QKeyEvent *event) {
     piano->tratar_tecla_solta(event);
+    sound->stop_nota(event);
 }
 
 void MainWindow::set_buttons() {
