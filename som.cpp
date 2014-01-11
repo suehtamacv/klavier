@@ -5,25 +5,18 @@
 #include <QUrl>
 #include <QString>
 
-sonora::sonora(){
-   int i =0;
-
+sonora::sonora() {
+    int i =0;
     Player = new QMediaPlayer[24];
 
-
     for ( i = 0; i<=23 ; i++){
-
-    Players[i].setMedia(QMediaContent(QUrl::fromLocalFile(QDir::currentPath() + QString::tr("/sounds/Amostras/Piano/") + QString::number(i) + QString::tr(".mp3")));
-    Player[i].setVolume(50);
-
+        Player[i].setMedia(QMediaContent(QUrl::fromLocalFile(QDir::currentPath() + QString::tr("/sounds/Amostras/Piano/") + QString::number(i) + QString::tr(".mp3"))));
+        Player[i].setVolume(50);
     }
-
 
 }
 sonora::~sonora() {
-
-    delete sonora;
-
+    delete Player;
 }
 
 void sonora::tocar_nota(QKeyEvent *event) {
@@ -56,9 +49,8 @@ void sonora::tocar_nota(QKeyEvent *event) {
     }
 }
 
-void sonora::parar_nota(QKeyEvent *){
+void sonora::parar_nota(QKeyEvent *event){
     switch(event->key()) {
-
        case C1: Player[0].stop(); break;
        case Cs1: Player[1].stop(); break;
        case D1: Player[2].stop(); break;

@@ -18,7 +18,7 @@ SOURCES += main.cpp\
     mainwindow.cpp \
     botao.cpp \
     metronomo.cpp \
-    sons.cpp
+    som.cpp
 
 HEADERS  += widget.h \
     tecla_e_freq.h \
