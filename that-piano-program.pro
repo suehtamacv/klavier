@@ -17,13 +17,15 @@ SOURCES += main.cpp\
         widget.cpp \
     mainwindow.cpp \
     botao.cpp \
-    metronomo.cpp
+    metronomo.cpp \
+    sons.cpp
 
 HEADERS  += widget.h \
     tecla_e_freq.h \
     mainwindow.h \
     botao.h \
-    metronomo.h
+    metronomo.h \
+    som.h
 
 FORMS    += widget.ui
 
