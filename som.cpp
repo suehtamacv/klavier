@@ -1,16 +1,16 @@
-#include "tecla_e_freq.h"
 #include <QKeyEvent>
 #include "som.h"
 #include <QDir>
 #include <QUrl>
 #include <QString>
+#include "tecla_e_freq.h"
 
 sonora::sonora() {
     int i =0;
     Player = new QMediaPlayer[24];
 
     for ( i = 0; i<=23 ; i++){
-        Player[i].setMedia(QMediaContent(QUrl::fromLocalFile(QDir::currentPath() + QString::tr("/sounds/Amostras/Piano/") + QString::number(i) + QString::tr(".mp3"))));
+        Player[i].setMedia(QMediaContent(QUrl::fromLocalFile(QDir::currentPath() +  QString("/sounds/Amostras/Piano/") + QString::number(i) + QString(".mp3"))));
         Player[i].setVolume(50);
     }
 
