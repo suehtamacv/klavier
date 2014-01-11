@@ -15,10 +15,6 @@ class MainWindow : public QMainWindow
 public:
     MainWindow();
     ~MainWindow();
-
-    sound = new sonora();
-    delete sound;
-
     void set_bpm(float);
 
 protected:

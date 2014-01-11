@@ -16,6 +16,7 @@ MainWindow::MainWindow() {
     BPM=0;
     isBPM=0;
 
+    sound = new sonora();
     clique = new QSound(":/sounds/click.wav");
 
     QWidget *widget = new QWidget; // Criando a barra principal
@@ -63,6 +64,7 @@ MainWindow::MainWindow() {
 
 MainWindow::~MainWindow() {
     delete piano;
+    delete sound;
     close();
 }
 
@@ -199,12 +201,12 @@ void MainWindow::createMenus() // Configurando como fica no Menu!
 
 void MainWindow::keyPressEvent(QKeyEvent *event) {
     piano->tratar_tecla_pressionada(event);
-    sound->play_nota(event);
+    sound->tocar_nota(event);
 }
 
 void MainWindow::keyReleaseEvent(QKeyEvent *event) {
     piano->tratar_tecla_solta(event);
-    sound->stop_nota(event);
+    sound->parar_nota(event);
 }
 
 void MainWindow::set_buttons() {
