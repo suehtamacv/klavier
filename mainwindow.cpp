@@ -205,18 +205,16 @@ void MainWindow::createMenus() // Configurando como fica no Menu!
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event) {
-    if (event->isAutoRepeat()) {
-        event->ignore();
-    } else {
+    if (!event->isAutoRepeat()) {
+        event->accept();
         piano->tratar_tecla_pressionada(event);
         sound->tocar_nota(event);
     }
 }
 
 void MainWindow::keyReleaseEvent(QKeyEvent *event) {
-    if (event->isAutoRepeat()) {
-        event->ignore();
-    } else {
+    if (!event->isAutoRepeat()) {
+        event->accept();
         piano->tratar_tecla_solta(event);
         sound->parar_nota(event);
     }
