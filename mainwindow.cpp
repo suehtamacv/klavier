@@ -2,15 +2,18 @@
 #include "metronomo.h"
 #include "tecla_e_freq.h"
 #include <stdlib.h>
+#include "sonora.h"
 #include "widget.h"
+#include "botao.h"
 #include <QKeyEvent>
 #include <QIcon>
-#include "botao.h"
 #include <QString>
 #include <QtWidgets>
 #include <QFileDialog>
 #include <QSound>
 #include <QTimer>
+
+
 
 MainWindow::MainWindow() {
     BPM=0;
@@ -60,6 +63,7 @@ MainWindow::MainWindow() {
     setWindowIcon(QIcon(tr(":/pics/ico500px.png")));
 
     piano = new Widget(middle);
+
 }
 
 MainWindow::~MainWindow() {
@@ -107,17 +111,17 @@ void MainWindow::Oitava()
 
 void MainWindow::Instrumento_1()
 {
-    // Função
+    sound->set_instrumento(sonora::Piano);
 }
 
 void MainWindow::Instrumento_2()
 {
-    // Função
+    sound->set_instrumento(sonora::Guitarra);
 }
 
 void MainWindow::Instrumento_3()
 {
-    // Função
+    sound->set_instrumento(sonora::Whatever);
 }
 
 
@@ -161,18 +165,18 @@ se usarmos atalhos teremos de criar os próprios atalhos. Eu acho melhor deixar 
 
 /* Essa Opção de Editar é uma sugestão ! ( mudar o instrumento ) */
 
-    Instrumento_1_A = new QAction("Instrumento 1", this);
+    Instrumento_1_A = new QAction("Piano", this);
 /*  Instrumento_1_A->setStatusTip("Troca o timbre"); */
     connect(Instrumento_1_A, SIGNAL(triggered()), this, SLOT(Instrumento_1()));
 
 
-    Instrumento_2_A = new QAction("Instrumento 2", this);
+    Instrumento_2_A = new QAction("Guitarra", this);
 /*  Instrumento_2_A->setStatusTip("Troca o timbre"); */
     connect(Instrumento_2_A, SIGNAL(triggered()), this, SLOT(Instrumento_2()));
 
 
 
-    Instrumento_3_A = new QAction("Instrumento 3", this);
+    Instrumento_3_A = new QAction("Whatever", this);
 /*  Instrumento_3_A->setStatusTip("Troca o timbre"); */
     connect(Instrumento_3_A, SIGNAL(triggered()), this, SLOT(Instrumento_3()));
 

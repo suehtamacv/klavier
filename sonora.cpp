@@ -6,15 +6,10 @@
 #include "tecla_e_freq.h"
 
 sonora::sonora() {
-    int i =0;
     Player = new QMediaPlayer[24];
-
-    for ( i = 0; i<=23 ; i++){
-        Player[i].setMedia(QMediaContent(QUrl::fromLocalFile(QDir::currentPath() +  QString("/sounds/Amostras/Piano/") + QString::number(i) + QString(".mp3"))));
-        Player[i].setVolume(50);
-    }
-
+    set_instrumento(sonora::Piano);
 }
+
 sonora::~sonora() {
     //delete Player;
 }
@@ -87,4 +82,30 @@ void sonora::parar_nota(QKeyEvent *event){
     if (note!=-1) {
         if (Player[note].state() != QMediaPlayer::StoppedState) Player[note].stop();
     }
+}
+
+void sonora::set_instrumento(Instrumentos I) {
+    switch (I){
+        case Piano:
+            for ( int i = 0; i<=23 ; i++){
+                Player[i].setMedia(QMediaContent(QUrl::fromLocalFile(QDir::currentPath() +  QString("/sounds/Amostras/Piano/") + QString::number(i) + QString(".mp3"))));
+                Player[i].setVolume(50);
+            }
+            break;
+
+        case Guitarra:
+            for ( int i = 0; i<=23 ; i++){
+                Player[i].setMedia(QMediaContent(QUrl::fromLocalFile(QDir::currentPath() +  QString("/sounds/Amostras/Guitarra/g") + QString::number(i) + QString(".mp3"))));
+                Player[i].setVolume(50);
+            }
+            break;
+
+        case Whatever: //por enquanto coloca GUITARRA
+            for ( int i = 0; i<=23 ; i++){
+                Player[i].setMedia(QMediaContent(QUrl::fromLocalFile(QDir::currentPath() +  QString("/sounds/Amostras/Guitarra/g") + QString::number(i) + QString(".mp3"))));
+                Player[i].setVolume(50);
+            }
+            break;
+    }
+
 }

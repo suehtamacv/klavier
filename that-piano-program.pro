@@ -56,4 +56,29 @@ OTHER_FILES += \
     sounds/Amostras/Piano/20.mp3 \
     sounds/Amostras/Piano/21.mp3 \
     sounds/Amostras/Piano/22.mp3 \
-    sounds/Amostras/Piano/23.mp3
+    sounds/Amostras/Piano/23.mp3 \
+    sounds/Amostras/Guitarra/g7.mp3 \
+    sounds/Amostras/Guitarra/g24.mp3 \
+    sounds/Amostras/Guitarra/g6.mp3 \
+    sounds/Amostras/Guitarra/g18.mp3 \
+    sounds/Amostras/Guitarra/g23.mp3 \
+    sounds/Amostras/Guitarra/g10.mp3 \
+    sounds/Amostras/Guitarra/g4.mp3 \
+    sounds/Amostras/Guitarra/g19.mp3 \
+    sounds/Amostras/Guitarra/g13.mp3 \
+    sounds/Amostras/Guitarra/g1.mp3 \
+    sounds/Amostras/Guitarra/g15.mp3 \
+    sounds/Amostras/Guitarra/g11.mp3 \
+    sounds/Amostras/Guitarra/g0.mp3 \
+    sounds/Amostras/Guitarra/g21.mp3 \
+    sounds/Amostras/Guitarra/g5.mp3 \
+    sounds/Amostras/Guitarra/g9.mp3 \
+    sounds/Amostras/Guitarra/g16.mp3 \
+    sounds/Amostras/Guitarra/g2.mp3 \
+    sounds/Amostras/Guitarra/g8.mp3 \
+    sounds/Amostras/Guitarra/g22.mp3 \
+    sounds/Amostras/Guitarra/g14.mp3 \
+    sounds/Amostras/Guitarra/g12.mp3 \
+    sounds/Amostras/Guitarra/g17.mp3 \
+    sounds/Amostras/Guitarra/g20.mp3 \
+    sounds/Amostras/Guitarra/g3.mp3
