@@ -78,8 +78,6 @@ RESOURCES += \
     sounds/samples/g20.qrc \
     sounds/samples/g21.qrc \
     sounds/samples/g22.qrc \
-    sounds/samples/g23.qrc \
-    sounds/samples/g24.qrc
-
+    sounds/samples/g23.qrc
 
 OTHER_FILES +=

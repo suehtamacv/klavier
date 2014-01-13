@@ -4,6 +4,8 @@
 #include <QKeyEvent>
 #include <QMediaPlayer>
 #include <QString>
+#include <QTemporaryFile>
+
 class sonora {
 
     public:
@@ -18,6 +20,9 @@ class sonora {
 
     private:
         QMediaPlayer *Player;
+        QFile **Files;
+        void create_temp_files();
+        void delete_temp_files();
 };
 
 

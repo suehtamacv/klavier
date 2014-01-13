@@ -1,16 +1,23 @@
 #include <QKeyEvent>
 #include "sonora.h"
 #include <QDir>
+#include <QFile>
+#include <QTemporaryFile>
 #include <QUrl>
 #include <QString>
 #include "tecla_e_freq.h"
 
 sonora::sonora() {
     Player = new QMediaPlayer[24];
+    create_temp_files();
     set_instrumento(sonora::Piano);
+    for (int i = 0; i<=23 ; i++ ) {
+        Player[i].setMedia(QMediaContent(QUrl::fromLocalFile(QDir::tempPath() + QString("/work") + QString::number(i) + QString(".mp3"))));
+    }
 }
 
 sonora::~sonora() {
+    delete_temp_files();
     //delete Player;
 }
 
@@ -88,24 +95,56 @@ void sonora::set_instrumento(Instrumentos I) {
     switch (I){
         case Piano:
             for ( int i = 0; i<=23 ; i++){
-                Player[i].setMedia(QMediaContent(QUrl::fromLocalFile(QDir::currentPath() +  QString("/sounds/Amostras/Piano/") + QString::number(i) + QString(".mp3"))));
-                Player[i].setVolume(50);
+                QFile piano(":/sounds/samples/p" + QString::number(i) + ".mp3");
+                if (Files[i]->open(QIODevice::ReadWrite)) {
+                    if (piano.open(QIODevice::ReadOnly)) {
+                        Files[i]->write(piano.readAll());
+                        piano.close();
+                    }
+                    Files[i]->close();
+                }
             }
             break;
 
         case Guitarra:
             for ( int i = 0; i<=23 ; i++){
-                Player[i].setMedia(QMediaContent(QUrl::fromLocalFile(QDir::currentPath() +  QString("/sounds/Amostras/Guitarra/g") + QString::number(i) + QString(".mp3"))));
-                Player[i].setVolume(50);
+                QFile guitarra(":/sounds/samples/g" + QString::number(i) + ".mp3");
+                if (Files[i]->open(QIODevice::ReadWrite)) {
+                    if (guitarra.open(QIODevice::ReadOnly)) {
+                        Files[i]->write(guitarra.readAll());
+                        guitarra.close();
+                    }
+                    Files[i]->close();
+                }
             }
             break;
 
         case Whatever: //por enquanto coloca GUITARRA
             for ( int i = 0; i<=23 ; i++){
-                Player[i].setMedia(QMediaContent(QUrl::fromLocalFile(QDir::currentPath() +  QString("/sounds/Amostras/Guitarra/g") + QString::number(i) + QString(".mp3"))));
-                Player[i].setVolume(50);
+                QFile whatever(":/sounds/samples/g" + QString::number(i) + ".mp3");
+                if (Files[i]->open(QIODevice::ReadWrite)) {
+                    if (whatever.open(QIODevice::ReadOnly)) {
+                        Files[i]->write(whatever.readAll());
+                        whatever.close();
+                    }
+                    Files[i]->close();
+                }
             }
             break;
     }
 
 }
+
+void sonora::create_temp_files() {
+    Files = new QFile*[24];
+    for (int i = 0; i<=23; i++) {
+        Files[i] = new QFile(QDir::tempPath() + "/work" + QString::number(i) + ".mp3");
+    }
+}
+
+void sonora::delete_temp_files() {
+    for (int i=0 ; i<=23 ; i++) {
+        QFile::remove(QDir::tempPath() + "/work" + QString::number(i) + ".mp3");
+    }
+}
+
