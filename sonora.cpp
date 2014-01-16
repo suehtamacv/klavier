@@ -8,7 +8,7 @@
 
 sonora::sonora() {
     Player = new QMediaPlayer[24];
-    create_temp_files();
+    criar_arq_temp();
     set_instrumento(sonora::Piano);
     for (int i = 0; i<=23 ; i++ ) {
         Player[i].setMedia(QMediaContent(QUrl::fromLocalFile(QDir::tempPath() + QString("/work") + QString::number(i) + QString(".mp3"))));
@@ -16,7 +16,7 @@ sonora::sonora() {
 }
 
 sonora::~sonora() {
-    delete_temp_files();
+    excluir_arq_temp();
     //delete Player;
 }
 
@@ -134,14 +134,14 @@ void sonora::set_instrumento(Instrumentos I) {
 
 }
 
-void sonora::create_temp_files() {
+void sonora::criar_arq_temp() {
     Files = new QFile*[24];
     for (int i = 0; i<=23; i++) {
         Files[i] = new QFile(QDir::tempPath() + "/work" + QString::number(i) + ".mp3");
     }
 }
 
-void sonora::delete_temp_files() {
+void sonora::excluir_arq_temp() {
     for (int i=0 ; i<=23 ; i++) {
         QFile::remove(QDir::tempPath() + "/work" + QString::number(i) + ".mp3");
     }

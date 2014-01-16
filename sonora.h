@@ -21,8 +21,8 @@ class sonora {
     private:
         QMediaPlayer *Player;
         QFile **Files;
-        void create_temp_files();
-        void delete_temp_files();
+        void criar_arq_temp();
+        void excluir_arq_temp();
 };
 
 
