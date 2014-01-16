@@ -104,6 +104,13 @@ void MainWindow::Metronomo() {
     connect(this,SIGNAL(destroyed()),wid_metronomo,SLOT(fechar()));
 }
 
+void MainWindow::Manual() {
+    wid_metronomo = new metronomo(this, 1);
+    wid_metronomo->setAttribute(Qt::WA_DeleteOnClose);
+    connect(this,SIGNAL(destroyed()),wid_metronomo,SLOT(fechar()));
+
+}
+
 void MainWindow::Oitava()
 {
     // Função
@@ -128,56 +135,40 @@ void MainWindow::Instrumento_3()
 void MainWindow::createActions() // Aqui são as ações que deverão está conectadas com as funções
 {
     Composicao_A = new QAction("Novo",this); // Isso é o que será exibido no Menu
- /* Composicao_A->setShortcuts(QKeySequence::New);*/ //Esse comando apresenta o atalho na tela
- /* Composicao_A->setStatusTip("Cria um novo Arquivo");*/ // Esse Comando dá uma breve informação no canto inferior da tela
     connect(Composicao_A, SIGNAL(triggered()), this, SLOT(Composicao()));
 
     Abrir_A = new QAction("Abrir", this);
- /* Abrir_A->setShortcuts(QKeySequence::Abrir); */ // Deixarei Optativo
-/*  Abrir_A->setStatusTip("Abre um arquivo"); */ // Deixarei Optativo
     connect(Abrir_A, SIGNAL(triggered()), this, SLOT(Abrir()));
 
     Salvar_A = new QAction("Salvar", this);
-/*  Salvar_A->setShortcuts(QKeySequence::Salvar); */ // Deixarei Optativo
-/*  Salvar_A->setStatusTip("Salvar Composição)); */ // Deixarei Optativo
     connect(Salvar_A, SIGNAL(triggered()), this, SLOT(Salvar()));
 
 
 
     Sair_A = new QAction("Sair", this);
-/*  Sair_A->setShortcuts(QKeySequence::Quit); */ // Deixarei Optativo
-/*  Sair_A->setStatusTip("Sair do programa"); */ // Deixarei Optativo
     connect(Sair_A, SIGNAL(triggered()), this, SLOT(Fechar())); // Esse já pega tranquilo, sem função
 
     Metronomo_A = new QAction("Ajustar Metronômo", this);
-
-/* Os atalhos ja são definidos pelo sistema, por isso deixei optativo. No caso dos comando de Editar,
-se usarmos atalhos teremos de criar os próprios atalhos. Eu acho melhor deixar sem */
-
-/*  Metronomo_A->setStatusTip("Altera O tempo do Metrônomo"); */ // Deixarei Optativo
     connect(Metronomo_A, SIGNAL(triggered()), this, SLOT(Metronomo()));
 
+    Manual_A = new QAction("Definir Batimentos", this);
+    connect(Manual_A, SIGNAL(triggered()), this, SLOT(Manual()));
+
     Oitava_A = new QAction("Alterar Oitava", this);
-    /* Os atalhos ja são definidos pelo sistema, por isso deixei optativo. No caso dos comando de Editar,
-    se usarmos atalhos teremos de criar os próprios atalhos. Eu acho melhor deixar sem */
-/*  Oitava_A->setStatusTip(" Muda a oitava "); */ // Deixarei Optativo
     connect(Oitava_A, SIGNAL(triggered()), this, SLOT(Oitava()));
 
 /* Essa Opção de Editar é uma sugestão ! ( mudar o instrumento ) */
 
     Instrumento_1_A = new QAction("Piano", this);
-/*  Instrumento_1_A->setStatusTip("Troca o timbre"); */
     connect(Instrumento_1_A, SIGNAL(triggered()), this, SLOT(Instrumento_1()));
 
 
     Instrumento_2_A = new QAction("Guitarra", this);
-/*  Instrumento_2_A->setStatusTip("Troca o timbre"); */
     connect(Instrumento_2_A, SIGNAL(triggered()), this, SLOT(Instrumento_2()));
 
 
 
     Instrumento_3_A = new QAction("Whatever", this);
-/*  Instrumento_3_A->setStatusTip("Troca o timbre"); */
     connect(Instrumento_3_A, SIGNAL(triggered()), this, SLOT(Instrumento_3()));
 
 }
@@ -188,14 +179,15 @@ void MainWindow::createMenus() // Configurando como fica no Menu!
     ArquivoMenu->addAction(Composicao_A);
     ArquivoMenu->addAction(Abrir_A);
     ArquivoMenu->addAction(Salvar_A);
-
     ArquivoMenu->addSeparator(); // Esse comando Adiciona uma barrinha divisoria
     ArquivoMenu->addAction(Sair_A);
 
     editMenu = menuBar()->addMenu("Editar");
-    editMenu->addAction(Metronomo_A);
     editMenu->addAction(Oitava_A);
 
+    MetronomoMenu = editMenu->addMenu("Metrônomo");
+    MetronomoMenu->addAction(Metronomo_A);
+    MetronomoMenu->addAction(Manual_A);
 
     TimbreMenu = editMenu->addMenu("Timbre");  // Esse Adiciona um menu dentro de outro
     TimbreMenu->addAction(Instrumento_1_A);

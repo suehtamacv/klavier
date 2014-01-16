@@ -1,6 +1,8 @@
 #include "metronomo.h"
 #include "mainwindow.h"
 #include <QPushButton>
+#include <QSlider>
+#include <QSpinBox>
 #include <QMessageBox>
 #include <QLabel>
 #include <QWidget>
@@ -43,6 +45,53 @@ metronomo::metronomo(QWidget *parn) : QWidget(parn) {
     connect(this,SIGNAL(destroyed()),parent,SLOT(Adiciona_Botao_Metronomo()));
 }
 
+metronomo::metronomo(QWidget *parn, int) : QWidget(parn) {
+    parent = parn;
+    QSpinBox *caixa_numerica = new QSpinBox;
+    QSlider *seletor = new QSlider(Qt::Horizontal);
+    QPushButton *botao = new QPushButton;
+
+    caixa_numerica->setRange(40,120);
+    seletor->setRange(40,120);
+
+    connect(caixa_numerica, SIGNAL (valueChanged(int)), seletor, SLOT (setValue(int)));
+    connect(seletor, SIGNAL (valueChanged(int)), caixa_numerica, SLOT (setValue(int)));
+    connect(seletor,SIGNAL(valueChanged(int)),this,SLOT(definir_bpm(int)));
+
+    botao = new Botao(this);
+    botao->setFixedSize(40,20);
+    botao->setText("Ok");
+
+    wid_metronomo = new QWidget();
+    wid_metronomo->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    wid_metronomo->setFixedSize(300,100);
+    wid_metronomo->setWindowTitle("Metrônomo Manual");
+    wid_metronomo->show();
+
+    QLabel *text = new QLabel("Defina o valor em batimentos por minuto abaixo:", this);
+    vlayout = new QVBoxLayout();
+    hlayout = new QHBoxLayout();
+
+    filler = new QWidget();
+    filler->setMinimumSize(0,0);
+    filler->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+
+
+    hlayout->addWidget(filler);
+    hlayout->addWidget(caixa_numerica);
+    hlayout->addWidget(seletor);
+    hlayout->addWidget(botao);
+    hlayout->addWidget(filler);
+
+    vlayout->addWidget(text);
+    vlayout->addWidget(filler);
+    vlayout->addLayout(hlayout);
+    vlayout->addWidget(filler);
+    wid_metronomo->setLayout(vlayout);
+
+    connect(botao,SIGNAL(pressed()),parent,SLOT(Adiciona_Botao_Metronomo()));
+    connect(botao,SIGNAL(pressed()),this,SLOT(fechar()));
+}
 metronomo::~metronomo() {
     delete wid_metronomo;
     this->close();
@@ -80,9 +129,14 @@ void metronomo::calc_bpm() {
 }
 
 void metronomo::fechar() {
+
     this->close();
 }
 
 float metronomo::get_bpm() {
     return bpm;
+}
+
+void metronomo::definir_bpm(int valor) {
+   bpm=valor;
 }

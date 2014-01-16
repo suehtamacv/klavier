@@ -2,7 +2,6 @@
 #include "sonora.h"
 #include <QDir>
 #include <QFile>
-#include <QTemporaryFile>
 #include <QUrl>
 #include <QString>
 #include "tecla_e_freq.h"

@@ -31,6 +31,7 @@ private slots:
     void Fechar();
     void Salvar();
     void Metronomo();
+    void Manual(); //
     void Oitava();
     void Instrumento_1();
     void Instrumento_2();
@@ -51,6 +52,7 @@ private:
     QMenu *ArquivoMenu;
     QMenu *editMenu;
     QMenu *TimbreMenu;
+    QMenu *MetronomoMenu; //
 // Cada Ação correspondente a uma função, para diferenciar das funções coloquei " _A "
 // Esses elementos serão chamados no menu
     QAction *Composicao_A;
@@ -58,6 +60,7 @@ private:
     QAction *Salvar_A;
     QAction *Sair_A;
     QAction *Metronomo_A;
+    QAction *Manual_A; //
     QAction *Oitava_A;
     QAction *Instrumento_1_A;
     QAction *Instrumento_2_A;
