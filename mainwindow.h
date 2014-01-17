@@ -36,6 +36,8 @@ private slots:
     void Instrumento_1();
     void Instrumento_2();
     void Instrumento_3();
+    void Ajuda();
+    void Sobre();
     void keyPressEvent(QKeyEvent *);
     void keyReleaseEvent(QKeyEvent *);
     void play_metronomo();
@@ -52,6 +54,7 @@ private:
     QMenu *ArquivoMenu;
     QMenu *editMenu;
     QMenu *TimbreMenu;
+    QMenu *AjudaMenu;
     QMenu *MetronomoMenu; //
 // Cada Ação correspondente a uma função, para diferenciar das funções coloquei " _A "
 // Esses elementos serão chamados no menu
@@ -65,6 +68,8 @@ private:
     QAction *Instrumento_1_A;
     QAction *Instrumento_2_A;
     QAction *Instrumento_3_A;
+    QAction *Ajuda_A;
+    QAction *Sobre_A;
     Widget *piano;
     metronomo *wid_metronomo;
     QHBoxLayout *buttons;

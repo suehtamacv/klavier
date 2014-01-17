@@ -30,6 +30,7 @@ MainWindow::MainWindow() {
     topFiller->setMinimumSize(0,0);
 
     QWidget *middle = new QWidget;
+
     middle->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     middle->setFixedWidth(710);
     middle->setFixedHeight(214);
@@ -166,11 +167,14 @@ void MainWindow::createActions() // Aqui são as ações que deverão está cone
     Instrumento_2_A = new QAction("Guitarra", this);
     connect(Instrumento_2_A, SIGNAL(triggered()), this, SLOT(Instrumento_2()));
 
-
-
     Instrumento_3_A = new QAction("Whatever", this);
     connect(Instrumento_3_A, SIGNAL(triggered()), this, SLOT(Instrumento_3()));
 
+    Ajuda_A = new QAction("Ajuda",this);
+    connect(Ajuda_A,SIGNAL(triggered()),this,SLOT(Ajuda()));
+
+    Sobre_A = new QAction("Sobre",this);
+    connect(Sobre_A,SIGNAL(triggered()),this,SLOT(Sobre()));
 }
 
 void MainWindow::createMenus() // Configurando como fica no Menu!
@@ -194,6 +198,10 @@ void MainWindow::createMenus() // Configurando como fica no Menu!
     TimbreMenu->addAction(Instrumento_2_A);
     TimbreMenu->addAction(Instrumento_3_A);
 
+
+    AjudaMenu = menuBar()->addMenu("Ajuda");
+    AjudaMenu->addAction(Ajuda_A);
+    AjudaMenu->addAction(Sobre_A);
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event) {
@@ -300,4 +308,12 @@ void MainWindow::play_metronomo(int) {
 
 void MainWindow::play_metronomo() {
     this->play_metronomo(0);
+}
+
+void MainWindow::Ajuda() {
+
+}
+
+void MainWindow::Sobre() {
+
 }
