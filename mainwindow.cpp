@@ -266,6 +266,7 @@ void MainWindow::set_buttons() {
     connect(record,SIGNAL(clicked()),record,SLOT(desativar()));
     connect(record,SIGNAL(clicked()),play,SLOT(desativar()));
     connect(record,SIGNAL(clicked()),pause,SLOT(desativar()));
+    connect(record,SIGNAL(clicked()),sound,SLOT(Gravar())); // Função que inicia o Relogio master e muda o estado
 
 //    return buttons;
 }
