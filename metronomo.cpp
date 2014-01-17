@@ -121,7 +121,7 @@ void metronomo::calc_bpm() {
         result_bpm->setInformativeText("O Metrônomo não conseguiu identificar a frequência da batida.");
         result_bpm->exec();
     } else {
-        bpm = 480000/bpm;
+        bpm = 480000.0/bpm;
         result_bpm->setText("O Metrônomo retorna uma batida de " + QString::number(bpm) + " bpm.");
         result_bpm->exec();
     }
@@ -130,7 +130,6 @@ void metronomo::calc_bpm() {
 }
 
 void metronomo::fechar() {
-
     this->close();
 }
 

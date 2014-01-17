@@ -18,7 +18,7 @@
 
 MainWindow::MainWindow() {
     BPM=0;
-
+    isBPM=0;
 
     sound = new sonora();
     clique = new QSound(":/sounds/click.wav");
@@ -299,11 +299,9 @@ void MainWindow::play_metronomo(int) {
         } else {
                 if(clique->isFinished()) {
                     clique->play();
-                    QTimer::singleShot(100+frequencia,this,SLOT(play_metronomo()));
+                    QTimer::singleShot((int)1000*frequencia,this,SLOT(play_metronomo()));
                 }
         }
-    } else {
-        clique->stop();
     }
 }
 
