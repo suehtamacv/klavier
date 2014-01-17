@@ -6,6 +6,7 @@
 #include <QMessageBox>
 #include <QLabel>
 #include <QWidget>
+#include <QTime>
 
 metronomo::metronomo(QWidget *parn) : QWidget(parn) {
     parent = parn;
@@ -99,19 +100,19 @@ metronomo::~metronomo() {
 
 void metronomo::on_botao_pressed() {
     switch(rotacao) {
-        case 0: tempo_ini=time(NULL); rotacao++; break;
+        case 0: tempo.start(); rotacao++; break;
         case 1: botao->setIcon(QIcon(QPixmap(":/pics/clock2.png"))); rotacao++; break;
         case 2: rotacao++; break;
         case 3: botao->setIcon(QIcon(QPixmap(":/pics/clock3.png"))); rotacao++; break;
         case 4: rotacao++; break;
         case 5: botao->setIcon(QIcon(QPixmap(":/pics/clock4.png"))); rotacao++; break;
         case 6: rotacao++; break;
-        case 7: tempo_fin=time(NULL); botao->setIcon(QIcon(QPixmap(":/pics/clock1.png"))); rotacao=0; calc_bpm(); break;
+        case 7: botao->setIcon(QIcon(QPixmap(":/pics/clock1.png"))); rotacao=0; calc_bpm(); break;
     }
 }
 
 void metronomo::calc_bpm() {
-    bpm = 1.0*(difftime(tempo_fin,tempo_ini));
+    bpm = tempo.elapsed();
     QMessageBox *result_bpm = new QMessageBox();
     result_bpm->setWindowTitle("Frequência");
 
@@ -120,7 +121,7 @@ void metronomo::calc_bpm() {
         result_bpm->setInformativeText("O Metrônomo não conseguiu identificar a frequência da batida.");
         result_bpm->exec();
     } else {
-        bpm = 480.0/bpm;
+        bpm = 480000/bpm;
         result_bpm->setText("O Metrônomo retorna uma batida de " + QString::number(bpm) + " bpm.");
         result_bpm->exec();
     }

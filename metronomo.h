@@ -4,7 +4,7 @@
 #include <QWidget>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
-#include <ctime>
+#include <QTime>
 #include "botao.h"
 
 class metronomo : public QWidget
@@ -26,6 +26,7 @@ private:
     QWidget *wid_metronomo, *filler, *parent;
     QHBoxLayout *hlayout;
     QVBoxLayout *vlayout;
+    QTime tempo;
     Botao *botao;
     int rotacao;
     time_t tempo_ini, tempo_fin;
