@@ -12,11 +12,19 @@ class ajuda_wid : public QDialog
     Q_OBJECT
     
 public:
-    explicit ajuda_wid(QWidget *parent = 0);
+    enum TipoWidget {
+        TipoWidgetAjuda,
+        TipoWidgetSobre
+    };
+    explicit ajuda_wid(QWidget * = 0, TipoWidget = TipoWidgetAjuda);
     ~ajuda_wid();
+
     
 private:
     Ui::ajuda_wid *ui;
+    void criar_menu_ajuda();
+    void criar_menu_sobre();
+
 };
 
 #endif // AJUDA_WID_H

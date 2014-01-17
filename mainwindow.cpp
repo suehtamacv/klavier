@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "metronomo.h"
 #include "tecla_e_freq.h"
+#include "ajuda_wid.h"
 #include <stdlib.h>
 #include "sonora.h"
 #include "widget.h"
@@ -311,9 +312,12 @@ void MainWindow::play_metronomo() {
 }
 
 void MainWindow::Ajuda() {
-
+    ajuda_wid *Ajuda_Menu = new ajuda_wid(this, ajuda_wid::TipoWidgetAjuda);
+    Ajuda_Menu->show();
 }
 
 void MainWindow::Sobre() {
+    ajuda_wid *Ajuda_Menu = new ajuda_wid(this, ajuda_wid::TipoWidgetSobre);
+    Ajuda_Menu->show();
 
 }

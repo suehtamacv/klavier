@@ -22,11 +22,6 @@
      <height>281</height>
     </rect>
    </property>
-   <property name="source">
-    <url>
-     <string>qrc:/html/ajuda.html</string>
-    </url>
-   </property>
   </widget>
   <widget class="QPushButton" name="FecharBotao">
    <property name="geometry">
