@@ -18,16 +18,19 @@ SOURCES += main.cpp\
     mainwindow.cpp \
     botao.cpp \
     metronomo.cpp \
-    sonora.cpp
+    sonora.cpp \
+    ajuda_wid.cpp
 
 HEADERS  += widget.h \
     tecla_e_freq.h \
     mainwindow.h \
     botao.h \
     metronomo.h \
-    sonora.h
+    sonora.h \
+    ajuda_wid.h
 
-FORMS    += widget.ui
+FORMS    += widget.ui \
+    ajuda_wid.ui
 
 RESOURCES += \
     icons.qrc \
@@ -78,6 +81,7 @@ RESOURCES += \
     sounds/samples/g20.qrc \
     sounds/samples/g21.qrc \
     sounds/samples/g22.qrc \
-    sounds/samples/g23.qrc
+    sounds/samples/g23.qrc \
+    html_files.qrc
 
 OTHER_FILES +=
