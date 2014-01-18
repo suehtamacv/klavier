@@ -16,6 +16,8 @@ public:
     ~Widget();
     void tratar_tecla_pressionada(QKeyEvent *);
     void tratar_tecla_solta(QKeyEvent *);
+    void set_tecla_pressionada(int);
+    void set_tecla_solta(int);
 
 private:
     Ui::Widget *ui;

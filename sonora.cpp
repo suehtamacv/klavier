@@ -1,19 +1,30 @@
-#include <QKeyEvent>
 #include "sonora.h"
+#include "mainwindow.h"
+#include <QKeyEvent>
+#include <QSignalMapper>
+#include <QTextStream>
+#include <QMessageBox>
 #include <QDir>
 #include <QFile>
 #include <QUrl>
 #include <QString>
+#include <QTimer>
 #include "tecla_e_freq.h"
 
-sonora::sonora() {
+sonora::sonora(QWidget *parn) : QWidget(parn) {
+    parent = parn;
     Player = new QMediaPlayer[24];
+    for (int i=0;i<100;i++) Musica[i][0]=Musica[i][1]=Musica[i][2]=0;
     criar_arq_temp();
     set_instrumento(sonora::Piano);
-    Estado_Atual = Nao_Gravando;
+    Estado_Atual = Parado;
+    Relogio_Master.start();
+    Composicao_Criada=Notas_Tocadas=0;
     for (int i = 0; i<=23 ; i++ ) {
         Player[i].setMedia(QMediaContent(QUrl::fromLocalFile(QDir::tempPath() + QString("/work") + QString::number(i) + QString(".mp3"))));
     }
+    connect(this,SIGNAL(nota_tocada(int)),parent,SLOT(set_tecla_pressionada(int)));
+    connect(this,SIGNAL(nota_parada(int)),parent,SLOT(set_tecla_solta(int)));
 }
 
 sonora::~sonora() {
@@ -22,75 +33,32 @@ sonora::~sonora() {
 }
 
 void sonora::tocar_nota(QKeyEvent *event) {
-        if (Estado_Atual == Gravando){
-
+    if (Estado_Atual == Tocando) {
+        QMessageBox *erro = new QMessageBox();
+        erro->setWindowTitle("ERRO!");
+        erro->setText("Uma composição está sendo tocada no momento.");
+        erro->exec();
+    } else {
+        int note = procurar_nota(event->key());
+        if (note!=-1) {
+            if (Player[note].state() == QMediaPlayer::StoppedState) Player[note].play();
         }
-    int note;
-    switch(event->key()) {
-        case C1: note = 0; break;
-        case Cs1: note = 1; break;
-        case D1: note = 2; break;
-        case Ds1: note = 3; break;
-        case E1: note = 4; break;
-        case F1: note = 5; break;
-        case Fs1: note = 6; break;
-        case G1: note = 7; break;
-        case Gs1: note = 8; break;
-        case A1: note = 9; break;
-        case As1: note = 10; break;
-        case B1: note = 11; break;
-        case C2: note = 12; break;
-        case Cs2: note = 13; break;
-        case D2: note = 14; break;
-        case Ds2: note = 15; break;
-        case E2: note = 16; break;
-        case F2: note = 17; break;
-        case Fs2: note = 18; break;
-        case G2: note = 19; break;
-        case Gs2: note = 20; break;
-        case A2: note = 21; break;
-        case As2: note = 22; break;
-        case B2: note = 23; break;
-        default: note = -1;
-    }
-
-    if (note!=-1) {
-        if (Player[note].state() != QMediaPlayer::PlayingState) Player[note].play();
+        if (Estado_Atual == Gravando){
+            iniciar_gravacao(event);
+        }
     }
 }
 
 void sonora::parar_nota(QKeyEvent *event){
-    int note;
-    switch(event->key()) {
-        case C1: note = 0; break;
-        case Cs1: note = 1; break;
-        case D1: note = 2; break;
-        case Ds1: note = 3; break;
-        case E1: note = 4; break;
-        case F1: note = 5; break;
-        case Fs1: note = 6; break;
-        case G1: note = 7; break;
-        case Gs1: note = 8; break;
-        case A1: note = 9; break;
-        case As1: note = 10; break;
-        case B1: note = 11; break;
-        case C2: note = 12; break;
-        case Cs2: note = 13; break;
-        case D2: note = 14; break;
-        case Ds2: note = 15; break;
-        case E2: note = 16; break;
-        case F2: note = 17; break;
-        case Fs2: note = 18; break;
-        case G2: note = 19; break;
-        case Gs2: note = 20; break;
-        case A2: note = 21; break;
-        case As2: note = 22; break;
-        case B2: note = 23; break;
-        default: note = -1;
-    }
-
-    if (note!=-1) {
-        if (Player[note].state() != QMediaPlayer::StoppedState) Player[note].stop();
+    if (Estado_Atual != Tocando) {
+        int note = procurar_nota(event->key());
+        if (note!=-1) {
+            if (Player[note].state() == QMediaPlayer::PlayingState)
+                Player[note].stop();
+        }
+        if (Estado_Atual == Gravando){
+            parar_gravacao(event);
+        }
     }
 }
 
@@ -156,93 +124,197 @@ void sonora::set_estado (Estado atual) {
 }
 
 void sonora::iniciar_gravacao(QKeyEvent *evento){
-    int note;
-    switch(evento->key()) {
-        case C1: note = 0;break;
-        case Cs1: note = 1; break;
-        case D1: note = 2; break;
-        case Ds1: note = 3; break;
-        case E1: note = 4; break;
-        case F1: note = 5; break;
-        case Fs1: note = 6; break;
-        case G1: note = 7; break;
-        case Gs1: note = 8; break;
-        case A1: note = 9; break;
-        case As1: note = 10; break;
-        case B1: note = 11; break;
-        case C2: note = 12; break;
-        case Cs2: note = 13; break;
-        case D2: note = 14; break;
-        case Ds2: note = 15; break;
-        case E2: note = 16; break;
-        case F2: note = 17; break;
-        case Fs2: note = 18; break;
-        case G2: note = 19; break;
-        case Gs2: note = 20; break;
-        case A2: note = 21; break;
-        case As2: note = 22; break;
-        case B2: note = 23; break;
-        default: note = -1;
-    }
-
+    int note = procurar_nota(evento->key());
     if (note!=-1) {
-        Relogio[note].start();
-       for (int i=0;i<=100;i++) // Identifica qual a ultima posição vazia
-       {
-           Musica[i][0] = note; // Identifica a nota
-           Musica[i][1] = Diferenca_tempo(Relogio[note].hour(),Relogio[note].minute(),Relogio[note].second(),Relogio_Master.hour(),Relogio_Master.minute(),Relogio_Master.second());
-       }
+       Musica[Num_Notas][0] = note; // Identifica a nota
+       Musica[Num_Notas++][1] = Relogio_Master.msecsTo(QTime::currentTime());
     }
 }
 
 void sonora::parar_gravacao(QKeyEvent *evento){
-    int note;
-    switch(evento->key()) {
-        case C1: note = 0;break;
-        case Cs1: note = 1; break;
-        case D1: note = 2; break;
-        case Ds1: note = 3; break;
-        case E1: note = 4; break;
-        case F1: note = 5; break;
-        case Fs1: note = 6; break;
-        case G1: note = 7; break;
-        case Gs1: note = 8; break;
-        case A1: note = 9; break;
-        case As1: note = 10; break;
-        case B1: note = 11; break;
-        case C2: note = 12; break;
-        case Cs2: note = 13; break;
-        case D2: note = 14; break;
-        case Ds2: note = 15; break;
-        case E2: note = 16; break;
-        case F2: note = 17; break;
-        case Fs2: note = 18; break;
-        case G2: note = 19; break;
-        case Gs2: note = 20; break;
-        case A2: note = 21; break;
-        case As2: note = 22; break;
-        case B2: note = 23; break;
-        default: note = -1;
-    }
-
+    int note = procurar_nota(evento->key());
     if (note!=-1) {
-        for (int i=0;Musica[i][0]== note && Musica[i][2]== 0 ;i++) // Acha qual posição está vazia
+        for (int i=0; i<Num_Notas ;i++) // Acha qual posição está vazia
         // A referência: Se a nota for a mesma e o tempo de duração for igual a zero ( não for preenchido)
         {
-            Musica[i][2] = (Relogio[note].elapsed() + Musica[i][1]); // Preenche a terceira coluna ( Tempo de duração )
+            if (Musica[i][0]==note && Musica[i][2]==0) {
+                Musica[i][2] = Relogio_Master.msecsTo(QTime::currentTime()); // Preenche a terceira coluna ( Tempo de duração )
+                qDebug() << "nota " + QString::number(Musica[i][0]) + " inicio " + QString::number(Musica[i][1]) + " fim " + QString::number(Musica[i][2]);
+                break;
+            }
         }
 
     }
 }
 
 
-int sonora::Diferenca_tempo(int h1, int m1, int s1, int h2, int m2, int s2) {
-    int diferenca = 3600*h1 + 60*m1 + s1 - 3600*h2 - 60*m2 - s2;
-    if (diferenca<0) diferenca+=86400;
-    return ( diferenca);
+long int sonora::Diferenca_tempo(int h1, int m1, int s1, int ms1, int h2, int m2, int s2, int ms2) {
+    long int diferenca = 3600000*(h1-h2) + 60000*(m1-m2) + 1000*(s1-s2) + ms1 - ms2;
+    if (diferenca<0) diferenca+=86400000;
+    return diferenca;
 }
 
 void sonora::Gravar() {
     set_estado(Gravando);
-    Relogio_Master.start();
+    Num_Notas=0;
+    Relogio_Master.restart();
+}
+
+void sonora::Parar() {
+    if (Estado_Atual==Tocando) {
+        set_estado(Parado);
+        delete[] Relogios;
+        qDebug() << "stop play action";
+    } else if (Estado_Atual==Gravando) {
+        set_estado(Parado);
+        if (Num_Notas!=0) Composicao_Criada=1;
+        else Composicao_Criada=0;
+    }
+    for (int i=0;i<24;i++) {
+        if (Player[i].state() == QMediaPlayer::PlayingState) {
+            Player[i].stop();
+            emit nota_parada(i);
+        }
+    }
+}
+
+int sonora::procurar_nota(int tecla) {
+    int note;
+    switch(tecla) {
+        case C1: note = 0;break;
+        case Cs1: note = 1; break;
+        case D1: note = 2; break;
+        case Ds1: note = 3; break;
+        case E1: note = 4; break;
+        case F1: note = 5; break;
+        case Fs1: note = 6; break;
+        case G1: note = 7; break;
+        case Gs1: note = 8; break;
+        case A1: note = 9; break;
+        case As1: note = 10; break;
+        case B1: note = 11; break;
+        case C2: note = 12; break;
+        case Cs2: note = 13; break;
+        case D2: note = 14; break;
+        case Ds2: note = 15; break;
+        case E2: note = 16; break;
+        case F2: note = 17; break;
+        case Fs2: note = 18; break;
+        case G2: note = 19; break;
+        case Gs2: note = 20; break;
+        case A2: note = 21; break;
+        case As2: note = 22; break;
+        case B2: note = 23; break;
+        default: note = -1;
+    }
+    return note;
+}
+
+int sonora::is_Composicao_Criada() {
+    return Composicao_Criada;
+}
+
+int sonora::get_estado() {
+    return Estado_Atual;
+}
+
+void sonora::salvar_arquivo(QString caminho) {
+    if (Composicao_Criada==1) {
+        QFile *Arquivo = new QFile(caminho);
+        if (Arquivo->open(QIODevice::WriteOnly | QIODevice::Text)) {
+            QTextStream saida(Arquivo);
+            saida << Num_Notas << "\n";
+            for (int i=0;i<Num_Notas;i++) {
+                saida << Musica[i][0] << "\n" << Musica[i][1] << "\n" << Musica[i][2] << "\n";
+            }
+        } else {
+            QMessageBox *erro = new QMessageBox();
+            erro->setWindowTitle("ERRO!");
+            erro->setText("Não foi possível salvar neste arquivo.");
+        }
+    }
+}
+
+void sonora::abrir_arquivo(QString caminho) {
+    QFile *Arquivo = new QFile(caminho);
+    if (Arquivo->open(QIODevice::ReadOnly)) {
+        configurar_de_arquivo(Arquivo);
+        Composicao_Criada=1;
+    } else {
+        QMessageBox *erro = new QMessageBox();
+        erro->setWindowTitle("ERRO!");
+        erro->setText("Não foi possível ler este arquivo.");
+    }
+}
+
+void sonora::configurar_de_arquivo(QFile *Arquivo) {
+    QTextStream entrada(Arquivo);
+    Num_Notas = entrada.readLine().toInt();
+    qDebug() << "notas " + QString::number(Num_Notas);
+    for (int i=0;i<Num_Notas;i++) {
+        Musica[i][0] = entrada.readLine().toInt();
+        Musica[i][1] = entrada.readLine().toInt();
+        Musica[i][2] = entrada.readLine().toInt();
+        qDebug() << "tempo " + QString::number(Musica[i][0]);
+    }
+    Arquivo->close();
+}
+
+void sonora::Play() {
+    if (Composicao_Criada==0) {
+        QMessageBox *erro = new QMessageBox();
+        erro->setWindowTitle("ERRO!");
+        erro->setText("Não há nenhuma composição criada.");
+        erro->exec();
+        emit reproducao_terminada();
+    } else {
+        for (int i=0;i<24;i++) if (Player[i].state() == QMediaPlayer::PlayingState) Player[i].stop();
+        set_estado(Tocando);
+        Relogios = new QTimer*[Num_Notas];
+        Notas_Tocadas=0;
+        Relogio_Master.restart();
+        Relogio_Master.start();
+        for (int i=0; i<Num_Notas;i++) {
+            Relogios[i] = new QTimer();
+            qDebug() << "timer " + QString::number(i) + " waits " + QString::number(Musica[i][1]);
+            Relogios[i]->singleShot(Musica[i][1],this,SLOT(play_nota_gravada()));
+        }
+    }
+}
+
+void sonora::stop_nota_gravada() {
+    if (Estado_Atual == Tocando) {
+         for (int i=0;i<Notas_Tocadas;i++) {
+                if (Notas_Tocadas==Num_Notas) {
+                    if (Player[Musica[i][0]].state() == QMediaPlayer::PlayingState) {
+                        Player[Musica[i][0]].stop();
+                        emit nota_parada(Musica[i][0]);
+                    }
+                    qDebug() << "he's here";
+                    set_estado(Parado);
+                    emit reproducao_terminada();
+                } else {
+                    if ((Musica[i][2])<=Relogio_Master.elapsed()) {
+                        if (Player[Musica[i][0]].state() == QMediaPlayer::PlayingState) {
+                            qDebug() << "stopping " + QString::number(Musica[i][0]);
+                            Player[Musica[i][0]].stop();
+                            emit nota_parada(Musica[i][0]);
+                        }
+                    }
+                }
+           }
+      }
+}
+
+void sonora::play_nota_gravada() {
+    if (Estado_Atual == Tocando) {
+        if (Player[Musica[Notas_Tocadas][0]].state() == QMediaPlayer::StoppedState) {
+            Player[Musica[Notas_Tocadas][0]].play();
+            qDebug() << "timer " + QString::number(Notas_Tocadas) + " waits " + QString::number(Musica[Notas_Tocadas][2]-Musica[Notas_Tocadas][1]);
+            Relogios[Notas_Tocadas]->singleShot(Musica[Notas_Tocadas][2]-Musica[Notas_Tocadas][1],this,SLOT(stop_nota_gravada()));
+        }
+        emit nota_tocada(Musica[Notas_Tocadas][0]);
+        Notas_Tocadas++;
+        qDebug() << QString::number(Notas_Tocadas) +" notas";
+    }
 }

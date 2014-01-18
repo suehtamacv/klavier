@@ -20,7 +20,7 @@ MainWindow::MainWindow() {
     BPM=0;
     isBPM=0;
 
-    sound = new sonora();
+    sound = new sonora(this);
     clique = new QSound(":/sounds/click.wav");
 
     QWidget *widget = new QWidget; // Criando a barra principal
@@ -71,7 +71,7 @@ MainWindow::MainWindow() {
 MainWindow::~MainWindow() {
     delete piano;
     sound->~sonora();
-    delete sound;
+    //delete sound;
     close();
 }
 
@@ -89,15 +89,28 @@ void MainWindow::Composicao()
 void MainWindow::Abrir()
 {
     QFileDialog *abrir_arquivo = new QFileDialog(this);
-    QString caminho = abrir_arquivo->getOpenFileName(this,tr("Abrir Arquivo"),".",tr("Images (*.jpg *.png)"));
+    QString caminho = abrir_arquivo->getOpenFileName(this,tr("Abrir Arquivo"),".",tr("Arquivos do That Piano Program (*.tpp)"));
+    sound->abrir_arquivo(caminho);
     delete abrir_arquivo;
 }
 
 void MainWindow::Salvar()
 {
-    QFileDialog *salvar_arquivo = new QFileDialog(this);
-    QString caminho = salvar_arquivo->getSaveFileName(this,tr("Salvar Arquivo"),".",tr("Images (*.jpg *.png)"));
-    delete salvar_arquivo;
+    if (sound->is_Composicao_Criada()==0) {
+        QMessageBox *erro = new QMessageBox();
+        erro->setWindowTitle("ERRO!");
+        if (sound->get_estado() == sonora::Gravando) {
+            erro->setText("Você ainda está gravando. Pare a gravação atual antes de salvar a composição.");
+        } else {
+            erro->setText("Nenhuma composição foi criada ainda, ou ela é vazia.");
+        }
+        erro->exec();
+    } else {
+        QFileDialog *salvar_arquivo = new QFileDialog(this);
+        QString caminho = salvar_arquivo->getSaveFileName(this,tr("Salvar Arquivo"),".",tr("Arquivos do That Piano Program (*.tpp)"));
+        sound->salvar_arquivo(caminho);
+        delete salvar_arquivo;
+    }
 }
 
 void MainWindow::Metronomo() {
@@ -230,6 +243,7 @@ void MainWindow::set_buttons() {
     record->setIconSize(QSize(20,20));
     record->setFixedSize(50,50);
     record->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed);
+    play->setEnabled(true);
     play->setIcon(QIcon(QPixmap(":/pics/play.png")));
     play->setIconSize(QSize(20,20));
     play->setFixedSize(50,50);
@@ -266,9 +280,12 @@ void MainWindow::set_buttons() {
     connect(record,SIGNAL(clicked()),record,SLOT(desativar()));
     connect(record,SIGNAL(clicked()),play,SLOT(desativar()));
     connect(record,SIGNAL(clicked()),pause,SLOT(desativar()));
-    connect(record,SIGNAL(clicked()),sound,SLOT(Gravar())); // Função que inicia o Relogio master e muda o estado
-
-//    return buttons;
+    connect(sound,SIGNAL(reproducao_terminada()),stop,SLOT(desativar()));
+    connect(sound,SIGNAL(reproducao_terminada()),play,SLOT(ativar()));
+    connect(sound,SIGNAL(reproducao_terminada()),record,SLOT(ativar()));
+    connect(record,SIGNAL(clicked()),this,SLOT(Gravar())); // Função que inicia o Relogio master e muda o estado
+    connect(stop,SIGNAL(clicked()),this,SLOT(Parar()));
+    connect(play,SIGNAL(clicked()),this,SLOT(Play()));
 }
 
 void MainWindow::Fechar() {
@@ -319,4 +336,27 @@ void MainWindow::Sobre() {
     ajuda_wid *Ajuda_Menu = new ajuda_wid(this, ajuda_wid::TipoWidgetSobre);
     Ajuda_Menu->show();
 
+}
+
+void MainWindow::set_tecla_pressionada(int tecla) {
+    qDebug() << "trying to press key " + QString::number(tecla);
+    piano->set_tecla_pressionada(tecla);
+}
+
+
+void MainWindow::set_tecla_solta(int tecla) {
+    qDebug() << "trying to release key " + QString::number(tecla);
+    piano->set_tecla_solta(tecla);
+}
+
+void MainWindow::Gravar() {
+    sound->Gravar();
+}
+
+void MainWindow::Play() {
+    sound->Play();
+}
+
+void MainWindow::Parar() {
+    sound->Parar();
 }

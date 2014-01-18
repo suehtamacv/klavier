@@ -9,6 +9,7 @@
 #include "metronomo.h"
 #include "sonora.h"
 
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -23,6 +24,8 @@ protected:
 
 public slots:
     void Adiciona_Botao_Metronomo();
+    void set_tecla_pressionada(int);
+    void set_tecla_solta(int);
 
 private slots:
     // Funções
@@ -42,6 +45,10 @@ private slots:
     void keyReleaseEvent(QKeyEvent *);
     void play_metronomo();
     void play_metronomo(int);
+    void Gravar();
+    void Parar();
+    void Play();
+
 
 private:
     void set_buttons();
