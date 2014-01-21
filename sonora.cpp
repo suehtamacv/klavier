@@ -13,6 +13,9 @@
 
 sonora::sonora(QWidget *parn) : QWidget(parn) {
     parent = parn;
+
+    _RAND_NUMBER_ = rand();
+
     Player = new QMediaPlayer[24];
     for (int i=0;i<100;i++) Musica[i][0]=Musica[i][1]=Musica[i][2]=0;
     criar_arq_temp();
@@ -21,7 +24,7 @@ sonora::sonora(QWidget *parn) : QWidget(parn) {
     Relogio_Master.start();
     Composicao_Criada=Notas_Tocadas=0;
     for (int i = 0; i<=23 ; i++ ) {
-        Player[i].setMedia(QMediaContent(QUrl::fromLocalFile(QDir::tempPath() + QString("/work") + QString::number(i) + QString(".mp3"))));
+        Player[i].setMedia(QMediaContent(QUrl::fromLocalFile(QDir::tempPath() + QString("/work") + QString::number(_RAND_NUMBER_) + "_" + QString::number(i) + QString(".mp3"))));
     }
     connect(this,SIGNAL(nota_tocada(int)),parent,SLOT(set_tecla_pressionada(int)));
     connect(this,SIGNAL(nota_parada(int)),parent,SLOT(set_tecla_solta(int)));
@@ -109,13 +112,13 @@ void sonora::set_instrumento(Instrumentos I) {
 void sonora::criar_arq_temp() {
     Files = new QFile*[24];
     for (int i = 0; i<=23; i++) {
-        Files[i] = new QFile(QDir::tempPath() + "/work" + QString::number(i) + ".mp3");
+        Files[i] = new QFile(QDir::tempPath() + "/work" + QString::number(_RAND_NUMBER_) + "_" + QString::number(i) + ".mp3");
     }
 }
 
 void sonora::excluir_arq_temp() {
     for (int i=0 ; i<=23 ; i++) {
-        QFile::remove(QDir::tempPath() + "/work" + QString::number(i) + ".mp3");
+        QFile::remove(QDir::tempPath() + "/work" + QString::number(_RAND_NUMBER_) + "_" + QString::number(i) + ".mp3");
     }
 }
 
@@ -163,7 +166,6 @@ void sonora::Gravar() {
 void sonora::Parar() {
     if (Estado_Atual==Tocando) {
         set_estado(Parado);
-        delete[] Relogios;
         qDebug() << "stop play action";
     } else if (Estado_Atual==Gravando) {
         set_estado(Parado);
@@ -270,51 +272,7 @@ void sonora::Play() {
     } else {
         for (int i=0;i<24;i++) if (Player[i].state() == QMediaPlayer::PlayingState) Player[i].stop();
         set_estado(Tocando);
-        Relogios = new QTimer*[Num_Notas];
         Notas_Tocadas=0;
-        Relogio_Master.restart();
         Relogio_Master.start();
-        for (int i=0; i<Num_Notas;i++) {
-            Relogios[i] = new QTimer();
-            qDebug() << "timer " + QString::number(i) + " waits " + QString::number(Musica[i][1]);
-            Relogios[i]->singleShot(Musica[i][1],this,SLOT(play_nota_gravada()));
-        }
-    }
-}
-
-void sonora::stop_nota_gravada() {
-    if (Estado_Atual == Tocando) {
-         for (int i=0;i<Notas_Tocadas;i++) {
-                if (Notas_Tocadas==Num_Notas) {
-                    if (Player[Musica[i][0]].state() == QMediaPlayer::PlayingState) {
-                        Player[Musica[i][0]].stop();
-                        emit nota_parada(Musica[i][0]);
-                    }
-                    qDebug() << "he's here";
-                    set_estado(Parado);
-                    emit reproducao_terminada();
-                } else {
-                    if ((Musica[i][2])<=Relogio_Master.elapsed()) {
-                        if (Player[Musica[i][0]].state() == QMediaPlayer::PlayingState) {
-                            qDebug() << "stopping " + QString::number(Musica[i][0]);
-                            Player[Musica[i][0]].stop();
-                            emit nota_parada(Musica[i][0]);
-                        }
-                    }
-                }
-           }
-      }
-}
-
-void sonora::play_nota_gravada() {
-    if (Estado_Atual == Tocando) {
-        if (Player[Musica[Notas_Tocadas][0]].state() == QMediaPlayer::StoppedState) {
-            Player[Musica[Notas_Tocadas][0]].play();
-            qDebug() << "timer " + QString::number(Notas_Tocadas) + " waits " + QString::number(Musica[Notas_Tocadas][2]-Musica[Notas_Tocadas][1]);
-            Relogios[Notas_Tocadas]->singleShot(Musica[Notas_Tocadas][2]-Musica[Notas_Tocadas][1],this,SLOT(stop_nota_gravada()));
-        }
-        emit nota_tocada(Musica[Notas_Tocadas][0]);
-        Notas_Tocadas++;
-        qDebug() << QString::number(Notas_Tocadas) +" notas";
     }
 }

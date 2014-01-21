@@ -55,13 +55,7 @@ class sonora : public QWidget {
         int Num_Notas;
         int Composicao_Criada;
         int Notas_Tocadas;
-        int auxiliar_relogio;
-        QTimer RelogioInicio[5], RelogioFim[5];
-
-    private slots:
-        void play_nota_gravada();
-        void stop_nota_gravada();
-
+        int _RAND_NUMBER_;
 };
 
 
