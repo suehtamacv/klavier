@@ -22,7 +22,8 @@ sonora::sonora(QWidget *parn) : QWidget(parn) {
     set_instrumento(sonora::Piano);
     Estado_Atual = Parado;
     Relogio_Master.start();
-    Composicao_Criada=Notas_Tocadas=0;
+    Relogio_Inicio_Nota = new QTimer();
+    Composicao_Criada=Notas_Tocadas=trono=0;
     for (int i = 0; i<=23 ; i++ ) {
         Player[i].setMedia(QMediaContent(QUrl::fromLocalFile(QDir::tempPath() + QString("/work") + QString::number(_RAND_NUMBER_) + "_" + QString::number(i) + QString(".mp3"))));
     }
@@ -274,5 +275,15 @@ void sonora::Play() {
         set_estado(Tocando);
         Notas_Tocadas=0;
         Relogio_Master.start();
+        Relogio_Inicio_Nota->singleShot(Musica[0][1],this,SLOT(tocar_nota_gravada()));
+    }
+}
+
+void sonora::tocar_nota_gravada() {
+    if (Player[Musica[Notas_Tocadas][0]].state() == QMediaPlayer::StoppedState) Player[Musica[Notas_Tocadas][0]].play();
+    emit nota_tocada(Musica[Notas_Tocadas][0]);
+    Notas_Tocadas++;
+    if (Notas_Tocadas!=Num_Notas) {
+        Relogio_Inicio_Nota->singleShot(Musica[Notas_Tocadas][1] - Musica[Notas_Tocadas-1][1],this,SLOT(tocar_nota_gravada()));
     }
 }

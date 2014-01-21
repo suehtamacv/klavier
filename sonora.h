@@ -50,12 +50,17 @@ class sonora : public QWidget {
         void parar_gravacao(QKeyEvent *);
         int procurar_nota(int);
         QTime Relogio_Master;
+        QTimer *Relogio_Inicio_Nota, *Relogio_Fim_Nota;
         QTime Relogio[24];
         int Musica[100][3]; // Matriz que vai armazenar a composição. Identificação: Nota, Tempo Inicial, Tempo Final
         int Num_Notas;
         int Composicao_Criada;
         int Notas_Tocadas;
         int _RAND_NUMBER_;
+        int trono;
+
+    private slots:
+        void tocar_nota_gravada();
 };
 
 
