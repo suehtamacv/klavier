@@ -54,12 +54,11 @@ class sonora : public QWidget {
         int Musica[100][3]; // Matriz que vai armazenar a composição. Identificação: Nota, Tempo Inicial, Tempo Final
         int Num_Notas;
         int Composicao_Criada;
-        int Notas_Tocadas;
+        int Notas_Tocadas,Notas_Paradas;
         int _RAND_NUMBER_;
         int *Vetor_Auxiliar;
         int tempo_parada;
         void set_vetor_auxiliar();
-        void encontrar_proximo_tempo_parada();
 
     private slots:
         void tocar_nota_gravada();

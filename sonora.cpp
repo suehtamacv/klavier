@@ -1,4 +1,5 @@
 #include "sonora.h"
+#include "BubbleSort.h"
 #include "mainwindow.h"
 #include <QKeyEvent>
 #include <QSignalMapper>
@@ -23,7 +24,8 @@ sonora::sonora(QWidget *parn) : QWidget(parn) {
     Estado_Atual = Parado;
     Relogio_Master.start();
     Relogio_Inicio_Nota = new QTimer();
-    Composicao_Criada=Notas_Tocadas=0;
+    Relogio_Fim_Nota = new QTimer();
+    Composicao_Criada=Notas_Tocadas=Notas_Paradas=0;
     for (int i = 0; i<=23 ; i++ ) {
         Player[i].setMedia(QMediaContent(QUrl::fromLocalFile(QDir::tempPath() + QString("/work") + QString::number(_RAND_NUMBER_) + "_" + QString::number(i) + QString(".mp3"))));
     }
@@ -37,13 +39,15 @@ sonora::~sonora() {
 }
 
 void sonora::tocar_nota(QKeyEvent *event) {
+    int note = procurar_nota(event->key());
     if (Estado_Atual == Tocando) {
-        QMessageBox *erro = new QMessageBox();
-        erro->setWindowTitle("ERRO!");
-        erro->setText("Uma composição está sendo tocada no momento.");
-        erro->exec();
+        if (note!=-1) {
+            QMessageBox *erro = new QMessageBox();
+            erro->setWindowTitle("ERRO!");
+            erro->setText("Uma composição está sendo tocada no momento.");
+            erro->exec();
+        }
     } else {
-        int note = procurar_nota(event->key());
         if (note!=-1) {
             if (Player[note].state() == QMediaPlayer::StoppedState) Player[note].play();
         }
@@ -143,7 +147,6 @@ void sonora::parar_gravacao(QKeyEvent *evento){
         {
             if (Musica[i][0]==note && Musica[i][2]==0) {
                 Musica[i][2] = Relogio_Master.msecsTo(QTime::currentTime()); // Preenche a terceira coluna ( Tempo de duração )
-                qDebug() << "nota " + QString::number(Musica[i][0]) + " inicio " + QString::number(Musica[i][1]) + " fim " + QString::number(Musica[i][2]);
                 break;
             }
         }
@@ -161,7 +164,11 @@ void sonora::Parar() {
     if (Estado_Atual==Tocando) {
         set_estado(Parado);
         delete Vetor_Auxiliar;
-        qDebug() << "stop play action";
+        emit reproducao_terminada();
+        delete Relogio_Fim_Nota;
+        delete Relogio_Inicio_Nota;
+        Relogio_Inicio_Nota = new QTimer();
+        Relogio_Fim_Nota = new QTimer();
     } else if (Estado_Atual==Gravando) {
         set_estado(Parado);
         if (Num_Notas!=0) Composicao_Criada=1;
@@ -247,12 +254,10 @@ void sonora::abrir_arquivo(QString caminho) {
 void sonora::configurar_de_arquivo(QFile *Arquivo) {
     QTextStream entrada(Arquivo);
     Num_Notas = entrada.readLine().toInt();
-    qDebug() << "notas " + QString::number(Num_Notas);
     for (int i=0;i<Num_Notas;i++) {
         Musica[i][0] = entrada.readLine().toInt();
         Musica[i][1] = entrada.readLine().toInt();
         Musica[i][2] = entrada.readLine().toInt();
-        qDebug() << "tempo " + QString::number(Musica[i][0]);
     }
     Arquivo->close();
 }
@@ -268,68 +273,52 @@ void sonora::Play() {
         for (int i=0;i<24;i++) if (Player[i].state() == QMediaPlayer::PlayingState) Player[i].stop();
         set_estado(Tocando);
         set_vetor_auxiliar();
-        Notas_Tocadas=0;
+        Notas_Tocadas=Notas_Paradas=0;
         Relogio_Master.start();
         Relogio_Inicio_Nota->singleShot(Musica[0][1],this,SLOT(tocar_nota_gravada()));
+        Relogio_Fim_Nota->singleShot(Vetor_Auxiliar[0],this,SLOT(parar_nota_gravada()));
     }
 }
 
 void sonora::tocar_nota_gravada() {
-    if (Player[Musica[Notas_Tocadas][0]].state() == QMediaPlayer::StoppedState) Player[Musica[Notas_Tocadas][0]].play();
-    emit nota_tocada(Musica[Notas_Tocadas][0]);
-    Notas_Tocadas++;
-    if (Notas_Tocadas!=Num_Notas) {
-        Relogio_Inicio_Nota->singleShot(Musica[Notas_Tocadas][1] - Musica[Notas_Tocadas-1][1],this,SLOT(tocar_nota_gravada()));
-    }
-    encontrar_proximo_tempo_parada();
-}
-
-void sonora::encontrar_proximo_tempo_parada() {
-    int tempo, pos;
-    for (int i=0;i<Num_Notas;i++) {
-        if (Vetor_Auxiliar[i]!=999999) {
-            tempo=Vetor_Auxiliar[i];
-            pos=i;
-            break;
-        } else {
-            continue;
+    if (Estado_Atual == Tocando) {
+        if (Player[Musica[Notas_Tocadas][0]].state() == QMediaPlayer::StoppedState) {
+            Player[Musica[Notas_Tocadas][0]].play();
+            emit nota_tocada(Musica[Notas_Tocadas][0]);
+            Notas_Tocadas++;
+        }
+        if (Notas_Tocadas!=Num_Notas) {
+            Relogio_Inicio_Nota->singleShot(Musica[Notas_Tocadas][1] - Musica[Notas_Tocadas-1][1],this,SLOT(tocar_nota_gravada()));
         }
     }
-    for (int i=0;i<Num_Notas;i++) {
-        if (tempo>Vetor_Auxiliar[i]) {
-            tempo=Vetor_Auxiliar[i];
-            pos=i;
-            Vetor_Auxiliar[i] = 999999;
-            break;
-        }
-    }
-    qDebug() << "tempo " + QString::number(tempo);
-    qDebug() << "esperando " + QString::number(tempo - Musica[pos][1]);
-    Relogio_Fim_Nota->singleShot(tempo - Musica[pos][1] ,this,SLOT(parar_nota_gravada()));
-    tempo_parada = tempo;
 }
 
 void sonora::set_vetor_auxiliar() {
     Vetor_Auxiliar = new int[Num_Notas];
     for (int i=0; i<Num_Notas;i++)
         Vetor_Auxiliar[i] = Musica[i][2];
+    BubbleSort(Vetor_Auxiliar,Num_Notas);
 }
 
 void sonora::parar_nota_gravada() {
     if (Estado_Atual == Tocando) {
         for (int i=0;i<Num_Notas;i++) {
-            if (Musica[i][2] == tempo_parada) {
+            if (Musica[i][2] == Vetor_Auxiliar[Notas_Paradas]) {
                 if (Player[Musica[i][0]].state() == QMediaPlayer::PlayingState) {
                     Player[Musica[i][0]].stop();
                     emit nota_parada(Musica[i][0]);
-                    qDebug() << "stopping " + QString::number(Musica[i][0]);
+                    Notas_Paradas++;
+                    break;
                 } else {
                     continue;
                 }
             }
         }
-        if (Num_Notas == Notas_Tocadas) {
-            emit reproducao_terminada();
+        if (Num_Notas == Notas_Paradas) {
+            Parar();
+        } else {
+            Relogio_Fim_Nota->singleShot(Vetor_Auxiliar[Notas_Paradas] - Vetor_Auxiliar[Notas_Paradas-1],this,SLOT(parar_nota_gravada()));
         }
+
     }
 }
