@@ -23,7 +23,7 @@ sonora::sonora(QWidget *parn) : QWidget(parn) {
     Estado_Atual = Parado;
     Relogio_Master.start();
     Relogio_Inicio_Nota = new QTimer();
-    Composicao_Criada=Notas_Tocadas=trono=0;
+    Composicao_Criada=Notas_Tocadas=0;
     for (int i = 0; i<=23 ; i++ ) {
         Player[i].setMedia(QMediaContent(QUrl::fromLocalFile(QDir::tempPath() + QString("/work") + QString::number(_RAND_NUMBER_) + "_" + QString::number(i) + QString(".mp3"))));
     }
@@ -151,13 +151,6 @@ void sonora::parar_gravacao(QKeyEvent *evento){
     }
 }
 
-
-long int sonora::Diferenca_tempo(int h1, int m1, int s1, int ms1, int h2, int m2, int s2, int ms2) {
-    long int diferenca = 3600000*(h1-h2) + 60000*(m1-m2) + 1000*(s1-s2) + ms1 - ms2;
-    if (diferenca<0) diferenca+=86400000;
-    return diferenca;
-}
-
 void sonora::Gravar() {
     set_estado(Gravando);
     Num_Notas=0;
@@ -167,6 +160,7 @@ void sonora::Gravar() {
 void sonora::Parar() {
     if (Estado_Atual==Tocando) {
         set_estado(Parado);
+        delete Vetor_Auxiliar;
         qDebug() << "stop play action";
     } else if (Estado_Atual==Gravando) {
         set_estado(Parado);
@@ -273,6 +267,7 @@ void sonora::Play() {
     } else {
         for (int i=0;i<24;i++) if (Player[i].state() == QMediaPlayer::PlayingState) Player[i].stop();
         set_estado(Tocando);
+        set_vetor_auxiliar();
         Notas_Tocadas=0;
         Relogio_Master.start();
         Relogio_Inicio_Nota->singleShot(Musica[0][1],this,SLOT(tocar_nota_gravada()));
@@ -285,5 +280,56 @@ void sonora::tocar_nota_gravada() {
     Notas_Tocadas++;
     if (Notas_Tocadas!=Num_Notas) {
         Relogio_Inicio_Nota->singleShot(Musica[Notas_Tocadas][1] - Musica[Notas_Tocadas-1][1],this,SLOT(tocar_nota_gravada()));
+    }
+    encontrar_proximo_tempo_parada();
+}
+
+void sonora::encontrar_proximo_tempo_parada() {
+    int tempo, pos;
+    for (int i=0;i<Num_Notas;i++) {
+        if (Vetor_Auxiliar[i]!=999999) {
+            tempo=Vetor_Auxiliar[i];
+            pos=i;
+            break;
+        } else {
+            continue;
+        }
+    }
+    for (int i=0;i<Num_Notas;i++) {
+        if (tempo>Vetor_Auxiliar[i]) {
+            tempo=Vetor_Auxiliar[i];
+            pos=i;
+            Vetor_Auxiliar[i] = 999999;
+            break;
+        }
+    }
+    qDebug() << "tempo " + QString::number(tempo);
+    qDebug() << "esperando " + QString::number(tempo - Musica[pos][1]);
+    Relogio_Fim_Nota->singleShot(tempo - Musica[pos][1] ,this,SLOT(parar_nota_gravada()));
+    tempo_parada = tempo;
+}
+
+void sonora::set_vetor_auxiliar() {
+    Vetor_Auxiliar = new int[Num_Notas];
+    for (int i=0; i<Num_Notas;i++)
+        Vetor_Auxiliar[i] = Musica[i][2];
+}
+
+void sonora::parar_nota_gravada() {
+    if (Estado_Atual == Tocando) {
+        for (int i=0;i<Num_Notas;i++) {
+            if (Musica[i][2] == tempo_parada) {
+                if (Player[Musica[i][0]].state() == QMediaPlayer::PlayingState) {
+                    Player[Musica[i][0]].stop();
+                    emit nota_parada(Musica[i][0]);
+                    qDebug() << "stopping " + QString::number(Musica[i][0]);
+                } else {
+                    continue;
+                }
+            }
+        }
+        if (Num_Notas == Notas_Tocadas) {
+            emit reproducao_terminada();
+        }
     }
 }

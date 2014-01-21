@@ -339,13 +339,11 @@ void MainWindow::Sobre() {
 }
 
 void MainWindow::set_tecla_pressionada(int tecla) {
-    qDebug() << "trying to press key " + QString::number(tecla);
     piano->set_tecla_pressionada(tecla);
 }
 
 
 void MainWindow::set_tecla_solta(int tecla) {
-    qDebug() << "trying to release key " + QString::number(tecla);
     piano->set_tecla_solta(tecla);
 }
 

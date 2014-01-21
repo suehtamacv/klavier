@@ -45,7 +45,6 @@ class sonora : public QWidget {
         void excluir_arq_temp();
         void configurar_de_arquivo(QFile*);
         int Estado_Atual;
-        long int Diferenca_tempo(int,int,int,int,int,int,int,int);
         void iniciar_gravacao(QKeyEvent *);
         void parar_gravacao(QKeyEvent *);
         int procurar_nota(int);
@@ -57,10 +56,14 @@ class sonora : public QWidget {
         int Composicao_Criada;
         int Notas_Tocadas;
         int _RAND_NUMBER_;
-        int trono;
+        int *Vetor_Auxiliar;
+        int tempo_parada;
+        void set_vetor_auxiliar();
+        void encontrar_proximo_tempo_parada();
 
     private slots:
         void tocar_nota_gravada();
+        void parar_nota_gravada();
 };
 
 
