@@ -244,6 +244,7 @@ void sonora::abrir_arquivo(QString caminho) {
     if (Arquivo->open(QIODevice::ReadOnly)) {
         configurar_de_arquivo(Arquivo);
         Composicao_Criada=1;
+        emit reproducao_terminada();
     } else {
         QMessageBox *erro = new QMessageBox();
         erro->setWindowTitle("ERRO!");

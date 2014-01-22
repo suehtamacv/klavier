@@ -1,10 +1,9 @@
-#ifndef SOM_H
-#define SOM_H
+#ifndef SONORA_H
+#define SONORA_H
 
 #include <QWidget>
 #include <QKeyEvent>
 #include <QMediaPlayer>
-#include <QString>
 #include <QTime>
 #include <QFile>
 
@@ -18,16 +17,18 @@ class sonora : public QWidget {
         enum Instrumentos {
             Piano, Guitarra, Whatever
         };
+
         sonora(QWidget*);
-        void tocar_nota(QKeyEvent *);
+        ~sonora();
+
+        void abrir_arquivo(QString);
+        int get_estado();
+        int is_Composicao_Criada(void);
         void parar_nota(QKeyEvent *);
+        void salvar_arquivo(QString);
         void set_instrumento (Instrumentos);
         void set_estado (Estado);
-        int is_Composicao_Criada(void);
-        int get_estado();
-        void salvar_arquivo(QString);
-        void abrir_arquivo(QString);
-        ~sonora();
+        void tocar_nota(QKeyEvent *);
         void Gravar();
         void Parar();
         void Play();
@@ -38,32 +39,27 @@ class sonora : public QWidget {
         void reproducao_terminada();
 
     private:
-        QWidget *parent;
-        QMediaPlayer *Player;
+        int Composicao_Criada, Estado_Atual, Notas_Paradas, Notas_Tocadas, Num_Notas, _RAND_NUMBER_, *Vetor_Auxiliar;
+        int Musica[200][3]; // Matriz que vai armazenar a composição. Identificação: Nota, Tempo Inicial, Tempo Final
         QFile **Files;
+        QMediaPlayer *Player;
+        QTime Relogio_Master, Relogio[24];
+        QTimer *Relogio_Inicio_Nota, *Relogio_Fim_Nota;
+        QWidget *parent;
+
+        void configurar_de_arquivo(QFile*);
         void criar_arq_temp();
         void excluir_arq_temp();
-        void configurar_de_arquivo(QFile*);
-        int Estado_Atual;
         void iniciar_gravacao(QKeyEvent *);
         void parar_gravacao(QKeyEvent *);
         int procurar_nota(int);
-        QTime Relogio_Master;
-        QTimer *Relogio_Inicio_Nota, *Relogio_Fim_Nota;
-        QTime Relogio[24];
-        int Musica[100][3]; // Matriz que vai armazenar a composição. Identificação: Nota, Tempo Inicial, Tempo Final
-        int Num_Notas;
-        int Composicao_Criada;
-        int Notas_Tocadas,Notas_Paradas;
-        int _RAND_NUMBER_;
-        int *Vetor_Auxiliar;
-        int tempo_parada;
         void set_vetor_auxiliar();
 
+
     private slots:
-        void tocar_nota_gravada();
         void parar_nota_gravada();
+        void tocar_nota_gravada();
 };
 
 
-#endif // SOM_H
+#endif // SONORA_H
