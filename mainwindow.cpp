@@ -242,7 +242,7 @@ void MainWindow::set_buttons() {
     record->setIconSize(QSize(20,20));
     record->setFixedSize(50,50);
     record->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed);
-    play->setEnabled(true);
+    play->setEnabled(false);
     play->setIcon(QIcon(QPixmap(":/pics/play.png")));
     play->setIconSize(QSize(20,20));
     play->setFixedSize(50,50);
