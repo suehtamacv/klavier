@@ -120,7 +120,7 @@ void MainWindow::Metronomo() {
         wid_metronomo->fechar();
 
     isMetronomo=1;
-    wid_metronomo = new metronomo(this);
+    wid_metronomo = new metronomo(this, metronomo::TipoDetectorBatidas);
     wid_metronomo->setAttribute(Qt::WA_DeleteOnClose);
     connect(this,SIGNAL(destroyed()),wid_metronomo,SLOT(fechar()));
 }
@@ -130,7 +130,7 @@ void MainWindow::Manual() {
         wid_metronomo->fechar();
 
     isMetronomo=1;
-    wid_metronomo = new metronomo(this, 1);
+    wid_metronomo = new metronomo(this, metronomo::TipoManual);
     wid_metronomo->setAttribute(Qt::WA_DeleteOnClose);
     connect(this,SIGNAL(destroyed()),wid_metronomo,SLOT(fechar()));
 }

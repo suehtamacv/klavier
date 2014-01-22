@@ -10,31 +10,32 @@
 class metronomo : public QWidget
 {
     Q_OBJECT
-public:
-    metronomo(QWidget*);
-    metronomo(QWidget*, int); // O inteiro serve para diferenciar o outro construtor
-    ~metronomo();
-    float get_bpm();
 
-signals:
+    public:
+        enum MetronomoTipo {
+            TipoDetectorBatidas,
+            TipoManual
+        };
+        metronomo(QWidget*, MetronomoTipo);
+        ~metronomo();
+        float get_bpm();
 
-public slots:
-    void on_botao_pressed();
-    void fechar();
+    public slots:
+        void botao_pressionado();
+        void fechar();
 
-private:
-    QWidget *wid_metronomo, *filler, *parent;
-    QHBoxLayout *hlayout;
-    QVBoxLayout *vlayout;
-    QTime tempo;
-    Botao *botao;
-    int rotacao;
-    time_t tempo_ini, tempo_fin;
-    float bpm;
-    void calc_bpm();
+    private:
+        int rotacao;
+        float bpm;
+        Botao *botao;
+        QHBoxLayout *hlayout;
+        QVBoxLayout *vlayout;
+        QTime tempo;
+        QWidget *wid_metronomo, *filler, *parent;
+        void calc_bpm();
 
-private slots:
-    void definir_bpm(int);
+    private slots:
+        void set_bpm(int);
 };
 
 #endif // METRONOMO_H

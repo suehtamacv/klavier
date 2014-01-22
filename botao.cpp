@@ -1,8 +1,6 @@
 #include "botao.h"
 
-Botao::Botao() : QPushButton() {
-
-}
+Botao::Botao() : QPushButton() {}
 
 Botao::Botao(QWidget *parent) {
     new QPushButton(parent);

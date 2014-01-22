@@ -11,16 +11,16 @@ namespace Ui {
 class Widget : public QWidget {
     Q_OBJECT
 
-public:
-    explicit Widget(QWidget *parent = 0);
-    ~Widget();
-    void tratar_tecla_pressionada(QKeyEvent *);
-    void tratar_tecla_solta(QKeyEvent *);
-    void set_tecla_pressionada(int);
-    void set_tecla_solta(int);
+    public:
+        explicit Widget(QWidget *parent = 0);
+        ~Widget();
+        void set_tecla_pressionada(int);
+        void set_tecla_solta(int);
+        void tratar_tecla_pressionada(QKeyEvent *);
+        void tratar_tecla_solta(QKeyEvent *);
 
-private:
-    Ui::Widget *ui;
+    private:
+        Ui::Widget *ui;
 
 };
 

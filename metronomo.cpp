@@ -8,97 +8,99 @@
 #include <QWidget>
 #include <QTime>
 
-metronomo::metronomo(QWidget *parn) : QWidget(parn) {
-    parent = parn;
-    rotacao=0;
+metronomo::metronomo(QWidget *parn, MetronomoTipo Tipo) : QWidget(parn) {
+    if (Tipo == TipoDetectorBatidas) {
+        parent = parn;
+        rotacao=0;
+        set_bpm(40);
 
-    wid_metronomo = new QWidget();
-    wid_metronomo->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-    wid_metronomo->setFixedSize(300,300);
-    wid_metronomo->setWindowTitle("Metrônomo");
-    wid_metronomo->show();
+        wid_metronomo = new QWidget();
+        wid_metronomo->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        wid_metronomo->setFixedSize(300,300);
+        wid_metronomo->setWindowTitle("Metrônomo");
+        wid_metronomo->show();
 
-    QLabel *text = new QLabel("Clique quatro vezes no botão abaixo:", this);
-    vlayout = new QVBoxLayout();
-    hlayout = new QHBoxLayout();
+        QLabel *text = new QLabel("Clique quatro vezes no botão abaixo:", this);
+        vlayout = new QVBoxLayout();
+        hlayout = new QHBoxLayout();
 
-    filler = new QWidget();
-    filler->setMinimumSize(0,0);
-    filler->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+        filler = new QWidget();
+        filler->setMinimumSize(0,0);
+        filler->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 
-    botao = new Botao(this);
-    botao->setFixedSize(70,70);
-    botao->setIcon(QIcon(QPixmap(":/pics/clock1.png")));
-    botao->setIconSize(QSize(40,40));
-    botao->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed);
-    connect(botao,SIGNAL(pressed()),this,SLOT(on_botao_pressed()));
+        botao = new Botao(this);
+        botao->setFixedSize(70,70);
+        botao->setIcon(QIcon(QPixmap(":/pics/clock1.png")));
+        botao->setIconSize(QSize(40,40));
+        botao->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed);
+        connect(botao,SIGNAL(pressed()),this,SLOT(botao_pressionado()));
 
-    hlayout->addWidget(filler);
-    hlayout->addWidget(botao);
-    hlayout->addWidget(filler);
+        hlayout->addWidget(filler);
+        hlayout->addWidget(botao);
+        hlayout->addWidget(filler);
 
-    vlayout->addWidget(text);
-    vlayout->addWidget(filler);
-    vlayout->addLayout(hlayout);
-    vlayout->addWidget(filler);
+        vlayout->addWidget(text);
+        vlayout->addWidget(filler);
+        vlayout->addLayout(hlayout);
+        vlayout->addWidget(filler);
 
-    wid_metronomo->setLayout(vlayout);
-    connect(this,SIGNAL(destroyed()),parent,SLOT(Adiciona_Botao_Metronomo()));
+        wid_metronomo->setLayout(vlayout);
+        connect(this,SIGNAL(destroyed()),parent,SLOT(Adiciona_Botao_Metronomo()));
+    } else if (Tipo == TipoManual) {
+        parent = parn;
+
+        QSpinBox *caixa_numerica = new QSpinBox;
+        QSlider *seletor = new QSlider(Qt::Horizontal);
+        QPushButton *botao = new QPushButton;
+
+        caixa_numerica->setRange(40,120);
+        seletor->setRange(40,120);
+        set_bpm(40);
+
+        connect(caixa_numerica, SIGNAL (valueChanged(int)), seletor, SLOT (setValue(int)));
+        connect(seletor, SIGNAL (valueChanged(int)), caixa_numerica, SLOT (setValue(int)));
+        connect(seletor,SIGNAL(valueChanged(int)),this,SLOT(set_bpm(int)));
+
+        botao = new Botao(this);
+        botao->setFixedSize(50,30);
+        botao->setText("Ok");
+
+        wid_metronomo = new QWidget();
+        wid_metronomo->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        wid_metronomo->setFixedSize(400,100);
+        wid_metronomo->setWindowTitle("Metrônomo Manual");
+        wid_metronomo->show();
+
+        QLabel *text = new QLabel("Defina o valor em batimentos por minuto abaixo:", this);
+        vlayout = new QVBoxLayout();
+        hlayout = new QHBoxLayout();
+
+        filler = new QWidget();
+        filler->setMinimumSize(0,0);
+        filler->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+
+        hlayout->addWidget(filler);
+        hlayout->addWidget(caixa_numerica);
+        hlayout->addWidget(seletor);
+        hlayout->addWidget(botao);
+        hlayout->addWidget(filler);
+
+        vlayout->addWidget(text);
+        vlayout->addWidget(filler);
+        vlayout->addLayout(hlayout);
+        vlayout->addWidget(filler);
+        wid_metronomo->setLayout(vlayout);
+
+        connect(botao,SIGNAL(pressed()),parent,SLOT(Adiciona_Botao_Metronomo()));
+        connect(botao,SIGNAL(pressed()),this,SLOT(fechar()));
+    }
 }
 
-metronomo::metronomo(QWidget *parn, int) : QWidget(parn) {
-    parent = parn;
-    QSpinBox *caixa_numerica = new QSpinBox;
-    QSlider *seletor = new QSlider(Qt::Horizontal);
-    QPushButton *botao = new QPushButton;
-
-    caixa_numerica->setRange(40,120);
-    seletor->setRange(40,120);
-
-    connect(caixa_numerica, SIGNAL (valueChanged(int)), seletor, SLOT (setValue(int)));
-    connect(seletor, SIGNAL (valueChanged(int)), caixa_numerica, SLOT (setValue(int)));
-    connect(seletor,SIGNAL(valueChanged(int)),this,SLOT(definir_bpm(int)));
-
-    botao = new Botao(this);
-    botao->setFixedSize(40,20);
-    botao->setText("Ok");
-
-    wid_metronomo = new QWidget();
-    wid_metronomo->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-    wid_metronomo->setFixedSize(300,100);
-    wid_metronomo->setWindowTitle("Metrônomo Manual");
-    wid_metronomo->show();
-
-    QLabel *text = new QLabel("Defina o valor em batimentos por minuto abaixo:", this);
-    vlayout = new QVBoxLayout();
-    hlayout = new QHBoxLayout();
-
-    filler = new QWidget();
-    filler->setMinimumSize(0,0);
-    filler->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
-
-
-    hlayout->addWidget(filler);
-    hlayout->addWidget(caixa_numerica);
-    hlayout->addWidget(seletor);
-    hlayout->addWidget(botao);
-    hlayout->addWidget(filler);
-
-    vlayout->addWidget(text);
-    vlayout->addWidget(filler);
-    vlayout->addLayout(hlayout);
-    vlayout->addWidget(filler);
-    wid_metronomo->setLayout(vlayout);
-
-    connect(botao,SIGNAL(pressed()),parent,SLOT(Adiciona_Botao_Metronomo()));
-    connect(botao,SIGNAL(pressed()),this,SLOT(fechar()));
-}
 metronomo::~metronomo() {
     delete wid_metronomo;
-    this->close();
 }
 
-void metronomo::on_botao_pressed() {
+void metronomo::botao_pressionado() {
     switch(rotacao) {
         case 0: tempo.start(); rotacao++; botao->setIcon(QIcon(QPixmap(":/pics/clock2.png"))); break;
         case 1: rotacao++; botao->setIcon(QIcon(QPixmap(":/pics/clock3.png"))); break;
@@ -109,6 +111,7 @@ void metronomo::on_botao_pressed() {
 
 void metronomo::calc_bpm() {
     bpm = tempo.elapsed();
+
     QMessageBox *result_bpm = new QMessageBox();
     result_bpm->setWindowTitle("Frequência");
 
@@ -133,7 +136,6 @@ float metronomo::get_bpm() {
     return bpm;
 }
 
-void metronomo::definir_bpm(int valor) {
+void metronomo::set_bpm(int valor) {
    bpm=valor;
 }
-

@@ -17,6 +17,7 @@ ajuda_wid::~ajuda_wid() {
 }
 
 void ajuda_wid::criar_menu_ajuda() {
+    this->setWindowTitle("Ajuda");
     ui->textBrowser->setSource(QUrl(QStringLiteral("qrc:/html/ajuda.html")));
 }
 
