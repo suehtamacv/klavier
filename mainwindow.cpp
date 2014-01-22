@@ -238,7 +238,6 @@ void MainWindow::set_buttons() {
     Botao *record = new Botao();
     Botao *play = new Botao();
     Botao *stop = new Botao();
-    Botao *pause = new Botao();
     record->setIcon(QIcon(QPixmap(":/pics/record.png")));
     record->setIconSize(QSize(20,20));
     record->setFixedSize(50,50);
@@ -248,11 +247,6 @@ void MainWindow::set_buttons() {
     play->setIconSize(QSize(20,20));
     play->setFixedSize(50,50);
     play->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed);
-    pause->setIcon(QIcon(QPixmap(":/pics/pause.png")));
-    pause->setIconSize(QSize(20,20));
-    pause->setFixedSize(50,50);
-    pause->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed);
-    pause->setEnabled(false);
     stop->setIcon(QIcon(QPixmap(":/pics/stop.png")));
     stop->setIconSize(QSize(20,20));
     stop->setFixedSize(50,50);
@@ -261,25 +255,18 @@ void MainWindow::set_buttons() {
     buttons = new QHBoxLayout;
     buttons->setMargin(5);
     buttons->addWidget(play);
-    buttons->addWidget(pause);
     buttons->addWidget(record);
     buttons->addWidget(stop);
 
-    connect(play,SIGNAL(clicked()),pause,SLOT(ativar()));
     connect(play,SIGNAL(clicked()),play,SLOT(desativar()));
     connect(play,SIGNAL(clicked()),record,SLOT(desativar()));
     connect(play,SIGNAL(clicked()),stop,SLOT(ativar()));
-    connect(pause,SIGNAL(clicked()),play,SLOT(ativar()));
-    connect(pause,SIGNAL(clicked()),pause,SLOT(desativar()));
-    connect(pause,SIGNAL(clicked()),record,SLOT(desativar()));
     connect(stop,SIGNAL(clicked()),record,SLOT(ativar()));
     connect(stop,SIGNAL(clicked()),stop,SLOT(desativar()));
-    connect(stop,SIGNAL(clicked()),pause,SLOT(desativar()));
     connect(stop,SIGNAL(clicked()),play,SLOT(ativar()));
     connect(record,SIGNAL(clicked()),stop,SLOT(ativar()));
     connect(record,SIGNAL(clicked()),record,SLOT(desativar()));
     connect(record,SIGNAL(clicked()),play,SLOT(desativar()));
-    connect(record,SIGNAL(clicked()),pause,SLOT(desativar()));
     connect(sound,SIGNAL(reproducao_terminada()),stop,SLOT(desativar()));
     connect(sound,SIGNAL(reproducao_terminada()),play,SLOT(ativar()));
     connect(sound,SIGNAL(reproducao_terminada()),record,SLOT(ativar()));

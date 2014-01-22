@@ -18,7 +18,7 @@ metronomo::metronomo(QWidget *parn) : QWidget(parn) {
     wid_metronomo->setWindowTitle("Metrônomo");
     wid_metronomo->show();
 
-    QLabel *text = new QLabel("Clique oito vezes no botão abaixo:", this);
+    QLabel *text = new QLabel("Clique quatro vezes no botão abaixo:", this);
     vlayout = new QVBoxLayout();
     hlayout = new QHBoxLayout();
 
@@ -100,14 +100,10 @@ metronomo::~metronomo() {
 
 void metronomo::on_botao_pressed() {
     switch(rotacao) {
-        case 0: tempo.start(); rotacao++; break;
-        case 1: botao->setIcon(QIcon(QPixmap(":/pics/clock2.png"))); rotacao++; break;
-        case 2: rotacao++; break;
-        case 3: botao->setIcon(QIcon(QPixmap(":/pics/clock3.png"))); rotacao++; break;
-        case 4: rotacao++; break;
-        case 5: botao->setIcon(QIcon(QPixmap(":/pics/clock4.png"))); rotacao++; break;
-        case 6: rotacao++; break;
-        case 7: botao->setIcon(QIcon(QPixmap(":/pics/clock1.png"))); rotacao=0; calc_bpm(); break;
+        case 0: tempo.start(); rotacao++; botao->setIcon(QIcon(QPixmap(":/pics/clock2.png"))); break;
+        case 1: rotacao++; botao->setIcon(QIcon(QPixmap(":/pics/clock3.png"))); break;
+        case 2: rotacao++; botao->setIcon(QIcon(QPixmap(":/pics/clock4.png"))); break;
+        case 3: botao->setIcon(QIcon(QPixmap(":/pics/clock1.png"))); rotacao=0; calc_bpm();break;
     }
 }
 
@@ -121,7 +117,7 @@ void metronomo::calc_bpm() {
         result_bpm->setInformativeText("O Metrônomo não conseguiu identificar a frequência da batida.");
         result_bpm->exec();
     } else {
-        bpm = 480000.0/bpm;
+        bpm = 240000.0/bpm;
         result_bpm->setText("O Metrônomo retorna uma batida de " + QString::number(bpm) + " bpm.");
         result_bpm->exec();
     }
