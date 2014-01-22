@@ -136,3 +136,4 @@ float metronomo::get_bpm() {
 void metronomo::definir_bpm(int valor) {
    bpm=valor;
 }
+

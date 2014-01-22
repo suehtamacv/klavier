@@ -19,6 +19,7 @@
 MainWindow::MainWindow() {
     BPM=0;
     isBPM=0;
+    isMetronomo=0;
 
     sound = new sonora(this);
     clique = new QSound(":/sounds/click.wav");
@@ -71,7 +72,8 @@ MainWindow::MainWindow() {
 MainWindow::~MainWindow() {
     delete piano;
     sound->~sonora();
-    //delete sound;
+    if (isMetronomo==1)
+        wid_metronomo->fechar();
     close();
 }
 
@@ -114,21 +116,23 @@ void MainWindow::Salvar()
 }
 
 void MainWindow::Metronomo() {
+    if (isMetronomo==1)
+        wid_metronomo->fechar();
+
+    isMetronomo=1;
     wid_metronomo = new metronomo(this);
     wid_metronomo->setAttribute(Qt::WA_DeleteOnClose);
     connect(this,SIGNAL(destroyed()),wid_metronomo,SLOT(fechar()));
 }
 
 void MainWindow::Manual() {
+    if (isMetronomo==1)
+        wid_metronomo->fechar();
+
+    isMetronomo=1;
     wid_metronomo = new metronomo(this, 1);
     wid_metronomo->setAttribute(Qt::WA_DeleteOnClose);
     connect(this,SIGNAL(destroyed()),wid_metronomo,SLOT(fechar()));
-
-}
-
-void MainWindow::Oitava()
-{
-    // Função
 }
 
 void MainWindow::Instrumento_1()
@@ -169,9 +173,6 @@ void MainWindow::createActions() // Aqui são as ações que deverão está cone
     Manual_A = new QAction("Definir Batimentos", this);
     connect(Manual_A, SIGNAL(triggered()), this, SLOT(Manual()));
 
-    Oitava_A = new QAction("Alterar Oitava", this);
-    connect(Oitava_A, SIGNAL(triggered()), this, SLOT(Oitava()));
-
 /* Essa Opção de Editar é uma sugestão ! ( mudar o instrumento ) */
 
     Instrumento_1_A = new QAction("Piano", this);
@@ -201,7 +202,6 @@ void MainWindow::createMenus() // Configurando como fica no Menu!
     ArquivoMenu->addAction(Sair_A);
 
     editMenu = menuBar()->addMenu("Editar");
-    editMenu->addAction(Oitava_A);
 
     MetronomoMenu = editMenu->addMenu("Metrônomo");
     MetronomoMenu->addAction(Metronomo_A);
@@ -281,6 +281,7 @@ void MainWindow::Fechar() {
 }
 
 void MainWindow::Adiciona_Botao_Metronomo() {
+    isMetronomo=0;
     BPM = wid_metronomo->get_bpm();
     if (BPM!=0) {
         if (isBPM==0) {

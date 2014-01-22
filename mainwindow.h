@@ -34,8 +34,7 @@ private slots:
     void Fechar();
     void Salvar();
     void Metronomo();
-    void Manual(); //
-    void Oitava();
+    void Manual();
     void Instrumento_1();
     void Instrumento_2();
     void Instrumento_3();
@@ -53,7 +52,7 @@ private slots:
 private:
     void set_buttons();
     float BPM;
-    int isBPM;
+    int isBPM, isMetronomo;
 // Isso é necessário para poder fazer as ações
     void createActions();
     void createMenus();
@@ -71,7 +70,6 @@ private:
     QAction *Sair_A;
     QAction *Metronomo_A;
     QAction *Manual_A; //
-    QAction *Oitava_A;
     QAction *Instrumento_1_A;
     QAction *Instrumento_2_A;
     QAction *Instrumento_3_A;
