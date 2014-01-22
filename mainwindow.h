@@ -13,74 +13,52 @@
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
+    public:
+        MainWindow();
+        ~MainWindow();
 
-public:
-    MainWindow();
-    ~MainWindow();
-    void set_bpm(float);
+    protected:
+        void contextMenuEvent(QContextMenuEvent *event);
 
-protected:
-    void contextMenuEvent(QContextMenuEvent *event);
+    public slots:
+        void Adiciona_Botao_Metronomo();
+        void set_tecla_pressionada(int);
+        void set_tecla_solta(int);
 
-public slots:
-    void Adiciona_Botao_Metronomo();
-    void set_tecla_pressionada(int);
-    void set_tecla_solta(int);
+    private slots:
+        void Abrir();
+        void Ajuda();
+        void Fechar();
+        void Gravar();
+        void Instrumento_1();
+        void Instrumento_2();
+        void Instrumento_3();
+        void keyPressEvent(QKeyEvent *);
+        void keyReleaseEvent(QKeyEvent *);
+        void Manual();
+        void Metronomo();
+        void Parar();
+        void Play();
+        void play_metronomo();
+        void Salvar();
+        void Sobre();
 
-private slots:
-    // Funções
-    void Composicao();
-    void Abrir();
-    void Fechar();
-    void Salvar();
-    void Metronomo();
-    void Manual();
-    void Instrumento_1();
-    void Instrumento_2();
-    void Instrumento_3();
-    void Ajuda();
-    void Sobre();
-    void keyPressEvent(QKeyEvent *);
-    void keyReleaseEvent(QKeyEvent *);
-    void play_metronomo();
-    void play_metronomo(int);
-    void Gravar();
-    void Parar();
-    void Play();
+    private:
+        int isBPM, isMetronomo;
+        float BPM;
+        metronomo *wid_metronomo;
+        QAction *Abrir_A, *Ajuda_A, *Instrumento_1_A, *Instrumento_2_A, *Instrumento_3_A, *Manual_A, *Metronomo_A,
+                *Salvar_A, *Sair_A, *Sobre_A;
+        QCheckBox *metr;
+        QHBoxLayout *buttons;
+        QMenu *ArquivoMenu, *editMenu, *TimbreMenu, *AjudaMenu, *MetronomoMenu;
+        QSound *clique;
+        sonora *sound;
+        Widget *piano;
 
-
-private:
-    void set_buttons();
-    float BPM;
-    int isBPM, isMetronomo;
-// Isso é necessário para poder fazer as ações
-    void createActions();
-    void createMenus();
-// São as abas de menu
-    QMenu *ArquivoMenu;
-    QMenu *editMenu;
-    QMenu *TimbreMenu;
-    QMenu *AjudaMenu;
-    QMenu *MetronomoMenu; //
-// Cada Ação correspondente a uma função, para diferenciar das funções coloquei " _A "
-// Esses elementos serão chamados no menu
-    QAction *Composicao_A;
-    QAction *Abrir_A;
-    QAction *Salvar_A;
-    QAction *Sair_A;
-    QAction *Metronomo_A;
-    QAction *Manual_A; //
-    QAction *Instrumento_1_A;
-    QAction *Instrumento_2_A;
-    QAction *Instrumento_3_A;
-    QAction *Ajuda_A;
-    QAction *Sobre_A;
-    Widget *piano;
-    metronomo *wid_metronomo;
-    QHBoxLayout *buttons;
-    QSound *clique;
-    QCheckBox *metr;
-    sonora *sound;
+        void createActions();
+        void createMenus();
+        void set_buttons();
 };
 
 #endif // MAINWINDOW_H

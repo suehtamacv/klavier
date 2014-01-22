@@ -32,6 +32,7 @@ class metronomo : public QWidget
         QVBoxLayout *vlayout;
         QTime tempo;
         QWidget *wid_metronomo, *filler, *parent;
+
         void calc_bpm();
 
     private slots:
