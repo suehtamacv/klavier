@@ -121,8 +121,8 @@ void MainWindow::createActions() {
     connect(Instrumento_1_A, SIGNAL(triggered()), this, SLOT(Instrumento_1()));
     Instrumento_2_A = new QAction("Guitarra", this);
     connect(Instrumento_2_A, SIGNAL(triggered()), this, SLOT(Instrumento_2()));
-    Instrumento_3_A = new QAction("Whatever", this);
-    connect(Instrumento_3_A, SIGNAL(triggered()), this, SLOT(Instrumento_3()));
+//    Instrumento_3_A = new QAction("Whatever", this);
+//    connect(Instrumento_3_A, SIGNAL(triggered()), this, SLOT(Instrumento_3()));
 
     Ajuda_A = new QAction("Ajuda",this);
     connect(Ajuda_A,SIGNAL(triggered()),this,SLOT(Ajuda()));
@@ -146,7 +146,7 @@ void MainWindow::createMenus() {
     TimbreMenu = editMenu->addMenu("Timbre");  // Esse Adiciona um menu dentro de outro
     TimbreMenu->addAction(Instrumento_1_A);
     TimbreMenu->addAction(Instrumento_2_A);
-    TimbreMenu->addAction(Instrumento_3_A);
+//    TimbreMenu->addAction(Instrumento_3_A);
 
     AjudaMenu = menuBar()->addMenu("Ajuda");
     AjudaMenu->addAction(Ajuda_A);
