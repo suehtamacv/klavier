@@ -12,27 +12,28 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = that-piano-program
 TEMPLATE = app
 
+win32:RC_FILE += icone.rc
 
 SOURCES += main.cpp\
         widget.cpp \
-    mainwindow.cpp \
-    botao.cpp \
-    metronomo.cpp \
-    sonora.cpp \
-    ajuda_wid.cpp \
-    BubbleSort.cpp
+        mainwindow.cpp \
+        botao.cpp \
+        metronomo.cpp \
+        sonora.cpp \
+        ajuda_wid.cpp \
+        BubbleSort.cpp
 
 HEADERS  += widget.h \
-    tecla_e_freq.h \
-    mainwindow.h \
-    botao.h \
-    metronomo.h \
-    sonora.h \
-    ajuda_wid.h \
-    BubbleSort.h
+        tecla_e_freq.h \
+        mainwindow.h \
+        botao.h \
+        metronomo.h \
+        sonora.h \
+        ajuda_wid.h \
+        BubbleSort.h
 
 FORMS    += widget.ui \
-    ajuda_wid.ui
+        ajuda_wid.ui
 
 RESOURCES += \
     icons.qrc \
@@ -87,3 +88,5 @@ RESOURCES += \
     html_files.qrc
 
 OTHER_FILES +=
+
+CONFIG += embed_manifest_exe

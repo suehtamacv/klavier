@@ -297,6 +297,7 @@ void sonora::tocar_nota(QKeyEvent *event) {
             erro->setWindowTitle("ERRO!");
             erro->setText("Uma composição está sendo tocada no momento.");
             erro->exec();
+            if (Player[note].state() != QMediaPlayer::PlayingState) emit nota_parada(note);
         }
     } else {
         if (note!=-1) {
