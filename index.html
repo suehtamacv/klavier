@@ -58,14 +58,22 @@ Os autores deste programa, por ordem alfabética, são:</p>
 
 <p>Este programa foi compilado utilizando o <em>Visual Studio Ultimate 2012</em>. Para a execução do <strong>That Piano Program</strong> é essencial, portanto, a instalação do <em>Visual C++ Redistributable for Visual Studio 2012 Update 4</em>, versão <strong>x86</strong>. Ele pode ser encontrado <a href="http://www.microsoft.com/en-us/download/details.aspx?id=30679">aqui</a>.</p>
 
-<p>Após isso o download do executável pode ser realizado. A última versão estável do <strong>That Piano Program</strong> e pode ser encontrada na página de <em>releases</em>, <a href="https://github.com/suehtamacv/that-piano-program/releases/">aqui</a>.</p>
+<p>Após isso o download do executável pode ser realizado. A última versão estável do <strong>That Piano Program</strong> pode ser encontrada na página de <em>releases</em>, <a href="https://github.com/suehtamacv/that-piano-program/releases/latest">aqui</a>.</p>
 
 <h3>
 <a name="instala%C3%A7%C3%A3o-no-linux" class="anchor" href="#instala%C3%A7%C3%A3o-no-linux"><span class="octicon octicon-link"></span></a>Instalação no Linux</h3>
 
-<p>Você pode compilar o <strong>That Piano Program</strong> a partir do código fonte. Primeiro, instale as dependências. Em um sistema baseado em <em>Debian</em>, rode <code>sudo apt-get install qt5-default qt5-qmake libqt5multimedia5 libqt5multimedia5-dev</code>. Num sistema baseado em <em>Fedora</em>, rode então  <code>sudo yum install qt5-default qt5-qmake libqt5multimedia5 libqt5multimedia5-dev</code>.</p>
+<p>Você pode compilar o <strong>That Piano Program</strong> a partir do código fonte. Primeiro, instale as dependências. Em um sistema baseado em <em>Debian</em>, rode <code>$ sudo apt-get install qt5-default qt5-qmake libqt5multimedia5 libqt5multimedia5-dev</code>. Num sistema baseado em <em>Fedora</em>, rode então  <code>$ sudo yum install qt5-default qt5-qmake libqt5multimedia5 libqt5multimedia5-dev</code>.</p>
 
-<p>Então faça o download do código fonte em <em>tar.gz</em>, no link encontrável no topo desta página. Abra o terminal e rode a seguinte sequência de comandos: <code>cd ~/Downloads; tar xzvf suehtamacv-that-piano-program-v2.0-beta-7-g7b673e7.tar.gz; mkdir thatpianoprogram-build; cd thatpianoprogram-build; qmake -makefile ../suehtamacv-that-piano-program-7b673e7; make</code></p>
+<p>Então faça o download do código fonte em <em>tar.gz</em>, no link encontrável no topo desta página. Abra o terminal e rode a seguinte sequência de comandos: </p>
+
+<pre lang="shell"><code>$ cd ~/Downloads
+$ tar xzvf suehtamacv-that-piano-program-v2.0-beta-7-g7b673e7.tar.gz
+$ mkdir thatpianoprogram-build
+cd thatpianoprogram-build
+$ qmake -makefile ../suehtamacv-that-piano-program-7b673e7
+$ make
+</code></pre>
 
 <p>A sequência de comandos compilará o programa na pasta <em>thatpianoprogram-build</em>. Deverá ocorrer sem erros se todas as dependências estiverem instaladas. Para executar o programa, você pode tanto dar um duplo clique no executável, ou na linha de comando, digitar <code>./that-piano-program</code>.</p>
 
