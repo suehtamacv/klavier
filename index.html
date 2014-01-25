@@ -24,7 +24,7 @@
       <div id="banner">
         <span id="logo"></span>
 
-        <a href="https://github.com/suehtamacv/that-piano-program" class="button fork"><strong>Ver No GitHub</strong></a>
+        <a href="https://github.com/suehtamacv/that-piano-program" class="button fork"><strong>View On GitHub</strong></a>
         <div class="downloads">
           <span>Downloads:</span>
           <ul>
@@ -40,14 +40,14 @@
       </nav>
       <section>
         <h2>
-<a name="bem-vindo-%C3%A0-p%C3%A1gina-do-that-piano-program" class="anchor" href="#bem-vindo-%C3%A0-p%C3%A1gina-do-that-piano-program"><span class="octicon octicon-link"></span></a>Apresentação do <strong>That Piano Program</strong>.</h2>
+<a name="bem-vindo-%C3%A0-p%C3%A1gina-do-that-piano-program" class="anchor" href="#bem-vindo-%C3%A0-p%C3%A1gina-do-that-piano-program"><span class="octicon octicon-link"></span></a>Bem vindo à página do <strong>That Piano Program</strong>.</h2>
 
 <p>Este programa decorre da disciplina de Técnicas de Programação (Turma II) do curso de Engenharia Elétrica da UFCG, no período 2013.2, ministrado pelo professor Marcus Salerno.
 Os autores deste programa, por ordem alfabética, são:</p>
 
 <ol>
-<li>Fernando Marreiro II</li>
 <li>Hugo Gayoso Meira Suassuna de Medeiros</li>
+<li>Fernando Marreiro II</li>
 <li>Matheus Alves dos Santos</li>
 <li>Matheus de Araújo Cavalcante (mantenedor)</li>
 </ol><h2>
@@ -58,12 +58,16 @@ Os autores deste programa, por ordem alfabética, são:</p>
 
 <p>Este programa foi compilado utilizando o <em>Visual Studio Ultimate 2012</em>. Para a execução do <strong>That Piano Program</strong> é essencial, portanto, a instalação do <em>Visual C++ Redistributable for Visual Studio 2012 Update 4</em>, versão <strong>x86</strong>. Ele pode ser encontrado <a href="http://www.microsoft.com/en-us/download/details.aspx?id=30679">aqui</a>.</p>
 
-<p>Após isso o download do executável pode ser realizado. A última versão estável do <strong>That Piano Program</strong> pode ser encontrada na página de <em>releases</em>, <a href="https://github.com/suehtamacv/that-piano-program/releases/">aqui</a>.</p>
+<p>Após isso o download do executável pode ser realizado. A última versão estável do <strong>That Piano Program</strong> e pode ser encontrada na página de <em>releases</em>, <a href="https://github.com/suehtamacv/that-piano-program/releases/">aqui</a>.</p>
 
 <h3>
 <a name="instala%C3%A7%C3%A3o-no-linux" class="anchor" href="#instala%C3%A7%C3%A3o-no-linux"><span class="octicon octicon-link"></span></a>Instalação no Linux</h3>
 
-<p>Uma PPA está sendo criada. Infelizmente esta opção não está disponível nesta versão.</p>
+<p>Você pode compilar o <strong>That Piano Program</strong> a partir do código fonte. Primeiro, instale as dependências. Em um sistema baseado em <em>Debian</em>, rode <code>sudo apt-get install qt5-default qt5-qmake libqt5multimedia5 libqt5multimedia5-dev</code>. Num sistema baseado em <em>Fedora</em>, rode então  <code>sudo yum install qt5-default qt5-qmake libqt5multimedia5 libqt5multimedia5-dev</code>.</p>
+
+<p>Então faça o download do código fonte em <em>tar.gz</em>, no link encontrável no topo desta página. Abra o terminal e, usando o comando <code>cd ~/Downloads</code>, entre na pasta na qual está o código-fonte descompactado. Então rode a seguinte sequência de comandos: <code>mkdir thatpianoprogram-build; tar xzvf suehtamacv-that-piano-program-v2.0-beta-7-g7b673e7.tar.gz; qmake -makefile ../suehtamacv-that-piano-program-7b673e7; make</code></p>
+
+<p>A sequência de comandos compilará o programa na pasta <em>thatpianoprogram-build</em>. Deverá ocorrer sem erros se todas as dependências estiverem instaladas. Para executar o programa, você pode tanto dar um duplo clique no executável, ou na linha de comando, digitar <code>./that-piano-program</code>.</p>
 
 <h2>
 <a name="suporte" class="anchor" href="#suporte"><span class="octicon octicon-link"></span></a>Suporte</h2>
