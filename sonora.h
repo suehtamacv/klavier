@@ -15,7 +15,7 @@ class sonora : public QWidget {
             Gravando, Parado, Tocando
         };
         enum Instrumentos {
-            Piano, Guitarra, Whatever
+            Piano, Guitarra, Vibraphone
         };
 
         sonora(QWidget*);
@@ -41,7 +41,7 @@ class sonora : public QWidget {
     private:
         int Composicao_Criada, Estado_Atual, Notas_Paradas, Notas_Tocadas, Num_Notas, _RAND_NUMBER_, *Vetor_Auxiliar;
         int Musica[200][3]; // Matriz que vai armazenar a composição. Identificação: Nota, Tempo Inicial, Tempo Final
-        QFile **FilesP, **FilesG;
+        QFile **FilesP, **FilesG, **FilesV;
         QMediaPlayer *Player;
         QTime Relogio_Master, Relogio[24];
         QTimer *Relogio_Inicio_Nota, *Relogio_Fim_Nota;

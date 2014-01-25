@@ -87,6 +87,30 @@ RESOURCES += \
     sounds/samples/g23.qrc \
     html_files.qrc
 
-OTHER_FILES +=
+OTHER_FILES += \
+    sounds/samples/v0.mp3 \
+    sounds/samples/v1.mp3 \
+    sounds/samples/v2.mp3 \
+    sounds/samples/v3.mp3 \
+    sounds/samples/v4.mp3 \
+    sounds/samples/v5.mp3 \
+    sounds/samples/v6.mp3 \
+    sounds/samples/v7.mp3 \
+    sounds/samples/v8.mp3 \
+    sounds/samples/v9.mp3 \
+    sounds/samples/v10.mp3 \
+    sounds/samples/v11.mp3 \
+    sounds/samples/v12.mp3 \
+    sounds/samples/v13.mp3 \
+    sounds/samples/v14.mp3 \
+    sounds/samples/v15.mp3 \
+    sounds/samples/v16.mp3 \
+    sounds/samples/v17.mp3 \
+    sounds/samples/v18.mp3 \
+    sounds/samples/v19.mp3 \
+    sounds/samples/v20.mp3 \
+    sounds/samples/v21.mp3 \
+    sounds/samples/v22.mp3 \
+    sounds/samples/v23.mp3
 
 CONFIG += embed_manifest_exe

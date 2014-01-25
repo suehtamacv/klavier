@@ -64,6 +64,7 @@ void sonora::configurar_de_arquivo(QFile *Arquivo) {
 void sonora::criar_arq_temp() {
     FilesP = new QFile*[24];
     FilesG = new QFile*[24];
+    FilesV = new QFile*[24];
 
     for (int i = 0; i<=23; i++) {
         FilesP[i] = new QFile(QDir::tempPath() + "/work_p_" + QString::number(_RAND_NUMBER_) + "_" + QString::number(i) + ".mp3");
@@ -84,6 +85,17 @@ void sonora::criar_arq_temp() {
                 guitarra.close();
             }
             FilesG[i]->close();
+
+        }
+
+        FilesV[i] = new QFile(QDir::tempPath() + "/work_v_" + QString::number(_RAND_NUMBER_) + "_" + QString::number(i) + ".mp3");
+        QFile vibraphone(":/sounds/samples/v" + QString::number(i) + ".mp3");
+        if (FilesV[i]->open(QIODevice::ReadWrite)) {
+            if (vibraphone.open(QIODevice::ReadOnly)) {
+                    FilesV[i]->write(vibraphone.readAll());
+                    vibraphone.close();
+                }
+                FilesV[i]->close();
         }
     }
 }
@@ -276,11 +288,11 @@ void sonora::set_instrumento(Instrumentos I) {
                 Player[i].setMedia(QMediaContent(QUrl::fromLocalFile(FilesGuitarra.absoluteFilePath())));
             }
             break;
-        case Whatever:
+        case Vibraphone:
             for (int i = 0; i<=23 ; i++ ) {
-                QFileInfo FilesGuitarra;
-                FilesGuitarra.setFile(*FilesG[i]);
-                Player[i].setMedia(QMediaContent(QUrl::fromLocalFile(FilesGuitarra.absoluteFilePath())));
+                QFileInfo FilesVibraphone;
+                FilesVibraphone.setFile(*FilesV[i]);
+                Player[i].setMedia(QMediaContent(QUrl::fromLocalFile(FilesVibraphone.absoluteFilePath())));
             }
             break;
     }
