@@ -104,6 +104,7 @@ void sonora::excluir_arq_temp() {
     for (int i=0 ; i<=23 ; i++) {
         QFile::remove(QDir::tempPath() + "/work_p_" + QString::number(_RAND_NUMBER_) + "_" + QString::number(i) + ".mp3");
         QFile::remove(QDir::tempPath() + "/work_g_" + QString::number(_RAND_NUMBER_) + "_" + QString::number(i) + ".mp3");
+        QFile::remove(QDir::tempPath() + "/work_v_" + QString::number(_RAND_NUMBER_) + "_" + QString::number(i) + ".mp3");
     }
 }
 
