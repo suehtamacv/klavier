@@ -85,32 +85,30 @@ RESOURCES += \
     sounds/samples/g21.qrc \
     sounds/samples/g22.qrc \
     sounds/samples/g23.qrc \
+    sounds/samples/v0.qrc \
+    sounds/samples/v1.qrc \
+    sounds/samples/v2.qrc \
+    sounds/samples/v3.qrc \
+    sounds/samples/v4.qrc \
+    sounds/samples/v5.qrc \
+    sounds/samples/v6.qrc \
+    sounds/samples/v7.qrc \
+    sounds/samples/v8.qrc \
+    sounds/samples/v9.qrc \
+    sounds/samples/v10.qrc \
+    sounds/samples/v11.qrc \
+    sounds/samples/v12.qrc \
+    sounds/samples/v13.qrc \
+    sounds/samples/v14.qrc \
+    sounds/samples/v15.qrc \
+    sounds/samples/v16.qrc \
+    sounds/samples/v17.qrc \
+    sounds/samples/v18.qrc \
+    sounds/samples/v19.qrc \
+    sounds/samples/v20.qrc \
+    sounds/samples/v21.qrc \
+    sounds/samples/v22.qrc \
+    sounds/samples/v23.qrc \
     html_files.qrc
-
-OTHER_FILES += \
-    sounds/samples/v0.mp3 \
-    sounds/samples/v1.mp3 \
-    sounds/samples/v2.mp3 \
-    sounds/samples/v3.mp3 \
-    sounds/samples/v4.mp3 \
-    sounds/samples/v5.mp3 \
-    sounds/samples/v6.mp3 \
-    sounds/samples/v7.mp3 \
-    sounds/samples/v8.mp3 \
-    sounds/samples/v9.mp3 \
-    sounds/samples/v10.mp3 \
-    sounds/samples/v11.mp3 \
-    sounds/samples/v12.mp3 \
-    sounds/samples/v13.mp3 \
-    sounds/samples/v14.mp3 \
-    sounds/samples/v15.mp3 \
-    sounds/samples/v16.mp3 \
-    sounds/samples/v17.mp3 \
-    sounds/samples/v18.mp3 \
-    sounds/samples/v19.mp3 \
-    sounds/samples/v20.mp3 \
-    sounds/samples/v21.mp3 \
-    sounds/samples/v22.mp3 \
-    sounds/samples/v23.mp3
 
 CONFIG += embed_manifest_exe
