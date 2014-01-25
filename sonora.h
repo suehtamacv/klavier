@@ -25,13 +25,15 @@ class sonora : public QWidget {
         int get_estado();
         void Gravar();
         int is_Composicao_Criada(void);
-        void Parar();
         void parar_nota(QKeyEvent *);
         void Play();
         void salvar_arquivo(QString);
         void set_instrumento (Instrumentos);
         void set_estado (Estado);
         void tocar_nota(QKeyEvent *);
+
+    public slots:
+        void Parar();
 
     signals:
         int nota_tocada(int);

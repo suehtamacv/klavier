@@ -2,6 +2,7 @@
 #include "BubbleSort.h"
 #include "mainwindow.h"
 #include "tecla_e_freq.h"
+#include <QCoreApplication>
 #include <QKeyEvent>
 #include <QTextStream>
 #include <QMessageBox>
@@ -10,6 +11,7 @@
 #include <QUrl>
 #include <QString>
 #include <QTimer>
+#include <QThread>
 
 sonora::sonora(QWidget *parn) : QWidget(parn) {
     parent = parn;
@@ -172,6 +174,7 @@ void sonora::parar_nota(QKeyEvent *event){
         int note = procurar_nota(event->key());
         if (note!=-1) {
             if (Player[note].state() == QMediaPlayer::PlayingState)
+                QThread::msleep(50);
                 Player[note].stop();
         }
         if (Estado_Atual == Gravando){
