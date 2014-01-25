@@ -173,9 +173,10 @@ void sonora::parar_nota(QKeyEvent *event){
     if (Estado_Atual != Tocando) {
         int note = procurar_nota(event->key());
         if (note!=-1) {
-            if (Player[note].state() == QMediaPlayer::PlayingState)
-                QThread::msleep(50);
+            if (Player[note].state() == QMediaPlayer::PlayingState) {
+                QThread::msleep(100);
                 Player[note].stop();
+            }
         }
         if (Estado_Atual == Gravando){
             parar_gravacao(event);

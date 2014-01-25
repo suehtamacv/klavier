@@ -45,7 +45,7 @@ class sonora : public QWidget {
         int Musica[200][3]; // Matriz que vai armazenar a composição. Identificação: Nota, Tempo Inicial, Tempo Final
         QFile **FilesP, **FilesG, **FilesV;
         QMediaPlayer *Player;
-        QTime Relogio_Master, Relogio[24];
+        QTime Relogio_Master;
         QTimer *Relogio_Inicio_Nota, *Relogio_Fim_Nota;
         QWidget *parent;
 
