@@ -106,28 +106,38 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event) {
 void MainWindow::createActions() {
     Abrir_A = new QAction("Abrir", this);
     connect(Abrir_A, SIGNAL(triggered()), this, SLOT(Abrir()));
+    connect(Abrir_A,SIGNAL(triggered()),sound,SLOT(Parar()));
     Salvar_A = new QAction("Salvar", this);
     connect(Salvar_A, SIGNAL(triggered()), this, SLOT(Salvar()));
+    connect(Salvar_A,SIGNAL(triggered()),sound,SLOT(Parar()));
     Sair_A = new QAction("Sair", this);
-    connect(Sair_A, SIGNAL(triggered()), this, SLOT(Fechar())); // Esse já pega tranquilo, sem função
+    connect(Sair_A, SIGNAL(triggered()), this, SLOT(Fechar()));
+    connect(Sair_A,SIGNAL(triggered()),sound,SLOT(Parar()));
     Metronomo_A = new QAction("Ajustar Metronômo", this);
     connect(Metronomo_A, SIGNAL(triggered()), this, SLOT(Metronomo()));
+    connect(Metronomo_A,SIGNAL(triggered()),sound,SLOT(Parar()));
     Manual_A = new QAction("Definir Batimentos", this);
     connect(Manual_A, SIGNAL(triggered()), this, SLOT(Manual()));
+    connect(Manual_A,SIGNAL(triggered()),sound,SLOT(Parar()));
 
 /* Essa Opção de Editar é uma sugestão ! ( mudar o instrumento ) */
 
     Instrumento_1_A = new QAction("Piano", this);
     connect(Instrumento_1_A, SIGNAL(triggered()), this, SLOT(Instrumento_1()));
+    connect(Instrumento_1_A,SIGNAL(triggered()),sound,SLOT(Parar()));
     Instrumento_2_A = new QAction("Guitarra", this);
     connect(Instrumento_2_A, SIGNAL(triggered()), this, SLOT(Instrumento_2()));
+    connect(Instrumento_2_A,SIGNAL(triggered()),sound,SLOT(Parar()));
     Instrumento_3_A = new QAction("Vibraphone", this);
     connect(Instrumento_3_A, SIGNAL(triggered()), this, SLOT(Instrumento_3()));
+    connect(Instrumento_3_A,SIGNAL(triggered()),sound,SLOT(Parar()));
 
     Ajuda_A = new QAction("Ajuda",this);
     connect(Ajuda_A,SIGNAL(triggered()),this,SLOT(Ajuda()));
+    connect(Ajuda_A,SIGNAL(triggered()),sound,SLOT(Parar()));
     Sobre_A = new QAction("Sobre",this);
     connect(Sobre_A,SIGNAL(triggered()),this,SLOT(Sobre()));
+    connect(Sobre_A,SIGNAL(triggered()),sound,SLOT(Parar()));
 }
 
 void MainWindow::createMenus() {
@@ -136,21 +146,26 @@ void MainWindow::createMenus() {
     ArquivoMenu->addAction(Salvar_A);
     ArquivoMenu->addSeparator(); // Esse comando Adiciona uma barrinha divisoria
     ArquivoMenu->addAction(Sair_A);
+    connect(ArquivoMenu,SIGNAL(aboutToShow()),sound,SLOT(Parar()));
 
     editMenu = menuBar()->addMenu("Editar");
+    connect(editMenu,SIGNAL(aboutToShow()),sound,SLOT(Parar()));
 
     MetronomoMenu = editMenu->addMenu("Metrônomo");
     MetronomoMenu->addAction(Metronomo_A);
     MetronomoMenu->addAction(Manual_A);
+    connect(MetronomoMenu,SIGNAL(aboutToShow()),sound,SLOT(Parar()));
 
     TimbreMenu = editMenu->addMenu("Timbre");  // Esse Adiciona um menu dentro de outro
     TimbreMenu->addAction(Instrumento_1_A);
     TimbreMenu->addAction(Instrumento_2_A);
     TimbreMenu->addAction(Instrumento_3_A);
+    connect(TimbreMenu,SIGNAL(aboutToShow()),sound,SLOT(Parar()));
 
     AjudaMenu = menuBar()->addMenu("Ajuda");
     AjudaMenu->addAction(Ajuda_A);
     AjudaMenu->addAction(Sobre_A);
+    connect(AjudaMenu,SIGNAL(aboutToShow()),sound,SLOT(Parar()));
 }
 
 void MainWindow::Fechar() {
