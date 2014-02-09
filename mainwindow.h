@@ -53,6 +53,7 @@ class MainWindow : public QMainWindow
         QHBoxLayout *buttons;
         QMenu *ArquivoMenu, *editMenu, *TimbreMenu, *AjudaMenu, *MetronomoMenu;
         QSound *clique;
+        QTimer *metronomo_timer;
         sonora *sound;
         Widget *piano;
 

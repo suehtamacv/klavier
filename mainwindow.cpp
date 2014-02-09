@@ -17,6 +17,7 @@ MainWindow::MainWindow() {
     BPM=isBPM=isMetronomo=0;
 
     clique = new QSound(":/sounds/click.wav");
+    metronomo_timer = new QTimer(this);
     sound = new sonora(this);
 
     QWidget *widget = new QWidget; // Criando a barra principal
@@ -53,7 +54,7 @@ MainWindow::MainWindow() {
     createActions();
     createMenus();
 
-    setWindowTitle("That Piano Program");
+    setWindowTitle("Klavier");
     setMinimumSize(750, 300);
     resize(750,300);
     setWindowIcon(QIcon(":/pics/ico500px.png"));
@@ -239,7 +240,7 @@ void MainWindow::play_metronomo() {
         } else {
                 if(clique->isFinished()) {
                     clique->play();
-                    QTimer::singleShot((int)1000*frequencia,this,SLOT(play_metronomo()));
+                    metronomo_timer->singleShot((int)1000*frequencia,this,SLOT(play_metronomo()));
                 }
         }
     }
