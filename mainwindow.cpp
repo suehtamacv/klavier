@@ -115,7 +115,6 @@ void MainWindow::createActions() {
     connect(Salvar_A,SIGNAL(triggered()),sound,SLOT(Parar()));
     Exportar_A = new QAction("Exportar como MP3",this);
     connect(Exportar_A,SIGNAL(triggered()),sound,SLOT(exportar_como_mp3()));
-    connect(Exportar_A,SIGNAL(triggered()),sound,SLOT(Parar()));
     Sair_A = new QAction("Sair", this);
     connect(Sair_A, SIGNAL(triggered()), this, SLOT(Fechar()));
     connect(Sair_A,SIGNAL(triggered()),sound,SLOT(Parar()));
@@ -313,6 +312,7 @@ void MainWindow::set_buttons() {
     connect(sound,SIGNAL(bloquear_programa()),play,SLOT(desativar()));
     connect(sound,SIGNAL(bloquear_programa()),record,SLOT(desativar()));
     connect(sound,SIGNAL(bloquear_programa()),stop,SLOT(desativar()));
+    connect(sound,SIGNAL(bloquear_programa()),this,SLOT(Parar()));
     connect(sound,SIGNAL(desbloquear_programa()),play,SLOT(ativar()));
     connect(sound,SIGNAL(desbloquear_programa()),record,SLOT(ativar()));
 }

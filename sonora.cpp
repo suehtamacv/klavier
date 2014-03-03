@@ -115,21 +115,27 @@ void sonora::excluir_arq_temp() {
 void sonora::exportar_como_mp3(void) {
     if (Composicao_Criada == 1) {
         QFileDialog *exportar_mp3 = new QFileDialog(this);
-        //QString caminho = exportar_mp3->getSaveFileName(this,"Exportar composição como MP3",QDir::homePath(),"Arquivo MP3 (*.mp3)");
-        QString caminho = "/home/matheus/test.amr";
-        gravador = new QAudioRecorder(this);
-        QAudioEncoderSettings conf_grav;
-        conf_grav.setQuality(QMultimedia::HighQuality);
-        //conf_grav.setCodec("audio/amr");
-        gravador->setAudioSettings(conf_grav);
-        gravador->setOutputLocation(QUrl::fromLocalFile(caminho));
-        //gravador->record();
+        QString caminho = exportar_mp3->getSaveFileName(this,"Exportar composição como MP3",QDir::homePath(),"Arquivo MP3 (*.mp3)");
+        arquivo_mp3 = new QFile();
+        arquivo_mp3->setFileName(caminho);
+        arquivo_mp3->open(QIODevice::WriteOnly | QIODevice::Truncate);
 
-        qDebug() << caminho;
+        QAudioFormat conf_grav;
+        conf_grav.setSampleSize(8);
+        conf_grav.setCodec("audio/mpeg");
+        conf_grav.setByteOrder(QAudioFormat::LittleEndian);
+        conf_grav.setSampleType(QAudioFormat::UnSignedInt);
 
+        QAudioDeviceInfo info = QAudioDeviceInfo::defaultInputDevice();
+        if (!info.isFormatSupported(conf_grav)) {
+            qWarning()<<"default format not supported try to use nearest";
+            conf_grav = info.nearestFormat(conf_grav);
+        }
+
+        gravador = new QAudioInput(conf_grav,this);
         emit bloquear_programa();
-        //set_estado(GerandoMP3);
-        Parar();
+        set_estado(GerandoMP3);
+        gravador->start(arquivo_mp3);
         Play();
     } else {
         QMessageBox *erro = new QMessageBox();
@@ -178,6 +184,8 @@ void sonora::Parar() {
         emit reproducao_terminada();
         emit desbloquear_programa();
         gravador->stop();
+        arquivo_mp3->close();
+        delete gravador;
         set_estado(Parado);
     }
 
@@ -212,14 +220,14 @@ void sonora::parar_nota(QKeyEvent *event){
                 Player[note].stop();
             }
         }
-        if (Estado_Atual == Gravando){
+        if (Estado_Atual == Gravando || Estado_Atual == GerandoMP3){
             parar_gravacao(event);
         }
     }
 }
 
 void sonora::parar_nota_gravada() {
-    if (Estado_Atual == Tocando) {
+    if (Estado_Atual == Tocando || Estado_Atual == GerandoMP3) {
         for (int i=0;i<Num_Notas;i++) {
             if (Musica[i][2] == Vetor_Auxiliar[Notas_Paradas]) {
                 if (Player[Musica[i][0]].state() == QMediaPlayer::PlayingState) {
@@ -249,13 +257,13 @@ void sonora::Play() {
         emit reproducao_terminada();
     } else {
         for (int i=0;i<24;i++) if (Player[i].state() == QMediaPlayer::PlayingState) Player[i].stop();
-        if (Estado_Atual != GerandoMP3)
-            set_estado(Tocando);
         set_vetor_auxiliar();
         Notas_Tocadas=Notas_Paradas=0;
         Relogio_Master.start();
         Relogio_Inicio_Nota->singleShot(Musica[0][1],this,SLOT(tocar_nota_gravada()));
         Relogio_Fim_Nota->singleShot(Vetor_Auxiliar[0],this,SLOT(parar_nota_gravada()));
+        if (Estado_Atual != GerandoMP3)
+            set_estado(Tocando);
     }
 }
 
@@ -366,7 +374,7 @@ void sonora::tocar_nota(QKeyEvent *event) {
 }
 
 void sonora::tocar_nota_gravada() {
-    if (Estado_Atual == Tocando) {
+    if (Estado_Atual == Tocando || Estado_Atual == GerandoMP3) {
         if (Player[Musica[Notas_Tocadas][0]].state() == QMediaPlayer::StoppedState) {
             Player[Musica[Notas_Tocadas][0]].play();
             emit nota_tocada(Musica[Notas_Tocadas][0]);
