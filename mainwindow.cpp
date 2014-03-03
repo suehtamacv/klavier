@@ -89,6 +89,8 @@ void MainWindow::Adiciona_Botao_Metronomo() {
             metr->setIcon(QIcon(QPixmap(":/pics/metronomo.png")));
             buttons->addWidget(metr);
             connect(metr,SIGNAL(clicked()),this,SLOT(play_metronomo()));
+            connect(sound,SIGNAL(bloquear_programa()),metr,SLOT(hide()));
+            connect(sound,SIGNAL(desbloquear_programa()),metr,SLOT(show()));
             isBPM=1;
         }
     }
@@ -111,6 +113,9 @@ void MainWindow::createActions() {
     Salvar_A = new QAction("Salvar", this);
     connect(Salvar_A, SIGNAL(triggered()), this, SLOT(Salvar()));
     connect(Salvar_A,SIGNAL(triggered()),sound,SLOT(Parar()));
+    Exportar_A = new QAction("Exportar como MP3",this);
+    connect(Exportar_A,SIGNAL(triggered()),sound,SLOT(exportar_como_mp3()));
+    connect(Exportar_A,SIGNAL(triggered()),sound,SLOT(Parar()));
     Sair_A = new QAction("Sair", this);
     connect(Sair_A, SIGNAL(triggered()), this, SLOT(Fechar()));
     connect(Sair_A,SIGNAL(triggered()),sound,SLOT(Parar()));
@@ -145,6 +150,7 @@ void MainWindow::createMenus() {
     ArquivoMenu = menuBar()->addMenu("Arquivo");
     ArquivoMenu->addAction(Abrir_A);
     ArquivoMenu->addAction(Salvar_A);
+    ArquivoMenu->addAction(Exportar_A);
     ArquivoMenu->addSeparator(); // Esse comando Adiciona uma barrinha divisoria
     ArquivoMenu->addAction(Sair_A);
     connect(ArquivoMenu,SIGNAL(aboutToShow()),sound,SLOT(Parar()));
@@ -303,6 +309,12 @@ void MainWindow::set_buttons() {
     connect(record,SIGNAL(clicked()),this,SLOT(Gravar())); // Função que inicia o Relogio master e muda o estado
     connect(stop,SIGNAL(clicked()),this,SLOT(Parar()));
     connect(play,SIGNAL(clicked()),this,SLOT(Play()));
+
+    connect(sound,SIGNAL(bloquear_programa()),play,SLOT(desativar()));
+    connect(sound,SIGNAL(bloquear_programa()),record,SLOT(desativar()));
+    connect(sound,SIGNAL(bloquear_programa()),stop,SLOT(desativar()));
+    connect(sound,SIGNAL(desbloquear_programa()),play,SLOT(ativar()));
+    connect(sound,SIGNAL(desbloquear_programa()),record,SLOT(ativar()));
 }
 
 void MainWindow::set_tecla_pressionada(int tecla) {

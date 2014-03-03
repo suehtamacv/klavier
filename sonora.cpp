@@ -2,7 +2,9 @@
 #include "BubbleSort.h"
 #include "mainwindow.h"
 #include "tecla_e_freq.h"
+#include <QAudioEncoderSettings>
 #include <QCoreApplication>
+#include <QFileDialog>
 #include <QKeyEvent>
 #include <QTextStream>
 #include <QMessageBox>
@@ -110,6 +112,33 @@ void sonora::excluir_arq_temp() {
     }
 }
 
+void sonora::exportar_como_mp3(void) {
+    if (Composicao_Criada == 1) {
+        QFileDialog *exportar_mp3 = new QFileDialog(this);
+        //QString caminho = exportar_mp3->getSaveFileName(this,"Exportar composição como MP3",QDir::homePath(),"Arquivo MP3 (*.mp3)");
+        QString caminho = "/home/matheus/test.amr";
+        gravador = new QAudioRecorder(this);
+        QAudioEncoderSettings conf_grav;
+        conf_grav.setQuality(QMultimedia::HighQuality);
+        //conf_grav.setCodec("audio/amr");
+        gravador->setAudioSettings(conf_grav);
+        gravador->setOutputLocation(QUrl::fromLocalFile(caminho));
+        //gravador->record();
+
+        qDebug() << caminho;
+
+        emit bloquear_programa();
+        //set_estado(GerandoMP3);
+        Parar();
+        Play();
+    } else {
+        QMessageBox *erro = new QMessageBox();
+        erro->setWindowTitle("ERRO!");
+        erro->setText("Não há nenhuma composição criada.");
+        erro->exec();
+    }
+}
+
 int sonora::get_estado() {
     return Estado_Atual;
 }
@@ -145,6 +174,11 @@ void sonora::Parar() {
         set_estado(Parado);
         if (Num_Notas!=0) Composicao_Criada=1;
         else Composicao_Criada=0;
+    } else if (Estado_Atual==GerandoMP3) {
+        emit reproducao_terminada();
+        emit desbloquear_programa();
+        gravador->stop();
+        set_estado(Parado);
     }
 
     for (int i=0;i<24;i++) {
@@ -215,7 +249,8 @@ void sonora::Play() {
         emit reproducao_terminada();
     } else {
         for (int i=0;i<24;i++) if (Player[i].state() == QMediaPlayer::PlayingState) Player[i].stop();
-        set_estado(Tocando);
+        if (Estado_Atual != GerandoMP3)
+            set_estado(Tocando);
         set_vetor_auxiliar();
         Notas_Tocadas=Notas_Paradas=0;
         Relogio_Master.start();

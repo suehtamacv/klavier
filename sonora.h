@@ -6,13 +6,14 @@
 #include <QMediaPlayer>
 #include <QTime>
 #include <QFile>
+#include <QAudioInput>
 
 
 class sonora : public QWidget {
     Q_OBJECT
     public:
         enum Estado {
-            Gravando, Parado, Tocando
+            Gravando, Parado, Tocando, GerandoMP3
         };
         enum Instrumentos {
             Piano, Guitarra, Vibraphone
@@ -34,15 +35,19 @@ class sonora : public QWidget {
 
     public slots:
         void Parar();
+        void exportar_como_mp3(void);
 
     signals:
         int nota_tocada(int);
         int nota_parada(int);
         void reproducao_terminada();
+        void bloquear_programa();
+        void desbloquear_programa();
 
     private:
         int Composicao_Criada, Estado_Atual, Notas_Paradas, Notas_Tocadas, Num_Notas, _RAND_NUMBER_, *Vetor_Auxiliar;
         int Musica[200][3]; // Matriz que vai armazenar a composição. Identificação: Nota, Tempo Inicial, Tempo Final
+        QAudioInput *gravador;
         QFile **FilesP, **FilesG, **FilesV;
         QMediaPlayer *Player;
         QTime Relogio_Master;
