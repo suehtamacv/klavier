@@ -121,10 +121,11 @@ void sonora::exportar_como_mp3(void) {
         arquivo_mp3->open(QIODevice::WriteOnly | QIODevice::Truncate);
 
         QAudioFormat conf_grav;
-        conf_grav.setSampleSize(8);
-        conf_grav.setCodec("audio/mpeg");
+        conf_grav.setSampleRate(44100);
+        conf_grav.setChannelCount(2);
         conf_grav.setByteOrder(QAudioFormat::LittleEndian);
         conf_grav.setSampleType(QAudioFormat::UnSignedInt);
+        conf_grav.setCodec("audio/mpeg");
 
         QAudioDeviceInfo info = QAudioDeviceInfo::defaultInputDevice();
         if (!info.isFormatSupported(conf_grav)) {
