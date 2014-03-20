@@ -47,7 +47,7 @@ class MainWindow : public QMainWindow
         int isBPM, isMetronomo;
         float BPM;
         metronomo *wid_metronomo;
-        QAction *Abrir_A, *Ajuda_A, *Exportar_A, *Instrumento_1_A, *Instrumento_2_A, *Instrumento_3_A, *Manual_A, *Metronomo_A,
+        QAction *Abrir_A, *Ajuda_A, *Instrumento_1_A, *Instrumento_2_A, *Instrumento_3_A, *Manual_A, *Metronomo_A,
                 *Salvar_A, *Sair_A, *Sobre_A;
         QCheckBox *metr;
         QHBoxLayout *buttons;

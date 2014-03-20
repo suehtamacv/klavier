@@ -113,8 +113,6 @@ void MainWindow::createActions() {
     Salvar_A = new QAction("Salvar", this);
     connect(Salvar_A, SIGNAL(triggered()), this, SLOT(Salvar()));
     connect(Salvar_A,SIGNAL(triggered()),sound,SLOT(Parar()));
-    Exportar_A = new QAction("Exportar como MP3",this);
-    connect(Exportar_A,SIGNAL(triggered()),sound,SLOT(exportar_como_mp3()));
     Sair_A = new QAction("Sair", this);
     connect(Sair_A, SIGNAL(triggered()), this, SLOT(Fechar()));
     connect(Sair_A,SIGNAL(triggered()),sound,SLOT(Parar()));
@@ -149,7 +147,6 @@ void MainWindow::createMenus() {
     ArquivoMenu = menuBar()->addMenu("Arquivo");
     ArquivoMenu->addAction(Abrir_A);
     ArquivoMenu->addAction(Salvar_A);
-    ArquivoMenu->addAction(Exportar_A);
     ArquivoMenu->addSeparator(); // Esse comando Adiciona uma barrinha divisoria
     ArquivoMenu->addAction(Sair_A);
     connect(ArquivoMenu,SIGNAL(aboutToShow()),sound,SLOT(Parar()));

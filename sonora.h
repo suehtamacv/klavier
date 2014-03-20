@@ -35,7 +35,6 @@ class sonora : public QWidget {
 
     public slots:
         void Parar();
-        void exportar_como_mp3(void);
 
     signals:
         int nota_tocada(int);

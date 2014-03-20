@@ -21,7 +21,8 @@ SOURCES += main.cpp\
         metronomo.cpp \
         sonora.cpp \
         ajuda_wid.cpp \
-        BubbleSort.cpp
+        BubbleSort.cpp \
+        erros.cpp
 
 HEADERS  += widget.h \
         tecla_e_freq.h \
@@ -30,7 +31,8 @@ HEADERS  += widget.h \
         metronomo.h \
         sonora.h \
         ajuda_wid.h \
-        BubbleSort.h
+        BubbleSort.h \
+        erros.h
 
 FORMS    += widget.ui \
         ajuda_wid.ui

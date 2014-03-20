@@ -2,7 +2,7 @@
 #include "BubbleSort.h"
 #include "mainwindow.h"
 #include "tecla_e_freq.h"
-#include <QAudioEncoderSettings>
+#include "erros.h"
 #include <QCoreApplication>
 #include <QFileDialog>
 #include <QKeyEvent>
@@ -43,14 +43,15 @@ sonora::~sonora() {
 
 void sonora::abrir_arquivo(QString caminho) {
     QFile *Arquivo = new QFile(caminho);
-    if (Arquivo->open(QIODevice::ReadOnly)) {
+    try {
+        if (!Arquivo->open(QIODevice::ReadOnly))
+            throw(Erros(parent,Erros::ErroArquivoInexistente));
         configurar_de_arquivo(Arquivo);
         Composicao_Criada=1;
         emit reproducao_terminada();
-    } else {
-        QMessageBox *erro = new QMessageBox();
-        erro->setWindowTitle("ERRO!");
-        erro->setText("Não foi possível ler este arquivo.");
+    }
+    catch (Erros E) {
+        E.mostra_msg();
     }
 }
 
@@ -109,40 +110,6 @@ void sonora::excluir_arq_temp() {
         QFile::remove(QDir::tempPath() + "/work_p_" + QString::number(_RAND_NUMBER_) + "_" + QString::number(i) + ".mp3");
         QFile::remove(QDir::tempPath() + "/work_g_" + QString::number(_RAND_NUMBER_) + "_" + QString::number(i) + ".mp3");
         QFile::remove(QDir::tempPath() + "/work_v_" + QString::number(_RAND_NUMBER_) + "_" + QString::number(i) + ".mp3");
-    }
-}
-
-void sonora::exportar_como_mp3(void) {
-    if (Composicao_Criada == 1) {
-        QFileDialog *exportar_mp3 = new QFileDialog(this);
-        QString caminho = exportar_mp3->getSaveFileName(this,"Exportar composição como MP3",QDir::homePath(),"Arquivo MP3 (*.mp3)");
-        arquivo_mp3 = new QFile();
-        arquivo_mp3->setFileName(caminho);
-        arquivo_mp3->open(QIODevice::WriteOnly | QIODevice::Truncate);
-
-        QAudioFormat conf_grav;
-        conf_grav.setSampleRate(44100);
-        conf_grav.setChannelCount(2);
-        conf_grav.setByteOrder(QAudioFormat::LittleEndian);
-        conf_grav.setSampleType(QAudioFormat::UnSignedInt);
-        conf_grav.setCodec("audio/mpeg");
-
-        QAudioDeviceInfo info = QAudioDeviceInfo::defaultInputDevice();
-        if (!info.isFormatSupported(conf_grav)) {
-            qWarning()<<"default format not supported try to use nearest";
-            conf_grav = info.nearestFormat(conf_grav);
-        }
-
-        gravador = new QAudioInput(conf_grav,this);
-        emit bloquear_programa();
-        set_estado(GerandoMP3);
-        gravador->start(arquivo_mp3);
-        Play();
-    } else {
-        QMessageBox *erro = new QMessageBox();
-        erro->setWindowTitle("ERRO!");
-        erro->setText("Não há nenhuma composição criada.");
-        erro->exec();
     }
 }
 
@@ -250,13 +217,9 @@ void sonora::parar_nota_gravada() {
 }
 
 void sonora::Play() {
-    if (Composicao_Criada==0) {
-        QMessageBox *erro = new QMessageBox();
-        erro->setWindowTitle("ERRO!");
-        erro->setText("Não há nenhuma composição criada.");
-        erro->exec();
-        emit reproducao_terminada();
-    } else {
+    try {
+        if (!Composicao_Criada)
+            throw(Erros(parent,Erros::ErroComposicaoInexistente));
         for (int i=0;i<24;i++) if (Player[i].state() == QMediaPlayer::PlayingState) Player[i].stop();
         set_vetor_auxiliar();
         Notas_Tocadas=Notas_Paradas=0;
@@ -265,6 +228,10 @@ void sonora::Play() {
         Relogio_Fim_Nota->singleShot(Vetor_Auxiliar[0],this,SLOT(parar_nota_gravada()));
         if (Estado_Atual != GerandoMP3)
             set_estado(Tocando);
+    }
+    catch (Erros E) {
+        E.mostra_msg();
+        emit reproducao_terminada();
     }
 }
 
@@ -301,19 +268,26 @@ int sonora::procurar_nota(int tecla) {
 }
 
 void sonora::salvar_arquivo(QString caminho) {
-    if (Composicao_Criada==1) {
+    try {
+        if (!Composicao_Criada)
+            throw(Erros(parent,Erros::ErroComposicaoInexistente));
+
         QFile *Arquivo = new QFile(caminho);
-        if (Arquivo->open(QIODevice::WriteOnly | QIODevice::Text)) {
+        try {
+            if (!(Arquivo->open(QIODevice::WriteOnly | QIODevice::Text)))
+                throw(Erros(parent,Erros::ErroArquivoInacessivel));
             QTextStream saida(Arquivo);
             saida << Num_Notas << "\n";
             for (int i=0;i<Num_Notas;i++) {
                 saida << Musica[i][0] << "\n" << Musica[i][1] << "\n" << Musica[i][2] << "\n";
             }
-        } else {
-            QMessageBox *erro = new QMessageBox();
-            erro->setWindowTitle("ERRO!");
-            erro->setText("Não foi possível salvar neste arquivo.");
         }
+        catch (Erros E) {
+            E.mostra_msg();
+        }
+    }
+    catch (Erros E) {
+        E.mostra_msg();
     }
 }
 
@@ -357,11 +331,12 @@ void sonora::set_vetor_auxiliar() {
 void sonora::tocar_nota(QKeyEvent *event) {
     int note = procurar_nota(event->key());
     if (Estado_Atual == Tocando) {
-        if (note!=-1) {
-            QMessageBox *erro = new QMessageBox();
-            erro->setWindowTitle("ERRO!");
-            erro->setText("Uma composição está sendo tocada no momento.");
-            erro->exec();
+        try {
+            if (note!=-1)
+                throw(Erros(parent,Erros::ErroComposicaoTocando));
+        }
+        catch (Erros E) {
+            E.mostra_msg();
             if (Player[note].state() != QMediaPlayer::PlayingState) emit nota_parada(note);
         }
     } else {
