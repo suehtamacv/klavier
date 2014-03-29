@@ -148,15 +148,7 @@ void sonora::Parar() {
         set_estado(Parado);
         if (Num_Notas!=0) Composicao_Criada=1;
         else Composicao_Criada=0;
-    } else if (Estado_Atual==GerandoMP3) {
-        emit reproducao_terminada();
-        emit desbloquear_programa();
-        gravador->stop();
-        arquivo_mp3->close();
-        delete gravador;
-        set_estado(Parado);
     }
-
     for (int i=0;i<24;i++) {
         if (Player[i].state() == QMediaPlayer::PlayingState) {
             Player[i].stop();
@@ -188,14 +180,14 @@ void sonora::parar_nota(QKeyEvent *event){
                 Player[note].stop();
             }
         }
-        if (Estado_Atual == Gravando || Estado_Atual == GerandoMP3){
+        if (Estado_Atual == Gravando){
             parar_gravacao(event);
         }
     }
 }
 
 void sonora::parar_nota_gravada() {
-    if (Estado_Atual == Tocando || Estado_Atual == GerandoMP3) {
+    if (Estado_Atual == Tocando) {
         for (int i=0;i<Num_Notas;i++) {
             if (Musica[i][2] == Vetor_Auxiliar[Notas_Paradas]) {
                 if (Player[Musica[i][0]].state() == QMediaPlayer::PlayingState) {
@@ -226,8 +218,7 @@ void sonora::Play() {
         Relogio_Master.start();
         Relogio_Inicio_Nota->singleShot(Musica[0][1],this,SLOT(tocar_nota_gravada()));
         Relogio_Fim_Nota->singleShot(Vetor_Auxiliar[0],this,SLOT(parar_nota_gravada()));
-        if (Estado_Atual != GerandoMP3)
-            set_estado(Tocando);
+        set_estado(Tocando);
     }
     catch (Erros E) {
         E.mostra_msg();
@@ -350,7 +341,7 @@ void sonora::tocar_nota(QKeyEvent *event) {
 }
 
 void sonora::tocar_nota_gravada() {
-    if (Estado_Atual == Tocando || Estado_Atual == GerandoMP3) {
+    if (Estado_Atual == Tocando) {
         if (Player[Musica[Notas_Tocadas][0]].state() == QMediaPlayer::StoppedState) {
             Player[Musica[Notas_Tocadas][0]].play();
             emit nota_tocada(Musica[Notas_Tocadas][0]);
