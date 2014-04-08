@@ -1,35 +1,46 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-    <meta charset='utf-8'>
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
-
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
     <title>Klavier by suehtamacv</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/main.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
   </head>
-
   <body>
-    <header>
-      <div class="inner">
-        <h1>Klavier</h1>
-        <h2>Projeto da disciplina Técnicas de Programação da UFCG.</h2>
-        <a href="https://github.com/suehtamacv/klavier" class="button"><small>View project on</small>GitHub</a>
-      </div>
-    </header>
 
-    <div id="content-wrapper">
-      <div class="inner clearfix">
-        <section id="main-content">
-          <h2>
-<a name="bem-vindo-%C3%A0-p%C3%A1gina-do-klavier" class="anchor" href="#bem-vindo-%C3%A0-p%C3%A1gina-do-klavier"><span class="octicon octicon-link"></span></a>Bem vindo à página do <strong>Klavier</strong>.</h2>
+      <header>
+        <h1>Klavier</h1>
+        <p>Projeto da disciplina Técnicas de Programação da UFCG.</p>
+      </header>
+
+      <div id="banner">
+        <span id="logo"></span>
+
+        <a href="https://github.com/suehtamacv/klavier" class="button fork"><strong>View On GitHub</strong></a>
+        <div class="downloads">
+          <span>Downloads:</span>
+          <ul>
+            <li><a href="https://github.com/suehtamacv/klavier/zipball/master" class="button">ZIP</a></li>
+            <li><a href="https://github.com/suehtamacv/klavier/tarball/master" class="button">TAR</a></li>
+          </ul>
+        </div>
+      </div><!-- end banner -->
+
+    <div class="wrapper">
+      <nav>
+        <ul></ul>
+      </nav>
+      <section>
+        <h1>
+<a name="bem-vindo-%C3%A0-p%C3%A1gina-do-klavier" class="anchor" href="#bem-vindo-%C3%A0-p%C3%A1gina-do-klavier"><span class="octicon octicon-link"></span></a>Bem vindo à página do <strong>Klavier</strong>.</h1>
 
 <p>Este programa decorre da disciplina de Técnicas de Programação (Turma II) do curso de Engenharia Elétrica da UFCG, no período 2013.2, ministrado pelo professor Marcus Salerno.
 Os autores deste programa, por ordem alfabética, são:</p>
@@ -42,53 +53,21 @@ Os autores deste programa, por ordem alfabética, são:</p>
 </ol><h2>
 <a name="instala%C3%A7%C3%A3o" class="anchor" href="#instala%C3%A7%C3%A3o"><span class="octicon octicon-link"></span></a>Instalação</h2>
 
-<h3>
-<a name="instala%C3%A7%C3%A3o-no-windows" class="anchor" href="#instala%C3%A7%C3%A3o-no-windows"><span class="octicon octicon-link"></span></a>Instalação no Windows</h3>
-
 <p>Este programa foi compilado utilizando o <em>Visual Studio Ultimate 2012</em>. Para a execução do <strong>Klavier</strong> é essencial, portanto, a instalação do <em>Visual C++ Redistributable for Visual Studio 2012 Update 4</em>, versão <strong>x86</strong>. Ele pode ser encontrado <a href="http://www.microsoft.com/en-us/download/details.aspx?id=30679">aqui</a>.</p>
 
 <p>Após isso o download do executável pode ser realizado. A última versão estável do <strong>Klavier</strong> pode ser encontrada na página de <em>releases</em>, <a href="https://github.com/suehtamacv/klavier/releases/latest">aqui</a>.</p>
-
-<h3>
-<a name="instala%C3%A7%C3%A3o-no-linux" class="anchor" href="#instala%C3%A7%C3%A3o-no-linux"><span class="octicon octicon-link"></span></a>Instalação no Linux</h3>
-
-<p>Você pode compilar o <strong>Klavier</strong> a partir do código fonte. Primeiro, instale as dependências. Em um sistema baseado em <em>Debian</em>, rode <code>$ sudo apt-get install qt5-default qt5-qmake libqt5multimedia5 libqt5multimedia5-dev</code>. Num sistema baseado em <em>Fedora</em>, rode então  <code>$ sudo yum install qt5-default qt5-qmake libqt5multimedia5 libqt5multimedia5-dev</code>.</p>
-
-<p>Então faça o download do código fonte em <em>tar.gz</em>, no link encontrável no topo desta página. Abra o terminal e rode a seguinte sequência de comandos: </p>
-
-<pre lang="shell"><code>$ cd ~/Downloads
-$ tar xzvf suehtamacv-that-piano-program-v2.0-beta-7-g7b673e7.tar.gz
-$ mkdir thatpianoprogram-build
-$ cd thatpianoprogram-build
-$ qmake -makefile ../suehtamacv-that-piano-program-7b673e7
-$ make
-</code></pre>
-
-<p>A sequência de comandos compilará o programa na pasta <em>thatpianoprogram-build</em>. Deverá ocorrer sem erros se todas as dependências estiverem instaladas. Para executar o programa, você pode tanto dar um duplo clique no executável, ou na linha de comando, digitar <code>./that-piano-program</code>.</p>
 
 <h2>
 <a name="suporte" class="anchor" href="#suporte"><span class="octicon octicon-link"></span></a>Suporte</h2>
 
 <p>Algum problema com o <strong>Klavier</strong>? Envie um e-mail para o mantenedor (<a href="mailto:matheus.cavalcante@ee.ufcg.edu.br">matheus.cavalcante@ee.ufcg.edu.br</a>) e ele terá prazer em respondê-lo.</p>
-        </section>
-
-        <aside id="sidebar">
-          <a href="https://github.com/suehtamacv/klavier/zipball/master" class="button">
-            <small>Download</small>
-            .zip file
-          </a>
-          <a href="https://github.com/suehtamacv/klavier/tarball/master" class="button">
-            <small>Download</small>
-            .tar.gz file
-          </a>
-
-          <p class="repo-owner"><a href="https://github.com/suehtamacv/klavier"></a> is maintained by <a href="https://github.com/suehtamacv">suehtamacv</a>.</p>
-
-          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
-        </aside>
-      </div>
+      </section>
+      <footer>
+        <p>Project maintained by <a href="https://github.com/suehtamacv">suehtamacv</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></small></p>
+      </footer>
     </div>
-
-  
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
   </body>
 </html>
